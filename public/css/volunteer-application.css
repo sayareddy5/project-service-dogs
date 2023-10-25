@@ -1,0 +1,113 @@
+.volunteering-main-container{
+    margin-top: 27vh;
+}
+
+.volunteer-inner-container{
+    display: flex;
+}
+.volunteering-main-container h1{
+    font-size: 2rem;
+    padding-left: 3rem;
+}
+.volunteer-content-container{
+    width: 55%;
+    /* background-color: red; */
+    padding: 0px 3rem;
+    font-size: 1.2rem;
+}
+
+.volunteer-img{
+    width: 45%;
+
+}
+.volunteer-img img {
+    height: 40rem;
+    /* background-color: blue; */
+    background-position: top;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    padding-bottom: 3rem;
+}
+/* Styles for the modal and its components */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    max-width: 100%;
+    height: 100%;
+    background-color: white; 
+    overflow:scroll;
+    padding: 2rem;
+    padding-bottom: 4rem;
+    /* margin: 2rem; */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 2rem;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 3.4rem;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+}
+
+.volunteer-form{
+    font-size: 1.2rem;
+    width: 90%;
+    margin: auto;
+}
+
+.volunteer-group{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    /* background-color: red; */
+    
+}
+.volunteer-inner-group{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.volunteer-inner-group div{
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    /* background-color: blue; */
+    width: 100%;
+    justify-content: flex-start;
+    
+    /* justify-content: flex-start; */
+}
+
+.volunteer-form h3{
+    font-size: 1.3rem;
+}
+
+.volunteer-form input{
+    font-size: 1.4rem;
+    margin: 1rem;
+}
+
+.volunteer-btn{
+    width: max-content;
+    margin-left: 40%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+

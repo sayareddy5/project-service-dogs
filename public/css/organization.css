@@ -1,0 +1,103 @@
+.organization-container{
+    margin-top: 30vh;
+}
+.who-we-are{
+
+    display: flex;
+    justify-content: space-around;
+    /* background-color: red; */
+    padding: 2rem 2rem;
+
+}
+.organization-image-container,.container-one{
+    width: 50%;
+
+}
+.container-one{
+    font-size: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    /* padding: .5rem; */
+    /* background-color: blue; */
+    
+}
+
+
+.organization-image-container img{
+    width: 80%;
+    border-radius: 1rem;
+    /* background-color: blue; */
+    height: 100%;
+    margin-left: 4rem;
+}
+
+.timeline {
+    width: 100%;
+    max-width: 600px; 
+    margin: 0 auto;
+    position: relative;
+    margin-top:4rem;
+    margin-bottom: 4rem;
+}
+.timeline-heading{
+    margin-bottom: 2rem;
+    text-align: center;
+}
+.milestone {
+    position: relative;
+    margin: 20px 0;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    z-index: 1;
+}
+
+.year {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 14px;
+    color: var(--grey-color) ;
+}
+
+.milestone:not(:nth-child(2))::before {
+    content: '';
+    position: absolute;
+    top: -22px; /* Adjust the position of the line */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 22px; /* Adjust the height of the line */
+    background-color: var(--grey-color); /* Yellow line color */
+    z-index: 0;
+}
+
+.milestone:last-child {
+    margin-bottom: 0;
+}
+
+
+@media (max-width:768px){
+    .who-we-are{
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        align-items: center;
+    }
+    .organization-image-container,.container-one{
+        width: 100%;
+    
+    }
+    .organization-image-container img{
+        width: 100%;
+        /* background-color: blue; */
+        height: 100%; 
+        margin:0;
+        
+    }
+}

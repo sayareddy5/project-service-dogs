@@ -1,0 +1,24 @@
+.careers-container{
+    margin-top: 27vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+table {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 70%;
+    margin: 2rem;
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: .6rem;
+}
+
+th {
+    background-color: #f2f2f2;
+}

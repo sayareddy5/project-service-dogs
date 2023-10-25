@@ -1,0 +1,13 @@
+const express = require('express');
+const router = express.Router();
+const AboutController = require('../controllers/aboutControllerFile')
+// const userController = require('../controllers/userControllerFile');
+
+// router.get('/', userController.getUserList);
+
+router.get('/our-organization',AboutController.organizationHandle);
+router.get('/faq',AboutController.FAQHandle);
+router.get('/newsletter',AboutController.newsletterHandle);
+
+console.log("In About Routes")
+module.exports = router;

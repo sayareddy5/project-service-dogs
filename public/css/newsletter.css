@@ -1,0 +1,33 @@
+.newsletter-container{
+    margin-top: 27vh;
+}
+
+.newsletter-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3rem;;
+}
+
+.newsletter-inner-container{
+    display: flex;
+}
+
+.letter-container{
+    margin: 1rem;
+    padding-bottom: 2rem;
+    text-align: center;
+    box-shadow: 2px 2px 4px 4px rgba(0,0,0,0.1);
+    border-radius: 10px;;
+}
+
+.letter-container h4{
+    font-size: 1.6rem;
+}
+
+.letter-container img{
+    width: 22rem;
+    height: 26rem;
+    border-radius: 10px;
+}

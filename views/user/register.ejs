@@ -1,0 +1,39 @@
+<div class="form-container registration-cotainer">
+    <h2>Register</h2>
+    <% if (error) { %>
+        <p class="errors" id="register-error-message" style="color: red; font-size:.8rem"><%= error %></p>
+    <% } %>
+    <form class='user-form' action="/user/register" method="post">
+        <div class="form-group">
+            <label for="username">Username: </label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email: </label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password: </label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="confirmpassword">Confirm Password: </label>
+            <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" required>
+        </div>
+        <button type="submit" class="btn btn-primary form-btn">Register</button>
+    </form>
+    <div class="already-user">
+        Already registered ? Try <a style="color:blue" href="/user/login">Login</a>
+    </div>
+
+    <script>
+
+        var errorMessage = document.getElementById('register-error-message');
+        if (errorMessage) {
+            
+            setTimeout(function() {
+                errorMessage.style.display = 'none';
+            }, 4000);
+        }
+    </script>
+</div>
