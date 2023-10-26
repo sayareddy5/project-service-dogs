@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 1.3rem;
+        }
+        input{
+            font-size: 1.2rem;
+        }
+        .admin-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        button{
+            padding: 4px;
+            font-size: 1.2rem;
+        }
+        .dog-details-upload-container div{
+            margin: 1rem;
+            font-size: 1.3rem;
+        }
+        .action-button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1> Welcome to Admin Page</h1>
+
+        <a href="admin-login.html"><button class="action-button" >Login</button></a>
+        <a href="admin-signup.html"><button class="action-button">Sign Up</button></a>
+    </div>
+    <div class="admin-container">
+        <button id="dogImageUploadBtn" class="action-button">Upload Dog Image</button>
+        <button id="dogUploadBtn" class="action-button">Upload Dog</button>
+        <a href=""><button class="action-button"> Volunteer Requests</button></a>
+        <a href=""><button class="action-button"> Training Applications</button></a>
+    </div>
+
+    <div id="dogImageModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form action="" method="post">
+
+                <h2>Dog Image Upload</h2>
+                <form action="" method="post"></form>
+                <label for="image">Image: </label>
+                <input type="file" accept="image/*" id="dogImageFile" name="image">
+                <button>Upload</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="dogUploadModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Dog Upload</h2>
+            <form action="" method="post" class="dog-details-upload-container">
+
+                <div>
+                    <label for="image">Image: </label>
+                    <input type="file" accept="image/*" id="dogFile" name="image">
+                </div>
+                <div>
+                    <label for="breed">Breed: </label>
+                    <input type="text" placeholder="Breed" id="breed" name="breed">
+                </div>
+                <div>
+                    <label for="age">Breed: </label>
+                    <input type="text" placeholder="Age" id="age" name="age">
+                </div>
+                <div>
+                    <label for="inService">In Service:</label>
+
+                    <input type="text" placeholder="Months" id="inService" name="service">
+                </div>
+                <div>
+
+                    <label for="status">Status:</label>
+                    <select id="status" name="status">
+                        <option value="available">Available</option>
+                        <option value="notAvailable">Not Available</option>
+                    </select>
+                </div>
+                <button id="submitDog">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Get the modals and buttons
+        const dogImageModal = document.getElementById("dogImageModal");
+        const dogUploadModal = document.getElementById("dogUploadModal");
+        const dogImageUploadBtn = document.getElementById("dogImageUploadBtn");
+        const dogUploadBtn = document.getElementById("dogUploadBtn");
+
+        // When the user clicks the button, open the modal
+        dogImageUploadBtn.onclick = function () {
+            dogImageModal.style.display = "block";
+        };
+
+        dogUploadBtn.onclick = function () {
+            dogUploadModal.style.display = "block";
+        };
+
+        // When the user clicks on <span> (x), close the modal
+        const closeButtons = document.getElementsByClassName("close");
+        for (const closeButton of closeButtons) {
+            closeButton.onclick = function () {
+                dogImageModal.style.display = "none";
+                dogUploadModal.style.display = "none";
+            };
+        }
+
+        // Close the modal if the user clicks outside the modal
+        window.onclick = function (event) {
+            if (event.target === dogImageModal) {
+                dogImageModal.style.display = "none";
+            }
+            if (event.target === dogUploadModal) {
+                dogUploadModal.style.display = "none";
+            }
+        };
+
+        // Submit dog information (you can send this data to a server via AJAX)
+        const submitDogBtn = document.getElementById("submitDog");
+        submitDogBtn.onclick = function () {
+            const breed = document.getElementById("breed").value;
+            const age = document.getElementById("age").value;
+            const inService = document.getElementById("inService").checked;
+            const status = document.getElementById("status").value;
+
+            // Here, you can send the data to your server using AJAX
+            // For example, using fetch API:
+            // fetch('your-server-endpoint', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify({
+            //         breed: breed,
+            //         age: age,
+            //         inService: inService,
+            //         status: status
+            //     })
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //     console.log(data);
+            // })
+            // .catch(error => {
+            //     console.error(error);
+            // });
+        };
+
+    </script>
+</body>
+
+</html>

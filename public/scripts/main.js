@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const img = item.querySelector('img');
         const imgWidth = img.width;
 
-        // threshold value
+        // max width value
         const thresholdWidth = 300;
 
         if (imgWidth > thresholdWidth) {
