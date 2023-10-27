@@ -84,7 +84,7 @@ const UserController = {
 
       console.log("user-detail",user)
       if(!user){
-        req.session.error = true
+        // req.session.error = true
         return res.render('user/login', {
           authorized: false,
           username: null,
@@ -99,7 +99,6 @@ const UserController = {
           id: user._id,
           username: user.username,
           authorized: true,
-          title: 'Service Dogs'
         }
         console.log(req.session.user)
         return res.redirect("/");
@@ -109,7 +108,7 @@ const UserController = {
         return res.render('user/login', {
           authorized: false,
           username: null,
-          error: request.session.error == true ? 'Invalid credentials' : null,
+          error:  'Invalid credentials',
           title: 'Loppgin'
       });
       }
@@ -117,7 +116,7 @@ const UserController = {
   HandleLogout: async (req,res) =>{
     req.session.destroy();
     return res.redirect("/");
-  }
+  },
   
 };
 

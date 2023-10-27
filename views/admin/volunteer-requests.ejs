@@ -1,7 +1,13 @@
 <div class="application-main-container volunteer-requests-container">
-    <div class="application-container">
-        <h2>Name: <span>Pranay Nomula</span></h2>
-        <h2>occupation: <span>Engineer</span></h2>
-        <h2>Age: <span>32</span></h2>
-    </div>
+    <% volunteerRequests.forEach(function(application) { %>
+        <div class="application-container">
+
+            <p>Name: <span><%= application.name %></span></p>
+            <p>Occupation: <span><%= application.occupation %></span></p>
+            <p>Age: <span><%= application.age %></span></p>
+            <p>Date Requested: <span><%= application.requestDate.toLocaleDateString() %></span></p>
+        </div>
+        
+    <% }); %>
+    
 </div>

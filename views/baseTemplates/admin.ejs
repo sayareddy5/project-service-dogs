@@ -9,13 +9,13 @@
         body {
             font-family: Arial, sans-serif;
             font-size: 1.3rem;
+            text-align: center;
         }
         input{
             font-size: 1.2rem;
         }
         .admin-container {
             text-align: center;
-            margin-top: 20px;
         }
         button{
             padding: 4px;
@@ -71,7 +71,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             margin: 0;
         }
         
@@ -105,12 +104,15 @@
         .application-main-container{
             display: flex;
             justify-content: center;
+            flex-direction: column;
             align-items: center;
+
         }
         .application-container{
             border: 1px solid #ccc;
             border-radius: 5px;
             width: 60%;
+            margin: .5rem;
             margin-left: auto;
             margin-right: auto
         }
@@ -122,8 +124,15 @@
     <div>
         <h1> Welcome to Admin Page</h1>
 
-        <a href="/admin/login"><button class="action-button" >Login</button></a>
-        <a href="/admin/register"><button class="action-button">Sign Up</button></a>
+        <p><a href="/admin">Admin Main  Page</a></p>
+        <% if (authorized && username) { %>
+            <p class="">Hi, Admin <span style="font-size: 1.6rem"><%= username %></span> !&nbsp</>
+            <a href="/admin/logout"><button class="action-button">Logout</button></a>
+
+            <% } else { %>
+            <a href="/admin/login"><button class="action-button" >Login</button></a>
+            <a href="/admin/register"><button class="action-button">Sign Up</button></a>
+        <% } %>
     </div>
 
     <div>
@@ -198,6 +207,7 @@
         };
 
     </script>
+    <script src="../scripts/main.js"></script>
 </body>
 
 </html>

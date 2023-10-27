@@ -12,7 +12,6 @@ const feedRoutes = require('./src/routes/feedRouterFile');
 const volunteerRoutes = require('./src/routes/volunteerRouterFile');
 const adminRoutes = require('./src/routes/adminRouterFile');
 const crypto = require('crypto');
-const Session = require("./src/models/session");
 const expressLayouts = require("express-ejs-layouts");
 const multer = require("./config/multerC")
 
@@ -43,6 +42,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(multer.single('image'));
 // app.use(cache.middleware());
+
+
 
 // Routes
 app.use('/', mainRoutes);

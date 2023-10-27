@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,8 +96,25 @@
                 <li><a href="new-post.html" id="newPostLink">New Post</a></li>
             </ul>
         </div>
-        <div class="main-content" id="mainContent">
-            <!-- Feed posts will be dynamically added here -->
+        <div class="post-display-main-content main-content" id="new-post-container">
+            <form action="/feed/upload/new-post" method="post" enctype="multipart/form-data">
+                <div>
+
+                    <label for="image">Image:</label>
+                    <input type="file" id="image" name="image" accept="image/*" >
+                </div>
+                <div>
+
+                    <input type="hidden" name="username" value="<%= username %>" >
+                </div>
+                <div>
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="6" cols="50" required></textarea>
+
+                </div>
+            
+                <button type="submit" class="btn btn-secondary">Post</button>
+            </form>
         </div>
         
     </div>

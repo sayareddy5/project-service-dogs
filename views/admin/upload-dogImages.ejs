@@ -1,0 +1,13 @@
+<div id="dogImageModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Dog Image Upload</h2>
+        <form action="/admin/dog-photos" enctype="multipart/form-data" method="POST">
+
+            
+            <label for="image">Image: </label>
+            <input type="file" accept="image/*" id="dogImageFile" name="image">
+            <button>Upload</button>
+        </form>
+    </div>
+</div>

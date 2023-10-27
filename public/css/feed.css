@@ -34,7 +34,21 @@
     border-radius: 10px;
     margin-left: 1rem;
 }
+.main-content input, textarea{
+    resize: none;
+    font-size: 1.2rem;
+    font-family: inherit;
+    margin: .5rem;
+}
+.main-content textarea{
+    border-radius: 10px;
+    border: 1px solid rgba(0,0,0,.2);
 
+}
+.main-content label{
+    font-size: 1.3rem;
+    margin: .5rem;
+}
 .post-container {
     margin-bottom: 20px;
     padding: 10px;
@@ -126,4 +140,25 @@
     padding: 5px;
     margin-left: 1rem;
 
+}
+
+/* ------------New post page---------- */
+
+.post-display-main-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.post-display-main-content div{
+    display: flex;
+    flex-direction: column;
+    margin: .5rem;
+}
+
+.post-display-main-content button{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    justify-self: center;
 }

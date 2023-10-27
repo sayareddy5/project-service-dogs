@@ -10,8 +10,10 @@ const volunteerFormSchema = new mongoose.Schema({
     occupation: { type: String, required: true },
     isHighSchoolStudent: {type: String, default: "No" },
     age: { type: Number },
-    availability: [{ type: String }]
-});
+    availability: [{ type: String }],
+    requestDate: { type: Date, default: Date.now },
+    acceptedStatus: {type: Boolean, default: false}
+}, {timestamps : true});
 
 const VolunteerForm = mongoose.model('VolunteerForm', volunteerFormSchema);
 

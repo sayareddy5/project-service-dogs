@@ -10,7 +10,9 @@ const dogDetailsSchema = new mongoose.Schema({
     breed: { type: String, required: true },
     age: { type: Number, required: true },
     inService: { type: Number, required: true },
-    status: { type: String, enum: ['available', 'notAvailable'], required: true }
+    status: { type: String, enum: ['available', 'notAvailable'], required: true },
+    date: { type: Date, default: Date.now },
+
 });
 
 // Create a Mongoose model

@@ -1,5 +1,8 @@
-const DogPhoto = require("../models/dogPhotosModel")
-const DogDetails = require("../models/dogDetailsModel")
+const DogPhoto = require("../models/dogPhotosModel");
+const DogDetails = require("../models/dogDetailsModel");
+const VolunteerRequests = require("../models/volunteerForm");
+const TrainingApplications = require("../models/trainingForm");
+const User = require("../models/User");
 const fs = require('fs');
 
 
@@ -9,35 +12,134 @@ const AdminController = {
         const username = req.session.user ? req.session.user.username : null;
         
         console.log(req.session.user)
-        res.render('admin/admin-home.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Admin Home"});
+        res.render('admin/admin-home.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Admin Home", error:  null});
     },
-    adminLogin: (req, res) => {
+
+    adminLogin: async (req, res) => {
+        const authorized = req.session.user && req.session.user.authorized === true;
+        const username = req.session.user ? req.session.user.username : null;
+        
+       
+        console.log(req.session.user)
+        res.render('admin/admin-login.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Admin Login", error: null});
+    },
+
+    adminRegister: async (req, res) => {
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
         
         console.log(req.session.user)
-        res.render('admin/admin-login.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Admin Login"});
+        res.render('admin/admin-register.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Admin Register",error: null});
     },
-    adminRegister: (req, res) => {
+
+    HandleLogout: async (req,res) =>{
+        req.session.destroy();
+        return res.redirect("/admin");
+    },
+
+    HandleLoginForm: async (req, res) => {
+
+        console.log("in handling login")
+        console.log(req.body)
+        const { username, password } = req.body;
+        const user = await User.findOne({ username })
+
+        console.log("admin-detail",user)
+        if(!user){
+            return res.render('admin/admin-login.ejs', {
+            authorized: false,
+            username: null,
+            error: 'User does not exist',
+            title: " Admin Login",
+            layout: 'baseTemplates/admin',
+            })
+        }
+        
+        if(password == user.password){
+            
+            req.session.user = {
+            id: user._id,
+            username: user.username,
+            authorized: true,
+            }
+            console.log("in success",req.session.user)
+            return res.redirect("/admin");
+
+        }else{
+            console.log("failed login")
+            return res.render('admin/admin-login.ejs', {
+            authorized: false,
+            username: null,
+            error: 'Invalid credentials',
+            title: 'Loppgin',
+            layout: 'baseTemplates/admin',
+        });
+        }
+    },
+    handleRegistration: async (req, res) => {
+    
+        try {
+
+            console.log("admin-data-registration", req.body)
+            const { username, email, password, confirmpassword } = req.body;
+            if( password != confirmpassword ){
+            return res.status(400).render("user/register", {
+                authorized: false,
+                username: null,
+                error: 'Passwords does not match',
+                title: "Admin sign up",
+                layout: 'baseTemplates/admin',
+            })
+            }
+            // check if the user exists
+            const existingUser = await User.findOne({
+                $or: [{ username: username }, { email: email }]
+            });
+
+            if (existingUser) {
+
+                // If exists send error message
+                return res.status(400).render("user/register", {
+                authorized: false,
+                username: null,
+                error: 'User already exists',
+                title: "sign up",
+                layout: 'baseTemplates/admin',
+                });
+            }
+            const isAdmin = true;
+            // or create a new user 
+            const newUser = new User({ username, email, password,isAdmin });
+            await newUser.save();
+        
+            // res.redirect('/user/success');
+            return res.redirect("/admin/login")
+        } catch (err) {
+            console.error(err);
+            return res.status(500).send('Error registering user');
+        }
+        },
+    uploadDogContent: async (req, res) => {
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
         
-        console.log(req.session.user)
-        res.render('admin/admin-register.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Admin Register"});
+        console.log("in dog upload function",req.session.user)
+        res.render('admin/dog-upload.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Upload Dog Content"});
     },
-    volunteerRequests: (req, res) => {
+    volunteerRequests: async (req, res) => {
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
         
-        console.log(req.session.user)
-        res.render('admin/volunteer-requests.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Volunteer Requests"});
+        const total_requests = await VolunteerRequests.find().sort({ requestDate: 1 });
+
+        res.render('admin/volunteer-requests.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Volunteer Requests", volunteerRequests : total_requests});
     },
-    trainingApplications: (req, res) => {
+    trainingApplications: async (req, res) => {
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
-        
-        console.log(req.session.user)
-        res.render('admin/training-applications.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Training Applications"});
+        const training_applications = await TrainingApplications.find().sort({ applicationDate: 1 });
+
+        res.render('admin/training-applications.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Training Applications",trainingRequests: training_applications});
     },
     dogImageUpload: (req, res) => {
         

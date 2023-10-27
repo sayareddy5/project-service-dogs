@@ -20,7 +20,9 @@ const applicationFormSchema = new mongoose.Schema({
     otherSchools: { type: String, required: true },
     canadianGuideDogs: { type: String, required: true },
     privacyPolicyAgree: { type: Boolean, required: true },
-});
+    applicationDate: { type: Date, default: Date.now },
+    acceptedStatus: {type: Boolean, default: false}
+}, {timestamps : true});
 
 const ApplicationForm = mongoose.model('ApplicationForm', applicationFormSchema);
 

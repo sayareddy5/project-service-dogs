@@ -2,7 +2,10 @@
 
     <div class="admin-user-container">
         <h2>Admin Login</h2>
-        <form id="loginForm">
+        <form action="/admin/login" id="loginForm" method="POST">
+            <% if (error) { %>
+                <p class="message error" id="admin-login-error-message" style="color: red;"> <%= error %> </p>
+            <% } %>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
             <label for="password">Password:</label>
@@ -11,6 +14,16 @@
         </form>
         <p>Don't have an account? <a href="/admin/register">Sign Up</a></p>
         
-        <p><a href="/admin">Admin Main  Page</a></p>
     </div>
 </div>
+
+<script>
+    // Check if error message exists
+    var errorMessage = document.getElementById('admin-login-error-message');
+    if (errorMessage) {
+        // remove error after 4 sec
+        setTimeout(function() {
+            errorMessage.style.display = 'none';
+        }, 4000);
+    }
+</script>

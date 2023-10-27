@@ -2,16 +2,32 @@
 
     <div class="admin-user-container">
         <h2>Admin Signup</h2>
-        <form id="signupForm">
+        <% if (error) { %>
+            <p class="message error" id="admin-register-error-message" style="color: red;"> <%= error %> </p>
+        <% } %>
+        <form action="/admin/register" id="signupForm" method="POST">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required>
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
-            <label for="confirmpassword">Password:</label>
-            <input type="password" id="password" name="confirmpassword" required>
+            <label for="confirmpassword">Confirm Password:</label>
+            <input type="password" id="confirmpassword" name="confirmpassword" required>
             <button type="submit">Sign Up</button>
         </form>
         <p>Already have an admin account? <a href="/admin/login">Login</a></p>
-        <p><a href="/admin">Admin Main  Page</a></p>
+      
     </div>
 </div>
+
+<script>
+    // Check if error message exists
+    var errorMessage = document.getElementById('admin-register-error-message');
+    if (errorMessage) {
+        // remove error after 4 sec
+        setTimeout(function() {
+            errorMessage.style.display = 'none';
+        }, 4000);
+    }
+</script>
