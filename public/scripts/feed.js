@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const mainContent = document.querySelector(".main-content");
+    let mainContent = document.getElementById("mainContent");
 
     // Example data (you can replace this with data from your server)
     const posts = [

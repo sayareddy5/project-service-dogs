@@ -5,9 +5,16 @@ const path = require('path');
 const mainRoutes = require('./src/routes/mainRouteFfile');
 const userRoutes = require('./src/routes/userRouteFile');
 const aboutRoutes = require('./src/routes/aboutRouterFile');
+const ourDogRoutes = require('./src/routes/ourDogsRouterFile');
+const contactRoutes = require('./src/routes/contactRouterFile');
+const donateRoutes = require('./src/routes/donateRouterFile');
+const feedRoutes = require('./src/routes/feedRouterFile');
+const volunteerRoutes = require('./src/routes/volunteerRouterFile');
+const adminRoutes = require('./src/routes/adminRouterFile');
 const crypto = require('crypto');
 const Session = require("./src/models/session");
 const expressLayouts = require("express-ejs-layouts");
+const multer = require("./config/multerC")
 
 const secret = crypto.randomBytes(32).toString('hex');
 console.log('Generated Secret Key:', secret);
@@ -34,12 +41,21 @@ app.use(expressLayouts);
 app.set('layout', 'baseTemplates/base');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(multer.single('image'));
 // app.use(cache.middleware());
 
 // Routes
-app.use('/', mainRoutes)
-app.use('/user', userRoutes)
-app.use('/about-us', aboutRoutes)
+app.use('/', mainRoutes);
+app.use('/user', userRoutes);
+app.use('/about-us', aboutRoutes);
+app.use('/volunteer', volunteerRoutes);
+app.use('/our-dogs', ourDogRoutes);
+console.log("after our fogs")
+app.use('/feed', feedRoutes);
+app.use('/contact', contactRoutes);
+app.use('/donate', donateRoutes);
+app.use('/admin', adminRoutes);
+
 // app.use('/', userRoutes);
 
 

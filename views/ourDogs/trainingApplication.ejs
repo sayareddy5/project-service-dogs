@@ -1,0 +1,175 @@
+<div class="training-main-container">
+    <h1 class="content-header">Guide Dog Training Application</h1>
+    <h2>Please complete the following application. Once received you will be sent a full application.</h2>
+    <form class="training-input-form" id="trainingForm">
+        <p>How would you like to receive the application?</p>
+        <div class="option-form">
+            <div>
+                <label for="r-mail">Mail</label>
+                <input class="radio" type="radio" id="r-mail" name="receiveMethod" value="mail" required>
+            </div>
+            <div>
+                <label for="r-email">E-mail</label>
+                <input class="radio" type="radio" id="r-email" name="receiveMethod" value="email" required>
+            </div>
+            
+        </div>
+
+        <div>
+            <label for="title">Title:</label>
+            <select id="title" name="title" required>
+                <option value="Mr.">Mr.</option>
+                <option value="Mrs.">Mrs.</option>
+                <option value="Miss.">Miss.</option>
+                <option value="Ms.">Ms.</option>
+            </select>
+        </div>
+
+        <div>
+            
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required>
+        </div>
+
+        <div >
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required>
+        </div>
+
+        <div>
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required>
+        </div>
+
+        <div>
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" required>
+        </div>
+
+        <div>
+            <label for="province">Province:</label>
+            <input type="text" id="province" name="province" required>
+        </div>
+
+        <div>
+            <label for="postalCode">Postal Code:</label>
+            <input type="text" id="postalCode" name="postalCode" required>
+        </div>
+
+        <div>
+            <label for="MobileNumber">Mobile Number:</label>
+            <input type="tel" id="MobileNumber" name="mobileNumber" required>
+        </div>
+
+        <div>
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div>
+            <label for="healthInsurance">Health Insurance Plan #:</label>
+            <input type="text" id="healthInsurance" name="healthInsurance">
+        </div>
+
+        <div>
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required>
+        </div>
+        <p>Are you registered blind?</p>
+        <div class="option-form">
+            <div>
+                <label for="registeredBlindYes">Yes</label>
+                <input class="radio" type="radio" id="registeredBlindYes" name="registeredBlind" value="Yes" required>
+            </div>
+            <div>
+                <label for="registeredBlindNo">No</label>
+                <input class="radio" type="radio" id="registeredBlindNo" name="registeredBlind" value="No" required>
+            </div>
+            
+        </div>
+        <p>Have you had a low vision assessment?</p>
+        <div class="option-form">
+            
+            <div>
+                <label for="lowVisionAssessmentYes">Yes</label>
+                <input class="radio" type="radio" id="lowVisionAssessmentYes" name="lowVisionAssessment" value="Yes" required>
+            </div>
+            <div>
+                <label for="lowVisionAssessmentNo">No</label>
+                <input class="radio" type="radio" id="lowVisionAssessmentNo" name="lowVisionAssessment" value="Yes" required>
+            </div>
+                
+
+        </div>
+        <p>Are you a long cane user?</p>
+        <div class="option-form">
+
+            <div>
+                <label for="caneUserYes">Yes</label>
+                <input class="radio" type="radio" id="caneUserYes" name="caneUser" value="Yes" required>
+            </div>
+            <div>
+                <label for="caneUserNo">No</label>
+                <input class="radio" type="radio" id="caneUserNo" name="caneUser" value="No" required>
+            </div>
+            
+        </div>
+        <p>Have you had a guide dog before?</p>
+        <div class="option-form">
+            
+            <div>
+                <label for="guideDogExperienceYes">Yes</label>
+                <input class="radio" type="radio" id="guideDogExperienceYes" name="guideDogExperience" value="Yes" required>
+            </div>
+            <div>
+                <label for="guideDogExperienceNo">No</label>
+                <input class="radio" type="radio" id="guideDogExperienceNo" name="guideDogExperience" value="No" required>
+            </div>
+            
+        </div>
+        <p>Have you applied to other guide dog schools?</p>
+        <div class="option-form">
+            
+            <div>
+                <label for="otherSchoolsYes">Yes</label>
+                <input class="radio" type="radio" id="otherSchoolsYes" name="otherSchools" value="Yes" required>
+            </div>
+            <div>
+                <label for="otherSchoolsNo">No</label>
+                <input class="radio" type="radio" id="otherSchoolsNo" name="otherSchools" value="No" required>
+            </div>
+            
+        </div>
+        <p>Have you applied to Canadian Guide Dogs for the Blind before?</p>
+        <div class="option-form">
+            
+            <div>
+                <label for="canadianGuideDogsYes">Yes</label>
+                <input class="radio" type="radio" id="canadianGuideDogsYes" name="canadianGuideDogs" value="Yes" required>
+            </div>
+            <div>
+                <label for="canadianGuideDogsNo">Yes</label>
+                <input class="radio" type="radio" id="canadianGuideDogsNo" name="canadianGuideDogs" value="No" required>
+            </div>
+
+        </div>
+        <p>Canadian Guide Dogs for the Blind is committed to protecting the privacy,
+            confidentiality, accuracy, and security of any personal information that we collect, use, retain, and
+            disclose in the course of the programs we offer. By clicking submit, you give Canadian Guide Dogs for
+            the Blind permission to use your information for the purpose of your application for a guide dog.</p>
+        <div class="option-form">
+            <div>
+                <label for="privacyPolicyAgree">I agree</label>
+                <input class="checkbox" type="checkbox" id="privacyPolicyAgree" name="privacyPolicyAgree" value="true" required>
+            </div>
+        </div>
+        <button id="submitFormBtn" type="submit" class="btn btn-primary">Submit Application</button>
+        
+    </form>
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <span id="close-form" class="close">&times;</span>
+            <p>Application is submitted!</p>
+        </div>
+    </div>
+</div>

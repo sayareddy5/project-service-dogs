@@ -101,6 +101,20 @@
             color: blue;
             text-decoration: none;
         }
+
+        .application-main-container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .application-container{
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto
+        }
+        
     </style>
 </head>
 
@@ -108,65 +122,14 @@
     <div>
         <h1> Welcome to Admin Page</h1>
 
-        <a href="admin-login.html"><button class="action-button" >Login</button></a>
-        <a href="admin-signup.html"><button class="action-button">Sign Up</button></a>
-    </div>
-    <div class="admin-container">
-        <button id="dogImageUploadBtn" class="action-button">Upload Dog Image</button>
-        <button id="dogUploadBtn" class="action-button">Upload Dog</button>
-        <a href=""><button class="action-button"> Volunteer Requests</button></a>
-        <a href=""><button class="action-button"> Training Applications</button></a>
+        <a href="/admin/login"><button class="action-button" >Login</button></a>
+        <a href="/admin/register"><button class="action-button">Sign Up</button></a>
     </div>
 
-    <div id="dogImageModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <form action="" method="post">
-
-                <h2>Dog Image Upload</h2>
-                <form action="" method="post"></form>
-                <label for="image">Image: </label>
-                <input type="file" accept="image/*" id="dogImageFile" name="image">
-                <button>Upload</button>
-            </form>
-        </div>
+    <div>
+        <%- body %>
     </div>
-
-    <div id="dogUploadModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Dog Upload</h2>
-            <form action="" method="post" class="dog-details-upload-container">
-
-                <div>
-                    <label for="image">Image: </label>
-                    <input type="file" accept="image/*" id="dogFile" name="image">
-                </div>
-                <div>
-                    <label for="breed">Breed: </label>
-                    <input type="text" placeholder="Breed" id="breed" name="breed">
-                </div>
-                <div>
-                    <label for="age">Breed: </label>
-                    <input type="text" placeholder="Age" id="age" name="age">
-                </div>
-                <div>
-                    <label for="inService">In Service:</label>
-
-                    <input type="text" placeholder="Months" id="inService" name="service">
-                </div>
-                <div>
-
-                    <label for="status">Status:</label>
-                    <select id="status" name="status">
-                        <option value="available">Available</option>
-                        <option value="notAvailable">Not Available</option>
-                    </select>
-                </div>
-                <button id="submitDog">Submit</button>
-            </form>
-        </div>
-    </div>
+    
 
     <script>
         // Get the modals and buttons

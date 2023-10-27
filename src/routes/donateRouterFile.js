@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const mainController = require('../controllers/mainControllerFile')
+const DonateController = require('../controllers/donateControllerFile')
 // const userController = require('../controllers/userControllerFile');
 
 // router.get('/', userController.getUserList);
 
-router.get('/',mainController.index);
-router.get('/careers',mainController.careers);
+router.get('/',DonateController.index);
 
-console.log("In Main Routes")
+
+console.log("In Donate Routes")
 module.exports = router;

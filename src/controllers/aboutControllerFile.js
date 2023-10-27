@@ -8,12 +8,12 @@ const AboutController = {
     FAQHandle: (req, res) => {
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
-        res.render('abouttemplates/faq.ejs',{username, authorized, title:"Our Organization"});
+        res.render('abouttemplates/faq.ejs',{username, authorized, title:"FAQ"});
     },
     newsletterHandle: (req, res) => {
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
-        res.render('abouttemplates/newsletter.ejs',{username, authorized, title:"Our Organization"});
+        res.render('abouttemplates/newsletter.ejs',{username, authorized, title:"NewsLetter"});
     }
 };
 

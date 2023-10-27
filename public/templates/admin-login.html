@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
     <style>
-        body {
+        .admin-user-main-container {
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
@@ -15,7 +15,7 @@
             margin: 0;
         }
         
-        .login-container {
+        .admin-user-container {
             text-align: center;
             padding: 20px;
             border: 1px solid #ccc;
@@ -46,18 +46,21 @@
 </head>
 
 <body>
-    <div class="login-container">
-        <h2>Admin Login</h2>
-        <form id="loginForm">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <button type="submit">Login</button>
-        </form>
-        <p>Don't have an account? <a href="admin-signup.html">Sign Up</a></p>
+    <div class="admin-user-main-container">
 
-        <p><a href="admin.html">Admin Main  Page</a></p>
+        <div class="admin-user-container">
+            <h2>Admin Login</h2>
+            <form id="loginForm">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+            <p>Don't have an account? <a href="admin-signup.html">Sign Up</a></p>
+            
+            <p><a href="admin.html">Admin Main  Page</a></p>
+        </div>
     </div>
 
     <script>

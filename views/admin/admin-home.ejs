@@ -1,0 +1,56 @@
+<div class="admin-container">
+    <button id="dogImageUploadBtn" class="action-button">Upload Dog Image</button>
+    <button id="dogUploadBtn" class="action-button">Upload Dog</button>
+    <a href="/admin/volunteer-requests"><button class="action-button"> Volunteer Requests</button></a>
+    <a href="/admin/training-applications"><button class="action-button"> Training Applications</button></a>
+</div>
+
+<div id="dogImageModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Dog Image Upload</h2>
+        <form action="/admin/dog-photos" enctype="multipart/form-data" method="POST">
+
+            
+            <label for="image">Image: </label>
+            <input type="file" accept="image/*" id="dogImageFile" name="image">
+            <button>Upload</button>
+        </form>
+    </div>
+</div>
+
+<div id="dogUploadModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Dog Upload</h2>
+        <form action="/admin/dog-details" enctype="multipart/form-data" method="POST"   class="dog-details-upload-container">
+
+            <div>
+                <label for="image">Image: </label>
+                <input type="file" accept="image/*" id="dogFile" name="image">
+            </div>
+            <div>
+                <label for="breed">Breed: </label>
+                <input type="text" placeholder="Breed" id="breed" name="breed">
+            </div>
+            <div>
+                <label for="age">Breed: </label>
+                <input type="text" placeholder="Age" id="age" name="age">
+            </div>
+            <div>
+                <label for="inService">In Service:</label>
+
+                <input type="text" placeholder="Months" id="inService" name="service">
+            </div>
+            <div>
+
+                <label for="status">Status:</label>
+                <select id="status" name="status">
+                    <option value="available">Available</option>
+                    <option value="notAvailable">Not Available</option>
+                </select>
+            </div>
+            <button id="submitDog">Submit</button>
+        </form>
+    </div>
+</div>

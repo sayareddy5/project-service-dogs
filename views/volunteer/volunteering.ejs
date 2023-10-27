@@ -1,0 +1,171 @@
+<div class="volunteering-main-container">
+    <h1 class="volunteer-heading">Become a Volunteer</h1>
+    <div class="volunteer-inner-container">
+        <div class=volunteer-content-container>
+            <p class="volunteer-p-content">
+                A volunteer is a person who believes that people can make a difference and is willing to prove it. Volunteers don’t work for money. They work for less tangible but equally important forms of remuneration such as satisfaction, appreciation and the opportunity to build skills, all while helping others. Canadian Guide Dogs for the Blind relies greatly on volunteers to add to the success of our organization. If you are interested in volunteering for Canadian Guide Dogs for the Blind, please complete our volunteer application and submit it by email, mail, or drop it off at our National Training Centre.
+            </p>
+            <h3 class="volunteer-second-heading">Important points</h3>
+            <ul class="volunteer-points">
+                <li class="volunteer-li">Our current volunteer opportunities are limited to what is shown on the volunteer application.</li>
+                <li class="volunteer-li">When you submit a volunteer application, we will follow up with you when an opportunity arises in your area(s) of interest.</li>
+                <li class="volunteer-li">Puppy Walking/Raising is the only hands-on opportunity with dogs. We do not offer other volunteer positions with dogs. Visit our Puppy Walking page for details on this opportunity.</li>
+                <li class="volunteer-li">We do not use any volunteers in our kennels. Due to our high standards, we use professional staff only.</li>
+                <li class="volunteer-li">ur student volunteer opportunities are limited, but we may occasionally require high school students looking to fulfill their community support hours. Students should complete the same application form, and we will contact them if an opportunity arises. It is suggested that students do not rely heavily on our organization for volunteer hours, and there will be nothing hands-on with dogs.</li>
+                
+            </ul>
+            <button href="" id="volunteer-application-btn" class="btn btn-primary">Volunteer Application</button>
+        </div>
+        <div class="volunteer-img">
+            <img src="../images/volunteer-image.png" alt="">
+        </div>
+    </div>
+    <div class="modal" id="volunteer-form-modal">
+        <div class="vol-application-form-container">
+            <h2>Volunteer Application Form</h2>
+            <span class="close">&times;</span>
+
+            <div class="volunteer-application-details">
+                <p class="volunteer-detail"><span class="volunteer-detail-heading">PUPPY RAISING (OTTAWA, EASTERN ONTARIO) - </span>We place puppies into loving homes where there is a responsible adult, either home most of the day or with permission to take the dog to work for this commitment of 12-18 months.
+                    If you are a tenant, you must provide written permission from the landlord/owner to have the dog on premises. A vehicle is required to attend training and vet appointments. Veterinary expenses are paid, and food is provided. The role is to
+                    socialize the puppies and introduce them to as many different everyday environments as possible. Socialization begins in
+                    the home, slowly advances to quiet residential areas, and gradually works up to other places including restaurants, shopping areas, public transit, and elevators. The program is supervised by staff of Canadian Guide Dogs for the Blind.
+                    ***If you are interested, go to guidedogs.ca, click on Volunteer, and select Puppy Walking to sign up to attend an upcoming information session via ZOOM. (You do not need to complete this form. A detailed application package will be sent AFTER you
+                    attend the information session.)</p>
+                <p class="volunteer-detail"><span class="volunteer-detail-heading">DONATION DOG PROGRAM (ANYWHERE IN CANADA) –</span>We place donation dogs called “guiders” into businesses to
+                    raise funds. Volunteer duties include emptying coins from donation dogs in stores, counting, rolling and depositing coins, cleaning
+                    donation dogs, and approaching businesses to solicit new locations. This is an ongoing, but flexible position. Number of hours varies
+                    depending on your availability. This position is available anywhere in Canada. Indicate your interest on this form, and we will send you
+                    a detailed application package for the Donation Dog Program.</p>
+                <p class="volunteer-detail"><span class="volunteer-detail-heading">GIFT WRAPPING (OTTAWA, ONTARIO)</span>We require volunteers to wrap gifts during the holiday season, from December 1-24
+                    at local shopping malls. This volunteer opportunity is ideal for individuals, including students, or volunteer as a small group with your
+                    family or a workplace volunteer team. Shifts are flexible during days, evenings and weekends throughout December.</p>
+                <p class="volunteer-detail"><span class="volunteer-detail-heading">CLIENT DRIVERS (OTTAWA, ONTARIO)</span>Using a Canadian Guide Dogs vehicle, this involves driving our clients who are
+                    blind or visually impaired, with their dogs, from our National Training Centre to various training locations in the Ottawa area. This position requires a valid driver’s license and clean driving record. Availability is required on scheduled weekdays from March to December.
+                    Prior to starting, you will receive orientation specific to this driving position, including protocol related to “sighted guide”.</p>
+                <p class="volunteer-detail"><span class="volunteer-detail-heading">LONG DISTANCE DRIVERS (OTTAWA, ONTARIO)</span>Using a Canadian Guide Dogs vehicle, this involves driving our clients
+                    and/or dogs to varying locations around Ontario, Quebec and the United States. This position requires a valid driver’s license and clean
+                    driving record. Prior to starting, you will receive orientation specific to this driving position, including protocol related to “sighted guide”
+                    and handling dogs as needed.</p>
+            </div>
+            <form action="/volunteer/submit-volunteer-form" method="post" class="volunteer-form">
+                <h3>Volunteer Options:</h3>
+                <div class="volunteer-group">
+                    <div class="volunteer-inner-group">
+
+                        <div>
+                            
+                            <input type="checkbox" id="donationDogProgram" name="volunteerOptions" value="Donation Dog Program">
+                            <label for="donationDogProgram">Donation Dog Program (Anywhere in Canada)</label><br>
+                        </div>
+                        <div>
+
+                        <input type="checkbox" id="eventsFundraising" name="volunteerOptions" value="Events & Fundraising Assistant">
+                        <label for="eventsFundraising">Events & Fundraising Assistant (Ottawa, ON)</label><br>
+                        </div>
+                    </div>
+                    <div class="volunteer-inner-group">
+
+                        <div>
+                            
+                            <input type="checkbox" id="giftWrapping" name="volunteerOptions" value="Gift Wrapping">
+                            <label for="giftWrapping">Gift Wrapping (Ottawa, ON)</label><br>
+                        </div>
+                        <div>
+                            
+                            <input type="checkbox" id="clientDrivers" name="volunteerOptions" value="Client Drivers">
+                            <label for="clientDrivers">Client Drivers (Ottawa, ON)</label><br>
+                        </div>
+                    </div>
+                </div>
+                <h3>Personal Information:</h3>
+                <div class="volunteer-group">
+                    <div class="volunteer-inner-group">
+
+                        <div>
+                            
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" required><br>
+                        </div>
+                        <div>
+                            
+                            <label for="school">School:</label>
+                            <input type="text" id="school" name="school" required><br>
+                        </div>
+                    </div>
+                    <div class="volunteer-inner-group">
+
+                        <div>
+                            
+                            <label for="address">Address:</label>
+                            <input type="text" id="address" name="address" required><br>
+                        </div>
+                        <div>
+                            
+                            <label for="phoneNumber">Phone Number:</label>
+                            <input type="tel" id="phoneNumber" name="phoneNumber" required><br>
+                        </div>
+                    </div>
+                    <div class="volunteer-inner-group">
+
+                        <div>
+                            
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required><br>
+                        </div>
+                        <div>
+                            
+                            <label for="occupation">Occupation:</label>
+                            <input type="text" id="occupation" name="occupation" required><br>
+                        </div>
+                    </div>
+                    <div class="volunteer-inner-group">
+
+                        <div>
+                            
+                            <label for="isHighSchoolStudent">Are you a high school student seeking volunteer hours?</label>
+                            <input type="checkbox" id="isHighSchoolStudent" name="isHighSchoolStudent" value="Yes"><br>
+                        </div>
+                        <div>
+                            
+                            <label for="age">Age (Optional):</label>
+                            <input type="number" id="age" name="age"><br>
+                        </div>
+                    </div>
+                    
+                </div> 
+                
+                <h3>Availability:</h3>
+                <div class="volunteer-group">
+                    <div class="volunteer-inner-group">
+                        <div >
+
+                            <input type="checkbox" id="weekdays" name="availability" value="Weekdays">
+                            <label for="weekdays">Weekdays</label><br>
+                        </div>
+                        <div>
+                            
+                            <input type="checkbox" id="weekends" name="availability" value="Weekends">
+                            <label for="weekends">Weekends</label><br>
+                        </div>
+                    </div>
+                    <div class="volunteer-inner-group">
+
+                        <div>
+
+                            <input type="checkbox" id="evenings" name="availability" value="Evenings">
+                            <label for="evenings">Evenings</label><br>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="flexible" name="availability" value="Flexible">
+                            <label for="flexible">Flexible</label><br>
+
+                        </div>
+                    </div>
+                </div>
+                    
+                <button type="submit" class="btn btn-primary volunteer-btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+</div>

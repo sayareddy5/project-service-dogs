@@ -27,6 +27,26 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
     logoImage.style.transition = 'max-height 0.3s ease';
+
+
+
+
+    // ----------for grid images--------------
+    const photoItems = document.querySelectorAll('.photo-item');
+
+    photoItems.forEach(item => {
+        const img = item.querySelector('img');
+        const imgWidth = img.width;
+
+        // max width value
+        const thresholdWidth = 300;
+
+        if (imgWidth > thresholdWidth) {
+            item.classList.add('wide');
+        }
+    });
+
+
 });
 
 
@@ -81,14 +101,13 @@ closeBtn.addEventListener('click', function() {
     lightbox.style.display = 'none';
 });
 
-// Close the lightbox when the user clicks outside the image
+
 lightbox.addEventListener('click', function(event) {
     if (event.target === lightbox) {
         lightbox.style.display = 'none';
     }
 });
 
-// Close the lightbox when the Escape key is pressed
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         lightbox.style.display = 'none';
@@ -98,22 +117,42 @@ document.addEventListener('keydown', function(event) {
 
 
 
-// ------------for big images------------------
 
-document.addEventListener('DOMContentLoaded', function() {
-    const photoItems = document.querySelectorAll('.photo-item');
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("trainingForm");
+    const submitBtn = document.getElementById("submitFormBtn");
+    const successModal = document.getElementById("successModal");
+    const closeFormBtn = document.getElementById("close-form");
 
-    photoItems.forEach(item => {
-        const img = item.querySelector('img');
-        const imgWidth = img.width;
-
-        // max width value
-        const thresholdWidth = 300;
-
-        if (imgWidth > thresholdWidth) {
-            item.classList.add('wide');
-        }
+    submitBtn.addEventListener("click", function() {
+        
+        var formData = new FormData(form);
+        console.log("in jscript")
+       
+        fetch("/our-dogs/training-application", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Display success modal
+                successModal.style.display = "block";
+                setTimeout(function() {
+                    successModal.style.display = "none";
+                    // Redirect to designated route after 2 seconds
+                    window.location.href = "/our-dogs/acquire-a-dog";
+                }, 2000);
+            } else {
+                console.error("Form submission failed");
+            }
+        })
+        .catch(error => {
+            console.error("Fetch error:", error);
+        });
     });
 
+    closeFormBtn.addEventListener("click", function() {
+        successModal.style.display = "none";
+    });
 });
-
