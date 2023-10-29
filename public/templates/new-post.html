@@ -89,45 +89,50 @@
     </div>
 
     <div class="content-container feed-main-container">
-        <div class="sidebar">
-            <ul>
-                <li><a href="feed.html" id="homeLink">Home</a></li>
-                <li><a href="user-post.html" id="yourPostsLink">Your Posts</a></li>
-                <li><a href="new-post.html" id="newPostLink">New Post</a></li>
-            </ul>
+        <div class="feed-inner-container">
+            <div class="sidebar">
+                <ul>
+                    <li><a href="feed.html" id="homeLink">Home</a></li>
+                    <li><a href="user-post.html" id="yourPostsLink">Your Posts</a></li>
+                    <li><a href="new-post.html" id="newPostLink">New Post</a></li>
+                </ul>
+            </div>
+            <div class="post-display-main-content main-content" id="new-post-container">
+                <h3 class="post-content-header">Create a new post</h3>
+                <form action="/feed/upload/new-post" method="post" enctype="multipart/form-data" class="form-post-container post-container">
+                    <div>
+
+                        <label for="image">Image:</label>
+                        <input type="file" id="image" name="image" accept="image/*" >
+                        <img id="image-preview" src="#" alt="Image Preview" style="display: none; max-width: 100%; max-height: 300px;">
+                        <input type="hidden" name="username" value="<%= username %>" >
+                    </div>
+                    
+
+                     
+                    
+                    <div>
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description" rows="6" cols="45" required></textarea>
+                        <button type="submit" class="btn btn-secondary post-submit">Post</button>
+                    </div>
+                    
+                    
+                </form>
+            </div>
         </div>
-        <div class="post-display-main-content main-content" id="new-post-container">
-            <form action="/feed/upload/new-post" method="post" enctype="multipart/form-data">
-                <div>
-
-                    <label for="image">Image:</label>
-                    <input type="file" id="image" name="image" accept="image/*" >
-                </div>
-                <div>
-
-                    <input type="hidden" name="username" value="<%= username %>" >
-                </div>
-                <div>
-                    <label for="description">Description:</label>
-                    <textarea id="description" name="description" rows="6" cols="50" required></textarea>
-
-                </div>
-            
-                <button type="submit" class="btn btn-secondary">Post</button>
-            </form>
-        </div>
-        
     </div>
     <section class="donate-section">
         <h1 class="donate-section-heading">Donate Today</h1>
         <p>Through your donation, you are making a direct impact on the lives of the many Canadians in need of a guide dog or assistance dog.</p>
         <p>Thank You!</p>
-        <a href="#" class="btn btn-primary">Donate</a>
+        <a href="#" class="btn btn-primary hero-donate-btn">Donate</a>
     </section>
     <footer class="footer">
         <div class="footer-container">
         <div class="company-info">
-            <p>Canadian Guide Dogs for the Blind (CGDB) is a national, charitable organization founded in 1984 to provide Canadians with greater mobility and independence through the use of professionally trained guide dogs (nationally) and mobility assistance dogs (Ottawa area).
+            <h1>Service Dogs</h1>
+            <p>Service Dogs for the Blind (CGDB) is a national, charitable organization founded in 1984 to provide Canadians with greater mobility and independence through the use of professionally trained guide dogs (nationally) and mobility assistance dogs (Ottawa area).
                 Registered Charity #10684 6819 RR0001</p>
         </div>
         <div class="social-container">
@@ -155,13 +160,14 @@
             </ul>
         </div>
         </div>
-        <p>&copy; 2023 Your Company. All rights reserved.</p>
+        <p>&copy; 2023 Service Dogs. All rights reserved.</p>
     </footer>
     
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../scripts/jquery1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../scripts/feedpage1.js"></script>
     <script src="../scripts/main.js"></script>
     <script src="../scripts/feed.js"></script>
 </body>

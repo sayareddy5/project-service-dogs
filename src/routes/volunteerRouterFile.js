@@ -6,6 +6,7 @@ const VolunteerController = require('../controllers/VolunteerControllerFile')
 // router.get('/', userController.getUserList);
 
 router.get('/volunteering',VolunteerController.volunteering);
+router.get('/volunteer-application',VolunteerController.showVolunteerApplication);
 router.post('/submit-volunteer-form',VolunteerController.HandleVolunteerForm);
 
 

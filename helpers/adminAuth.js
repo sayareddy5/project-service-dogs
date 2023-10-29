@@ -12,6 +12,7 @@ async function isLoggedIn(req, res, next) {
                
                 return next();
             }else{
+                req.session.returnTo = req.originalUrl;
                 res.render('admin/admin-login', { error: "The user is not authorized to access this page. Please try with admin credentials.",authorized: false,
                 username: null,
                 title: " Admin Login",

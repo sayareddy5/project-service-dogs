@@ -100,8 +100,9 @@ const UserController = {
           username: user.username,
           authorized: true,
         }
-        console.log(req.session.user)
-        return res.redirect("/");
+        const returnTo = req.session.returnTo || "/"
+        
+        return res.redirect(returnTo);
 
       }else{
         req.session.error = true

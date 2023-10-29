@@ -88,23 +88,45 @@
     </div>
 
     <div class="content-container feed-main-container">
-        <div class="sidebar">
-            <ul>
-                <li><a href="feed.html" id="homeLink">Home</a></li>
-                <li><a href="user-post.html" id="yourPostsLink">Your Posts</a></li>
-                <li><a href="new-post.html" id="newPostLink">New Post</a></li>
-            </ul>
+        <div class="feed-inner-container">
+            <div class="sidebar">
+                <ul>
+                    <li><a href="feed.html" id="homeLink">Home</a></li>
+                    <li><a href="user-post.html" id="yourPostsLink">Your Posts</a></li>
+                    <li><a href="new-post.html" id="newPostLink">New Post</a></li>
+                </ul>
+            </div>
+            <div class="main-content" id="">
+                <h3 class="post-content-header">Your Posts</h3>
+                <div class="post-container">
+
+                    <div class="profile-pic-container user-post-pic-container">
+                        <div class="profile-pic-inner-container">
+
+                            <img class="profile-pic" src="../images/image.jpg" alt="Profile Pic">
+                            <p class="user-name" >sayareddy</p>
+                        </div>
+                        <div>
+
+                            <a href=""><button class="btn btn-secondary delete-btn">Delete</button></a>
+                        </div>
+                    </div>
+                    <div class="post-content-container">
+                        <div class="post-image-container">
+                            <img class="post-image" src="../images/hero-new-11.jpg" alt="Post Image">
+                        </div>
+                        <div class="post-des">ihif rreiowh fioehiof eifheioh ihoo</div>
+                    </div>
+                </div>
+                <!-- Feed posts will be dynamically added here -->
+            </div>
         </div>
-        <div class="main-content" id="mainContent">
-            <!-- Feed posts will be dynamically added here -->
-        </div>
-        
     </div>
     <section class="donate-section">
         <h1 class="donate-section-heading">Donate Today</h1>
         <p>Through your donation, you are making a direct impact on the lives of the many Canadians in need of a guide dog or assistance dog.</p>
         <p>Thank You!</p>
-        <a href="#" class="btn btn-primary">Donate</a>
+        <a href="#" class="btn btn-primary hero-donate-btn">Donate</a>
     </section>
     <footer class="footer">
         <div class="footer-container">
@@ -137,13 +159,14 @@
             </ul>
         </div>
         </div>
-        <p>&copy; 2023 Your Company. All rights reserved.</p>
+        <p>&copy; 2023 Service Dogs. All rights reserved.</p>
     </footer>
     
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../scripts/jquery1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../scripts/feedpage1.js"></script>
     <script src="../scripts/main.js"></script>
     <script src="../scripts/feed.js"></script>
 </body>

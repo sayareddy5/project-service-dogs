@@ -16,7 +16,14 @@ const FeedController = {
         const username = req.session.user ? req.session.user.username : null;
         
         console.log(req.session.user)
-        res.render('feed/new-post.ejs',{authorized, username, title: "Create POst"});
+        res.render('feed/new-post.ejs',{authorized, username, title: "Create Post"});
+    },
+    showUserPosts: (req, res) =>{
+        const authorized = req.session.user && req.session.user.authorized === true;
+        const username = req.session.user ? req.session.user.username : null;
+        
+        console.log(req.session.user)
+        res.render('feed/your-posts.ejs',{authorized, username, title: "User Posts"});
     },
     createFeed: async( req, res) =>{
         try {

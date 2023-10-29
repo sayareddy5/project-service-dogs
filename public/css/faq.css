@@ -1,15 +1,17 @@
 /* ---styles for faq-page-------- */
 .faq-header-container{
-    background-color: var(--primary-color);
+    background-color: #e5e5e5;
     text-align: center;
 
 }
 .faq-content-header{
     display: inline-block;
-    padding-top: 2rem;
+    padding-top: 3rem;
     width:40%;
+    font-size:2rem;
     /* background-color: blue; */
     text-align: center;
+    /* filter: brightness(30%); */
 }
 
 .faq-container{
@@ -44,19 +46,14 @@
     font-size: 1.6rem;
 }
 
-.faq-image{
-    font-size:20rem;
-    text-align: center;
-    /* background-color: red; */
-}
 
 
 .faq{
-    border: 2px solid black;
-    padding: 1rem;
+    border: 1px solid grey;
+    padding: .5rem 1rem;
     margin: 1rem;
     border-radius: 10px;
-    box-shadow: 0 2px 2px rgba(0,0,0,0.1);
+    box-shadow: 2px 2px 3px 3px rgba(0,0,0,0.1);
 }
 /* .circle-image {
     border-radius: 50%;
@@ -65,15 +62,21 @@
 } */
 .answer{
     font-size: 1.2rem;
+
 }
+.answer-list-container{
+    list-style:circle;
+}
+
 .ask-a-question-container {
     text-align: center;
     margin-top: 20px;
-    background-color: var(--primary-color);
+    background-color: #e5e5e5;
     padding-bottom: 2rem;
 }
 .ask-question-header{
     font-size: 1.7rem;
+    text-transform: uppercase;
 }
 .question-form{
     display: flex;
@@ -83,21 +86,42 @@
 }
 
 .question-container{
-    margin: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.question-field-title{
-    font-size:1.3rem
+    margin-bottom: .5rem;
+    /* display: flex; */
+    text-align: left;
+    /* justify-content: space-between; */
+    /* align-items: center; */
+    /* background-color: blue; */
+    /* width: 60%; */
 }
 
-.input-form{
+/* .question-container input,textarea{
+    resize: none;
+    outline: none;
+    border: 2px solid #e5e5e5;
+    transition: border-color 0.3s ease;
+} */
+/* .question-container label{
+    background-color: red;;
+} */
+
+/* .question-container input:focus,textarea:focus{
+    border-color: black;
+    
+} */
+.question-field-title{
+    font-size:1.4rem
+}
+
+/* .input-form{
     font-size:1.1rem;
     margin-left: 2rem;
-}
+} */
 
 .submit-btn{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     background-color: black;
 }
 .question-container input{

@@ -7,7 +7,7 @@
     justify-content: space-around;
     /* background-color: red; */
     padding: 2rem 2rem;
-
+    /* background-color: #a8dadc; */
 }
 .organization-image-container,.container-one{
     width: 50%;
@@ -16,11 +16,13 @@
 .container-one{
     font-size: 1.3rem;
     display: flex;
+    padding: 1rem;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
     /* padding: .5rem; */
-    /* background-color: blue; */
+    background-color: #e5e5e5;
+    border-radius: 10px;;
     
 }
 
@@ -29,8 +31,11 @@
     width: 80%;
     border-radius: 1rem;
     /* background-color: blue; */
-    height: 100%;
-    margin-left: 4rem;
+    /* height: 100%;  */
+    margin-left: 4rem; 
+    object-fit: contain;
+    margin-top: 5%;
+    
 }
 
 .timeline {
@@ -40,28 +45,33 @@
     position: relative;
     margin-top:4rem;
     margin-bottom: 4rem;
+    /* background-color: #e9c46a; */
 }
+
 .timeline-heading{
     margin-bottom: 2rem;
     text-align: center;
+    font-size: 2rem;
 }
+
 .milestone {
     position: relative;
     margin: 20px 0;
     padding: 20px;
     border: 2px solid #ccc;
     border-radius: 10px;
-    background-color: #f9f9f9;
+    background-color: #e5e5e5;
     z-index: 1;
 }
 
 .year {
     font-weight: bold;
+    font-size: 1.2rem;
     margin-bottom: 10px;
 }
 
 .description {
-    font-size: 14px;
+    font-size: 1.1rem;
     color: var(--grey-color) ;
 }
 
@@ -73,7 +83,7 @@
     transform: translateX(-50%);
     width: 4px;
     height: 22px; /* Adjust the height of the line */
-    background-color: var(--grey-color); /* Yellow line color */
+    background-color: #495057; /* Yellow line color */
     z-index: 0;
 }
 

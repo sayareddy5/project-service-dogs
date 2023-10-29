@@ -14,6 +14,20 @@ const OurDogsController = {
         console.log(req.session.user)
         res.render('ourDogs/dogJourney.ejs',{authorized, username, title: "Dog Journey"});
     },
+    assistanceDogs: (req, res) => {
+        const authorized = req.session.user && req.session.user.authorized === true;
+        const username = req.session.user ? req.session.user.username : null;
+        
+        console.log(req.session.user)
+        res.render('ourDogs/assistance-dog.ejs',{authorized, username, title: "Assistance Dogs"});
+    },
+    applyForDogs: (req, res) => {
+        const authorized = req.session.user && req.session.user.authorized === true;
+        const username = req.session.user ? req.session.user.username : null;
+        
+        console.log(req.session.user)
+        res.render('ourDogs/apply-for-dog.ejs',{authorized, username, title: "Apply for Dog"});
+    },
     dogsList: (req, res) => {
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;

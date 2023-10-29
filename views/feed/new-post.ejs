@@ -1,22 +1,32 @@
 <div class="feed-main-container">
-    <div class="sidebar">
-        <ul>
-            <li><a href="/feed" id="homeLink">Home</a></li>
-            <li><a href="/feed/posts" id="yourPostsLink">Your Posts</a></li>
-            <li><a href="/feed/create-new-post" id="newPostLink">New Post</a></li>
-        </ul>
+    <div class="feed-inner-container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="/feed" id="homeLink">Home</a></li>
+                <li><a href="/feed/user-posts" id="yourPostsLink">Your Posts</a></li>
+                <li><a href="/feed/create-new-post" id="newPostLink">New Post</a></li>
+            </ul>
+        </div>
+        <div class="post-display-main-content main-content" id="new-post-container">
+            <h3 class="post-content-header">Create a new post</h3>
+            <form action="/feed/upload/new-post" method="post" enctype="multipart/form-data" class="form-post-container post-container">
+                <div>
+
+                    <label for="image">Image:</label>
+                    <input type="file" id="image" name="image" accept="image/*" >
+                    <img id="image-preview" src="#" alt="Image Preview" style="display: none; max-width: 100%; max-height: 300px;">
+                    <input type="hidden" name="username" value="<%= username %>" >
+                </div>
+
+                <div>
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="6" cols="45" required></textarea>
+                    <button type="submit" class="btn btn-secondary post-submit">Post</button>
+                </div>
+                
+                
+            </form>
+        </div>
     </div>
-    <div class="post-display-main-content" id="new-post-container">
-        <form action="/feed/upload/new-post" method="post" enctype="multipart/form-data">
-            <label for="image">Image:</label>
-            <input type="file" id="image" name="image" accept="image/*" ><br>
-            <input type="hidden" name="username" value="<%= username %>" >
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" rows="4" cols="50" required></textarea><br>
-        
-            <button type="submit">Post</button>
-        </form>
-    </div>
-    
 </div>
 

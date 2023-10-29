@@ -10,6 +10,7 @@ const upload = require("../../config/multerC")
 
 router.get('/',FeedController.home);
 router.get('/create-new-post',isLoggedIn, FeedController.showCreatePost);
+router.get('/user-posts',isLoggedIn, FeedController.showUserPosts);
 router.post('/upload/new-post', upload.single('image'),FeedController.createFeed);
 // router.get('/:feedId', FeedController.getFeedById);
 

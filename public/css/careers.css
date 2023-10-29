@@ -1,11 +1,18 @@
 .careers-container{
-    margin-top: 27vh;
+    margin-top: 18vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
+.careers-container h1{
+    background-color: var(--bg-light-grey);
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 3rem;
+}
 table {
     font-family: Arial, sans-serif;
     border-collapse: collapse;
@@ -14,7 +21,7 @@ table {
 }
 
 th, td {
-    border: 1px solid #dddddd;
+    border: 1px solid var(--bg-light-grey);
     text-align: left;
     padding: .6rem;
 }

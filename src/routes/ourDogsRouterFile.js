@@ -7,15 +7,14 @@ const OurDogsController = require('../controllers/OurDogsControllerFile')
 
 router.get('/photo-gallery',OurDogsController.photoGallery);
 router.get('/total-dogs-list',OurDogsController.dogsList);
-router.get('/acquire-a-dog',OurDogsController.acquireDog);
+router.get('/acquire-a-guide-dog',OurDogsController.acquireDog);
 router.get('/guide-dog-journey',OurDogsController.dogJourney);
 router.get('/realities-of-a-guide-dog',OurDogsController.realityGuide);
-
+router.get('/apply-for-dog',OurDogsController.applyForDogs);
+router.get('/assistance-dogs',OurDogsController.assistanceDogs);
 router.get('/training-application',OurDogsController.trainingApplication);
 router.post('/training-application',OurDogsController.handleTrainingForm);
 
 
 console.log("In Our Dogs Routes")
 module.exports = router;
-
-console.log("exported router")
