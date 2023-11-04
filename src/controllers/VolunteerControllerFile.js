@@ -4,14 +4,14 @@ const volunteerController = {
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
         
-        console.log(req.session.user)
+        
         res.render('volunteer/volunteering.ejs',{authorized, username, title: "Volunteer"});
     },
     showVolunteerApplication: (req, res) => {
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
         
-        console.log(req.session.user)
+        
         res.render('volunteer/volunteer-application.ejs',{authorized, username, title: "Volunteer Application"});
     },
     HandleVolunteerForm: (req, res) => {

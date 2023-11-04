@@ -11,7 +11,11 @@ const upload = require("../../config/multerC")
 router.get('/',FeedController.home);
 router.get('/create-new-post',isLoggedIn, FeedController.showCreatePost);
 router.get('/user-posts',isLoggedIn, FeedController.showUserPosts);
-router.post('/upload/new-post', upload.single('image'),FeedController.createFeed);
+router.post('/upload/new-post',isLoggedIn, upload.single('image'),FeedController.createFeed);
+router.post('/:postId/comments',isLoggedIn, FeedController.postComment);
+router.post('/:postId/like',isLoggedIn, FeedController.postLike);
+router.delete('/:postId',isLoggedIn, FeedController.deletePost);
+
 // router.get('/:feedId', FeedController.getFeedById);
 
 console.log("In Feed Routes")

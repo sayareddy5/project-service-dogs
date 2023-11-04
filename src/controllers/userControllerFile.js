@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const cache = require('memory-cache');
-
+const passport = require("../controllers/authController")
 // set user_logged in cache
 cache.put('user_logged', false);
 
@@ -27,7 +27,7 @@ const UserController = {
     try {
       
       // get registration data
-      console.log("user-data-registration", req.body)
+      
       const { username, email, password, confirmpassword } = req.body;
       if(password != confirmpassword){
         return res.status(400).render("user/register", {
@@ -72,17 +72,17 @@ const UserController = {
     if(req.session.error){
       req.session.error = false
     }
-    console.log("session log",req.session)
+    
     res.render('user/login', { authorized, username, error: null, title:"User Login" });
   
   },
 
   HandleLoginForm: async (req, res) => {
-      console.log(req.body)
+      
       const { username, password } = req.body;
       const user = await User.findOne({ username})
 
-      console.log("user-detail",user)
+      
       if(!user){
         // req.session.error = true
         return res.render('user/login', {

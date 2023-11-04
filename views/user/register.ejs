@@ -1,8 +1,8 @@
 <div class="form-container registration-cotainer">
     <h2>Register</h2>
-    <% if (error) { %>
-        <p class="errors" id="register-error-message" style="color: red; font-size:.8rem"><%= error %></p>
-    <% } %>
+    
+    <a href="/user/auth/google" class="btn btn-google">Signup with Google</a>
+    <p class="or-element">or</p>
     <form class='user-form' action="/user/register" method="post">
         <div class="form-group">
             <label for="username">Username: </label>
@@ -12,28 +12,127 @@
             <label for="email">Email: </label>
             <input type="email" class="form-control" id="email" name="email" required>
         </div>
-        <div class="form-group">
-            <label for="password">Password: </label>
-            <input type="password" class="form-control" id="password" name="password" required>
+        <div class="form-group password-field-signup">
+            <div class="input-field-password-container">
+
+                <label for="password">Password: </label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div id="password-strength-feedback" style="font-size: 15px;">
+                <ul>
+                    <li id="length">Minimum 8 characters</li>
+                    <li id="capital">At least one capital letter</li>
+                    <li id="special">At least one special character</li>
+                </ul>
+            </div>
         </div>
-        <div class="form-group">
+        <div class="form-group confirmpassword-container">
             <label for="confirmpassword">Confirm Password: </label>
             <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" required>
+            <!-- <input type="checkbox" id="show-password">show -->
+            <p id="show-password" data-show="false">show</p>
         </div>
-        <button type="submit" class="btn btn-primary form-btn">Register</button>
+        <% if (error) { %>
+        <p class="errors" id="register-error-message" ><%= error %></p>
+        <% } %>
+        <p id="password-match-error" class="errors"></p>
+        <button type="submit" class="btn btn-primary form-btn" id="register-button" disabled>Register</button>
     </form>
     <div class="already-user">
         Already registered ? Try <a style="color:blue" href="/user/login">Login</a>
     </div>
-
-    <script>
-
-        var errorMessage = document.getElementById('register-error-message');
-        if (errorMessage) {
-            
-            setTimeout(function() {
-                errorMessage.style.display = 'none';
-            }, 4000);
-        }
-    </script>
 </div>
+
+<script>
+   
+    var errorMessage = document.getElementById('register-error-message');
+    const passwordMatchError = document.getElementById('password-match-error');
+    if (errorMessage) {
+        var position = errorMessage.getBoundingClientRect().top + window.scrollY;
+        errorMessage.style.display = 'block';
+        window.scrollTo({
+            top: position,
+            behavior: 'smooth' 
+        });
+        setTimeout(function() {
+            errorMessage.style.display = 'none';
+        }, 4000);
+    }
+    const passwordInput = document.getElementById('password');
+    const usernameInput = document.getElementById('username');
+    const emailInput = document.getElementById('email');
+    const confirmPasswordInput = document.getElementById('confirmpassword');
+    const registerButton = document.getElementById('register-button');
+    const showPasswordButton = document.getElementById('show-password');
+
+    
+
+    const passwordStrengthFeedback = document.getElementById('password-strength-feedback');
+    registerButton.style.backgroundColor = "grey";
+    passwordInput.addEventListener('input', function() {
+        const password = passwordInput.value;
+        const lengthRegex = /.{8,}/;
+        const capitalRegex = /[A-Z]/;
+        const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+
+        const isLengthValid = lengthRegex.test(password);
+        const isCapitalValid = capitalRegex.test(password);
+        const isSpecialCharValid = specialCharRegex.test(password);
+
+        document.getElementById('length').style.color = isLengthValid ? 'green' : 'red';
+        document.getElementById('capital').style.color = isCapitalValid ? 'green' : 'red';
+        document.getElementById('special').style.color = isSpecialCharValid ? 'green' : 'red';
+
+    });
+    function checkInputs() {
+        const usernameValue = usernameInput.value.trim();
+        const emailValue = emailInput.value.trim();
+        const passwordValue = passwordInput.value.trim();
+        const confirmPasswordValue = confirmPasswordInput.value.trim();
+    
+        const isUsernameValid = usernameValue !== '';
+        const isEmailValid = emailValue !== '';
+        const isPasswordValid = passwordValue !== '';
+        const isConfirmPasswordValid = confirmPasswordValue !== '';
+        const isPasswordMatch = passwordValue === confirmPasswordValue;
+        
+    
+
+        if (isUsernameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid && isPasswordMatch) {
+            registerButton.disabled = false;
+            registerButton.style.backgroundColor = "green";
+        } else {
+            registerButton.disabled = true;
+            registerButton.style.backgroundColor = "grey";
+        }
+    }
+    confirmPasswordInput.addEventListener('input', () => {
+        const isPasswordMatch = passwordInput.value === confirmPasswordInput.value;
+        if (isPasswordMatch) {
+            passwordMatchError.textContent = ''; 
+        } else {
+            passwordMatchError.textContent = 'Passwords do not match';
+        }
+    })
+    usernameInput.addEventListener('input', checkInputs);
+    emailInput.addEventListener('input', checkInputs);
+    passwordInput.addEventListener('input', checkInputs);
+    confirmPasswordInput.addEventListener('input', checkInputs);
+
+    showPasswordButton.addEventListener('click', () => {
+        const isShow = showPasswordButton.getAttribute('data-show') === 'false';
+        
+        if (isShow) {
+            
+            confirmPasswordInput.type = 'text';
+            showPasswordButton.textContent = 'Hide';
+            showPasswordButton.setAttribute('data-show', 'true');
+        } else {
+            
+            confirmPasswordInput.type = 'password';
+            showPasswordButton.textContent = 'Show';
+            showPasswordButton.setAttribute('data-show', 'false');
+        }
+    });
+</script>
+ 

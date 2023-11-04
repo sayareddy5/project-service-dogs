@@ -12,6 +12,7 @@ const feedRoutes = require('./src/routes/feedRouterFile');
 const volunteerRoutes = require('./src/routes/volunteerRouterFile');
 const adminRoutes = require('./src/routes/adminRouterFile');
 const crypto = require('crypto');
+const passport = require('passport');
 const expressLayouts = require("express-ejs-layouts");
 const multer = require("./config/multerC")
 
@@ -31,14 +32,20 @@ app.use(session({
   cookie: {
     maxAge: 1000 * 60 * 60 * 24 * 30,
   },
+  cookie: { secure: false },
 }));
 
 // Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
 app.set('layout', 'baseTemplates/base');
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(multer.single('image'));
 // app.use(cache.middleware());

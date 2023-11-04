@@ -2,11 +2,7 @@ const mongoose = require('mongoose');
 
 
 const dogDetailsSchema = new mongoose.Schema({
-    imagePath: { type: String, required: true },
-    imageData: {
-        data: Buffer, 
-        contentType: String 
-    },
+    imageUrl: { type: String },
     breed: { type: String, required: true },
     age: { type: Number, required: true },
     inService: { type: Number, required: true },

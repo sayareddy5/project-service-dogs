@@ -115,6 +115,7 @@
     margin-bottom: 3rem;
     margin-left: 5rem;
     margin-right: 5rem;
+    
 }
 
 .training-main-container h1,h2{
@@ -163,7 +164,28 @@
     text-align: center;
 }
 
-
+#successModal{
+    position: fixed;
+    top: 40%;
+    width: 40%;
+    background-color:#fafdf6 ;
+    height: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    right: 30%;
+    border-radius: 20px;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 4px 4px 4px rgba(0,0,0,.1);
+}
+#form-error-training{
+    font-size: 1.6rem;
+    display: inline-block;
+    /* background-color: blue; */
+    margin-bottom: auto;
+    /* position: absolute; */
+}
 /* -----------guide-dog-journey----------------- */
 .journey-main-container{
     margin-top: 28vh;
@@ -217,14 +239,6 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    text-align: center;
-}
 
 /* ---------------------donate page css */
 

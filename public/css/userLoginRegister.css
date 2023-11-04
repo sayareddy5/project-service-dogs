@@ -12,7 +12,7 @@
     align-self: center;
     font-size: 1.4rem;
     text-align: center;
-    max-width: 40%;
+    width: 34%;
     border: 2px solid var(--primary-color);
     border-radius: 10px;
     margin-top: 27vh;
@@ -24,39 +24,47 @@
     flex-direction: column;
     justify-content: space-around;
     padding-bottom: 2rem;
+    transition: all 2s ease-in-out;
     
 }
 
 .form-container h2{
     display: inline-block;
+    font-size: 1.4rem;
     /* background-color: blue; */
     
 }
 .user-form{
     display: flex;
     flex-direction: column;
-
+    font-size: 1.2rem;
+    position: relative;
 }
-
+.user-form input{
+    font-size:1.1rem;
+    padding: .3rem;
+}
 .user-form div{
 
     margin: .5rem 1rem;
 }
 
-.form-group{
+.form-group {
     display: flex;
     align-items: center;
     justify-content: space-between;
     text-align: left;
+    margin-bottom: 1rem; 
 }
 .form-group input{
     max-width: 70%;
 }
-.form-control{
+.form-control {
     font-size: 1.4rem;
-    margin-left: 20px;
     border-radius: 5px;
     border: 2px solid var(--primary-color);
+    width: calc(100% - 20px);
+    box-sizing: border-box; 
 }
 
 .form-btn{
@@ -66,5 +74,79 @@
     padding-left: 40px;
     padding-right: 40px;
     align-self: center;
-    
+    margin-top: 3rem;
+}
+
+.form-container .errors {
+    color: red;
+    font-size: 14px;
+    position: absolute;
+    bottom: 5rem;
+    width: 100%;
+    /* display: none; */
+}
+
+.password-field-signup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem; 
+}
+
+.input-field-password-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.btn-google {
+    background-color: #4285f4;
+    color: #ffffff;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    width: max-content;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+  
+.btn-google:hover {
+    background-color: #3c79e6;
+}
+.or-element{
+    font-size: 15px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+.or-element::before,
+.or-element::after {
+    content: "";
+    flex: 1;
+    border-top: 1px solid #888;
+    margin: 0 10px;
+}
+
+.confirmpassword-container{
+    /* background-color: red; */
+    position: relative;
+}
+#show-password{
+    position: absolute;
+    cursor: pointer;
+    right:0;
+    top: -20%;
+    /* background-color: red; */
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    height: max-content;
+    text-transform: lowercase;
 }

@@ -78,20 +78,67 @@
     </div>
     <div class="ask-a-question-container">
         <h3 class="ask-question-header">Not found what you are looking for?. Ask a question</h3>
-        <form action="/question/ask-question" method="POST" class="question-form">
-            <div class="question-container">
-                
-                <label class='question-field-title' for="question">Question : </label>
-                <input type="text" name="question" class='input-form ask-question' placeholder="Type your question here..">
-            </div>
-            <div class="question-container">
+        <div class="question-form-main-container">
 
-                <label class='question-field-title' for="email">Email : </label>
-                <input class="input-form" type="email" class="ask-question-email" name="email">
+            <form class="question-form" id="question-from-container">
+                <div class="question-container">
+                    
+                    <label class='question-field-title' for="question">Question : </label>
+                    <input type="text" name="question" class='input-form ask-question' placeholder="Type your question here..">
+                </div>
+                <div class="question-container">
+
+                    <label class='question-field-title' for="email">Email : </label>
+                    <input class="input-form" type="email" class="ask-question-email" name="email">
                 
-            </div>
-            <button type="submit" class="btn btn btn-primary submit-btn">submit</button>
-        </form>
+                </div>
+                <button type="submit" class="btn btn btn-primary submit-btn">submit</button>
+            </form>
+        </div>
+        <div id="faq-successMessage" class="hidden">Question submitted successfully!</div>
     </div>
 
 </section>
+
+<script>
+
+    questionFormContainer = document.querySelector(".question-form-main-container")
+    questionForm = document.querySelector('#question-from-container')
+    questionForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const question = document.querySelector('input[name="question"]').value;
+        const email = document.querySelector('input[name="email"]').value;
+        const successMessage = document.getElementById('faq-successMessage');
+
+
+        const formData = {
+            question,
+            email
+        };
+        console.log(formData)
+        try{
+            const response = await fetch('/about-us/faq/ask-question', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            if (response.ok) {
+                // If form submission is successful (status code 200), hide the form and display success message
+                questionFormContainer.classList.add('hidden');
+                successMessage.classList.remove('hidden');
+            } else {
+                successMessage.textContent= "Question Submission Failed. Please try after sometime"
+                questionFormContainer.classList.add('hidden');
+                successMessage.classList.remove('hidden');
+            }
+    } catch (error) {
+        console.error('Error submitting form:', error);
+        questionFormContainer.classList.add('hidden');
+        successMessage.textContent= "Error occurred. Please try after sometime"
+        successMessage.classList.remove('hidden');
+        // Handle other errors (e.g., network issues)
+    }
+    });
+</script>

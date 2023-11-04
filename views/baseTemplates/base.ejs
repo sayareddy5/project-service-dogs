@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="../css/dogs-list.css">
     <link rel="stylesheet" href="../css/feed.css">
     <link rel="stylesheet" href="../css/gallery.css">
-    <link rel="stylesheet" href="../css/guide-dog-journey.css">
     <link rel="stylesheet" href="../css/newsletter.css">
     <link rel="stylesheet" href="../css/volunteer-application.css">
     <link rel="stylesheet" href="../css/apply-dog.css">
@@ -34,27 +33,25 @@
                     <img id="logoImage" src="../images/logo-primary.png" alt="Logo" class="logo">
                 </a>
                 <div class="menu-icon" id="menuIcon">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
+                    <i class="fa-solid fa-bars"></i>
                 </div>
             </div>
             <div class="menu" id="navbarNav">
                 
                 <ul class="user-login">
                     <% if (authorized && username) { %>
-                    <li class="">Hi, <%= username %> !&nbsp</li>
+                    <li class="user-name-display"><%= username %> !&nbsp</li>
                     <li class=""><a href="/user/logout">Logout</a></li>
                     <% } else { %>
                     <li class=""><a href="/user/login">Login</a></li>
                     <li class=""><a href="/user/register">Sign Up</a></li>
                     <% } %>
                 </ul>
-               
+
                 <ul class="navbar-nav ml-auto nav-item-container">
                     <li class="nav-item">
                         
-                        <a class="nav-link" href="">Our Dogs</a>
+                        <a class="nav-link">Our Dogs</a>
                         <ul class="submenu">
                             <li><a href="/our-dogs/photo-gallery">Photo Gallery</a></li>
                             <li><a href="/our-dogs/total-dogs-list">Dogs List</a></li>
@@ -66,7 +63,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Volunteer</a>
+                        <a class="nav-link">Volunteer</a>
                         <ul class="submenu">
                             <li><a href="/volunteer/volunteering">Volunteering</a></li>
 
@@ -74,7 +71,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About Us</a>
+                        <a class="nav-link">About Us</a>
                         <ul class="submenu">
                             <li><a href="/about-us/our-organization">Our Organization</a></li>
                             <li><a href="/about-us/faq">FAQ</a></li>
@@ -152,8 +149,6 @@
     </footer>
     
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../scripts/jquery1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../scripts/main.js"></script>
     <script src="../scripts/feed.js"></script>

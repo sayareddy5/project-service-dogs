@@ -1,11 +1,7 @@
 const mongoose = require('mongoose');
 
 const dogPhotoSchema = new mongoose.Schema({
-    imagePath: { type: String, required: true },
-    imageData: {
-        data: Buffer, 
-        contentType: String 
-    },
+    imageUrl: { type: String },
     date: { type: Date, default: Date.now },
 });
 

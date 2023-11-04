@@ -2,49 +2,19 @@
     <h1 class="content-header">Service Dogs list</h1>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium necessitatibus amet quidem aspernatur possimus nihil nemo delectus ducimus odio, nesciunt illum deleniti nisi iste fuga ratione aliquid expedita quasi eum minus ipsa. Illo porro sit impedit pariatur. Nulla, illo a.</p>
     <div class="dogs-inner-container">
-        <div class="dog-container">
-            <div class="dog-image-container">
-                <img src="../images/pexels-blue-bird-7210748(1).jpg" alt="">
+        <% totalDogs.forEach(dog => { %>
+
+            <div class="dog-container">
+                <div class="dog-image-container">
+                    <img src="/<%= dog.imageUrl %>" alt="">
+                </div>
+                <div class="dog-detail-container">
+                    <h3>Breed: <span><%= dog.breed %></span></h3>
+                    <h3>Age: <span><%= dog.age %></span></h3>
+                    <h3>In Service: <span><%= dog.inService %> Months</span></h3>
+                    <h3>Status: <span><%= dog.status %></span></h3>
+                </div>
             </div>
-            <div class="dog-detail-container">
-                <h3>Breed: <span>Boston Terrier</span></h3>
-                <h3>Age: <span>32  Months</span></h3>
-                <h3>In Service: <span>2 years</span></h3>
-                <h3>Status: <span>Available</span></h3>
-            </div>
-        </div>
-        <div class="dog-container">
-            <div class="dog-image-container">
-                <img src="../images/pexels-blue-bird-7210748(1).jpg" alt="">
-            </div>
-            <div class="dog-detail-container">
-                <h3>Breed: <span>Boston Terrier</span></h3>
-                <h3>Age: <span>32  Months</span></h3>
-                <h3>In Service: <span>2 years</span></h3>
-                <h3>Status: <span>Available</span></h3>
-            </div>
-        </div>
-        <div class="dog-container">
-            <div class="dog-image-container">
-                <img src="../images/pexels-blue-bird-7210748(1).jpg" alt="">
-            </div>
-            <div class="dog-detail-container">
-                <h3>Breed: <span>Boston Terrier</span></h3>
-                <h3>Age: <span>32  Months</span></h3>
-                <h3>In Service: <span>2 years</span></h3>
-                <h3>Status: <span>Available</span></h3>
-            </div>
-        </div>
-        <div class="dog-container">
-            <div class="dog-image-container">
-                <img src="../images/pexels-blue-bird-7210748(1).jpg" alt="">
-            </div>
-            <div class="dog-detail-container">
-                <h3>Breed: <span>Boston Terrier</span></h3>
-                <h3>Age: <span>32  Months</span></h3>
-                <h3>In Service: <span>2 years</span></h3>
-                <h3>Status: <span>Available</span></h3>
-            </div>
-        </div>
+        <% }) %>
     </div>
 </div>

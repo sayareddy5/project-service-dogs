@@ -65,7 +65,7 @@
 
 .main-content {
     /* background-color: var(--primary-color); */
-    width: 80%;
+    width: 75%;
     padding: 5px;
     /* background-color: var(--bg-dim-white); */
     border: 1px solid rgba(0,0,0,.2);
@@ -92,13 +92,19 @@
     text-transform: uppercase;
     text-align: center;
 }
+
 .post-container {
-    /* background-color: var(--bg-dim-white); */
-    margin-bottom: 20px;
-    padding: 10px;
+
+    margin-bottom: 1rem; 
+    /* padding: 10px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border: 1px solid #ccc;
     border-radius: 10px;
+    /* max-height: 26rem; */
     box-shadow: 0px 0px 1px 1px rgba(0,0,0,.2);
+    /* background-color: red; */
 }
 
 .profile-pic-container{
@@ -106,41 +112,62 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    /* background-color: blue; */
+    /* background-color: red; */
 }
-.profile-pic-container img {
+/* .profile-pic-container img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     margin: 10px;
 
+} */
+
+.profile-pic-container .profile-pic{
+    font-size:2.2rem;
+    margin: 10px;
+    
+    
 }
 
+.user-posts-inner-container .profile-pic{
+    font-size:2.2rem;
+    margin: 10px;
+}
 .post-container .user-name{
     font-size:1.1rem;
     margin-left: 1rem;
     font-weight: 600;
-    /* background-color: blue; */
+    /* background-color: red; */
 
 }
 
 .post-content-container{
+    /* background-color: yellow; */
     display: flex;
+    align-items: flex-start;
     width: 100%;
-    height: 350px;
-    padding: 1rem;
+    /* height: 26rem; */
+
 }
 
 .post-image-container{
-    width: 50%;
+    max-width: 50%;
+    padding-right: 1rem;
+    /* max-height: 24rem; */
+    /* background-color: blue; */
 } 
 
 .post-image-container img{
     width: 100%;
-    height: 100%;
+    height: auto;
     /* border-radius: 10px; */
-    object-fit: contain;
+    object-fit: cover;
+    /* padding: 0 1rem; */
 }
 .post-des{
+    max-height: max-content;
+    /* background-color: blue; */
     padding: 2rem;
     font-size: 1.3rem;
     margin-left: 2rem;
@@ -163,6 +190,7 @@
 
 .comments.expanded {
     max-height: max-content; 
+    display: block;
 }
 
 .comments textarea {
@@ -174,7 +202,7 @@
     border-radius: 10px;
     font-style: inherit;
     resize: none;
-    transition: height 0.3s ease-in-out; /* Apply transition to height property */
+    transition: height 0.3s ease-in-out; 
 }
 .comment-item {
     margin: 10px;
@@ -192,7 +220,11 @@
     height: 100%;
 }
 
-.post-details .like-btn{
+.post-details{
+    margin:.6rem;
+    margin-top:1rem;
+}
+.post-details .like-btn, .dislike-btn{
     outline: none;
     border: none;
     color: white;
@@ -241,7 +273,10 @@
 .form-post-container {
     display: flex;
     height: 50vh;
-
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0px 0px 1px 1px rgba(0,0,0,.2);
+    margin-bottom: 2rem;
 }
 .form-post-container div{
     width: 50%;
@@ -264,16 +299,39 @@
     padding: 10px 20px !important;
 }
 
-.profile-pic-inner-container{
+.user-posts-inner-container{
     display: flex;
+    /* padding: .5rem 1rem; */
     align-items: center;
+    justify-content: space-between;
+    /* background-color: blue; */
 }
-.user-post-pic-container .delete-btn{
+.user-posts-inner-container .delete-btn{
     background-color: #ef233c;
     color: white;
-    padding: .5rem 1rem;
-}
-.user-post-pic-container{
-    justify-content: space-between;
+    margin-right: 1rem;
 }
 
+
+.delete-confirm-popup {
+    display: none;
+    position: Fixed;
+    width: 25rem;
+    /* display: flex; */
+    flex-direction: column;
+    align-items: center;
+    top: calc(40% - 5rem);
+    right: calc(50% - 12.5rem);
+    border-radius: 10px;
+    height: 10rem;
+    border: 1px solid grey;
+    background-color: white;
+    box-shadow: 2px 2px 4px 4px rgba(0,0,0,.1);
+}
+
+.no-posts-container{
+    text-align: center;
+}
+.no-posts-container .no-posts-icon{
+    font-size: 5rem;
+}

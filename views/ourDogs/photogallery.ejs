@@ -1,31 +1,81 @@
+
 <div class="gallery-main-container">
     <h1 class="content-header">Dogs Gallery</h1>
-    <div class="photo-gallery">
+    <div id="photoGallery" class="photo-gallery">
         <div class="photo-item">
-            <img src="../images/hero-new-11.jpg" alt="Image 1">
-        </div>
-    
-        <div class="photo-item">
-            <img src="../images/pexels-blue-bird-7210748(1).jpg" alt="Image 3">
+            <img src="../images/image.jpg" alt="Image">
         </div>
         <div class="photo-item">
-            <img src="../images/pexels-blue-bird-7210748(1).jpg" alt="Image 3">
-        </div>
-        
-        <div class="photo-item">
-            <img src="../images/pexels-blue-bird-7210748(1).jpg" alt="Image 3">
+            <img src="../images/assistance-dog-3.jpg" alt="Image">
         </div>
         <div class="photo-item">
-            <img src="../images/hero-new-11.jpg" alt="Image 3">
+            <img src="../images/hero-new-1.jpg" alt="Image">
         </div>
         <div class="photo-item">
-            <img src="../images/hero-new-1.jpg" alt="Image 3">
+            <img src="../images/index-image-2.png" alt="Image">
         </div>
-        
+        <div class="photo-item">
+            <img src="../images/assistance-dog-main.jpg" alt="Image">
+        </div>
+        <% totalDogPhotos.slice(0, 10).forEach(photo => { %>
+            <div class="photo-item">
+                <img src="/<%= photo.imageUrl %>" alt="Image">
+            </div>
+        <% }) %>
     </div>
-    <a href="" class="btn btn-primary">View all</a>
+    <!-- <% console.log(totalDogPhotos) %> -->
+    <input type="hidden" id="hidden-element-photo" style="display:hidden" value="<%= JSON.stringify(totalDogPhotos) %>">
+    <button id="loadMoreBtn" style="margin-top:2rem;" class="btn btn-primary">Load more</button>
+    
     <div class="lightbox" id="lightbox">
         <span class="close" id="close">&times;</span>
         <img class="lightbox-content" id="lightbox-image">
     </div>
 </div>
+<script>
+    try{
+        const photoItems = document.querySelectorAll('.photo-item');
+
+        photoItems.forEach(item => {
+            
+        });
+
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        const photoGallery = document.getElementById('photoGallery');
+        const totalDogData = document.getElementById('hidden-element-photo')
+        let visibleImagesCount = 10; // Number of initially visible images
+        const totalDogPhotosList = JSON.parse(totalDogData.value);
+        console.log(totalDogPhotosList)
+        loadMoreBtn.addEventListener('click', () => {
+        const newImages = totalDogPhotosList.slice(visibleImagesCount, visibleImagesCount + 10);
+
+        console.log("new images", newImages)
+        newImages.forEach(photo => {
+            const photoItemDiv = document.createElement('div');
+            photoItemDiv.classList.add('photo-item');
+
+            const img = document.createElement('img');
+            img.src = `/${photo.imageUrl}`;
+            img.alt = 'Image';
+            
+            photoItemDiv.appendChild(img);
+
+            const imgWidth = img.width;
+            // max width value
+            const thresholdWidth = 200;
+
+            if (imgWidth > thresholdWidth) {
+                photoItemDiv.classList.add('wide');
+            }
+            photoGallery.appendChild(photoItemDiv);
+        });
+        
+            visibleImagesCount += 10;
+            
+        });
+    }catch(error){
+        console.log(error)
+    }
+
+
+</script>

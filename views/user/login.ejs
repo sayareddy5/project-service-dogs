@@ -1,8 +1,7 @@
 <div class="form-container login-container">
     <h2>Login</h2>
-    <% if (error) { %>
-        <p class="message error" id="login-error-message" style="color: red;"> <%= error %> </p>
-    <% } %>
+    <a href="/user/auth/google" class="btn btn-google">Login with Google</a>
+    <p class="or-element">or</p>
     <form class='user-form' action="/user/login" method="post">
         <div class="form-group">
             <label for="username">Username: </label>
@@ -12,21 +11,28 @@
             <label for="password">Password: </label>
             <input type="password" class="form-control" id="password" name="password" required>
         </div>
-        
+         <% if (error) { %>
+        <p class="errors" id="login-error-message"> <%= error %> </p>
+        <% } %>
         <button type="submit" class="btn btn-primary form-btn">Login</button>
     </form>
     <div class="check-user">
         New user ? <a style="color:blue" href="/user/register">Sign up</a>
     </div>
-
-    <script>
-        // Check if error message exists
-        var errorMessage = document.getElementById('login-error-message');
-        if (errorMessage) {
-            // remove error after 4 sec
-            setTimeout(function() {
-                errorMessage.style.display = 'none';
-            }, 3000);
-        }
-    </script>
 </div>
+
+<script>
+        // Check if error message exists
+    var errorMessage = document.getElementById('login-error-message');
+    if (errorMessage) {
+        var position = errorMessage.getBoundingClientRect().top + window.scrollY;
+        errorMessage.style.visibility = 'block';
+        window.scrollTo({
+            top: position,
+            behavior: 'smooth'
+        });
+        setTimeout(function() {
+            errorMessage.style.display = 'none';
+        }, 4000);
+    }
+</script>

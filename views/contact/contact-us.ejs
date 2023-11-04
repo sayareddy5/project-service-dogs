@@ -1,12 +1,12 @@
 <div class="contact-main-container">
     <h1 class="content-header">Get in Touch</h1>
-    <div>
+    <div id="contactFormContainer">
 
-        <form action="/contact/request" method="POST" class="contact-form">
+        <form class="contact-form" id="contact-form-element" >
             <div class="contact-container">
                 
-                <label class='question-field-title' for="email">Name : <span>*</span></label>
-                <input class="contact-input-form" type="email" class="ask-question-email" name="email" required>
+                <label class='question-field-title' for="name">Name : <span>*</span></label>
+                <input class="contact-input-form" type="text" class="ask-question-email" name="name" required>
                 
             </div>
             <div class="contact-container">
@@ -18,12 +18,13 @@
             <div class="contact-container">
                 
                 <label class='question-field-title' for="question">Message : </label>
-                <textarea name="question" class='contact-input-form ask-question'  rows="4" cols="50" placeholder="Type your question here..">
+                <textarea name="question" class='contact-input-form ask-question'  rows="4" cols="50" placeholder="Type your question here.." required>
                 </textarea>
             </div>
             <button type="submit" class="btn btn btn-primary submit-btn">send</button>
         </form>
     </div>
+    <div id="successMessage" class="hidden">Question submitted successfully!</div>
     <div class="address-info-main-container">
         <div class="mailing-address address-container">
             <h3 class="address-heading">Mailing Address</h3>
@@ -45,3 +46,43 @@
         </div>
     </div>
 </div>
+
+<script>
+    const contactForm = document.querySelector('#contact-form-element');
+    const contactFormContainer = document.getElementById('contactFormContainer');
+    const successMessage = document.getElementById('successMessage');
+    
+    contactForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const formData = {
+            name: document.querySelector('input[name="name"]').value,
+            email: document.querySelector('input[name="email"]').value,
+            question: document.querySelector('textarea[name="question"]').value
+        };
+        console.log(formData)
+        try {
+            const response = await fetch('/contact/contact-request', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData),
+
+            });
+            
+            if (response.ok) {
+                // If form submission is successful (status code 200), hide the form and display success message
+                contactFormContainer.classList.add('hidden');
+                successMessage.classList.remove('hidden');
+            } else {
+                successMessage.textContent= "Error occurred. Please try after sometime"
+                successMessage.classList.remove('hidden');
+            }
+    } catch (error) {
+        console.error('Error submitting form:', error);
+        successMessage.textContent= "Error occurred. Please try after sometime"
+        successMessage.classList.remove('hidden');
+        // Handle other errors (e.g., network issues)
+    }
+});
+</script>

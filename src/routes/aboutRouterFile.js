@@ -7,6 +7,7 @@ const AboutController = require('../controllers/aboutControllerFile')
 
 router.get('/our-organization',AboutController.organizationHandle);
 router.get('/faq',AboutController.FAQHandle);
+router.post('/faq/ask-question',AboutController.faqFormHanle);
 router.get('/newsletter',AboutController.newsletterHandle);
 
 console.log("In About Routes")

@@ -1,7 +1,6 @@
 const User = require("../src/models/User");
 
 async function isLoggedIn(req, res, next) {
-    console.log("in checkoauth", req.session.user);
     
     try {
         if (req.session.user) {
@@ -10,25 +9,30 @@ async function isLoggedIn(req, res, next) {
             
             if (user && user.isAdmin) {
                
+                console.log("in user admin okay")
                 return next();
+
             }else{
+                console.log("in user admin not okay")
+
                 req.session.returnTo = req.originalUrl;
-                res.render('admin/admin-login', { error: "The user is not authorized to access this page. Please try with admin credentials.",authorized: false,
+                return res.render('admin/admin-login', { error: "The user is not authorized to access this page. Please try with admin credentials.",authorized: false,
                 username: null,
                 title: " Admin Login",
                 layout: 'baseTemplates/admin', });
             }
         }
-
+        
+        console.log("not reached end")
         // User is not logged in or not an admin, redirect to /admin/login and send an error message
-        res.render('admin/admin-login', { error: null,authorized: false,
+        return res.render('admin/admin-login', { error: null,authorized: false,
         username: null,
         title: " Admin Login",
         layout: 'baseTemplates/admin', });
     } catch (error) {
         // Handle errors, such as database connection issues
         console.error(error);
-        res.status(500).send("Internal Server Error");
+        return res.status(500).send("Internal Server Error");
     }
 }
 

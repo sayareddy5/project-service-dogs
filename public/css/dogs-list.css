@@ -28,7 +28,26 @@
     text-align: left;
 
 }
+#filterForm{
+    display: flex;
+    /* background-color: red; */
+    justify-content: space-around;
+    align-items: center;
+}
+#filterForm label{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
 
+#filterForm #filterButton{
+    padding: .5rem 1rem;
+    background-color: var(--primary-color);
+    outline: none;
+    border:none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
 .dog-container {
     display: flex;
     cursor: pointer;
@@ -46,7 +65,8 @@
 
 .dog-image-container img {
     width: 100%; 
-    height: 100%; 
+    height: 100%;
+    object-fit: cover;
     border-radius: 10px;
     border-bottom: 1px solid #ccc;
     transition: opacity 0.3s ease;

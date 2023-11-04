@@ -40,6 +40,7 @@ h1,h2 {
 
 a{
     text-decoration: none;
+    cursor: pointer;
 }
 .header {
     position: fixed;
@@ -600,7 +601,8 @@ a.btn.btn-primary.hero-donate-btn {
 /* ----------End of our events-------------------- */
 
 
-/* Media query for tablets and small desktop screens */
+
+/* ----------Media query for tablets --------------- */
 @media (max-width: 992px) {
     .navbar {
         padding: 10px 20px;
@@ -611,31 +613,7 @@ a.btn.btn-primary.hero-donate-btn {
     }
 }
 
-/* Media query for tablets and small desktop screens */
-@media (max-width: 992px) {
-    .navbar {
-        padding: 10px 20px;
-    }
-    
-    .submenu:before {
-        right: 20px;
-    }
-}
-
-
-
-/* Media query for tablets and small desktop screens */
-@media (max-width: 992px) {
-    .navbar {
-        padding: 10px 20px;
-    }
-    
-    .submenu:before {
-        right: 20px;
-    }
-}
-
-/* Media query for smaller screens (mobile phones) */
+/* ----------Media query for smaller screens -- */
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;
@@ -650,6 +628,7 @@ a.btn.btn-primary.hero-donate-btn {
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        font-size: 2rem;
         padding-top: 40px;
     }
 
@@ -782,9 +761,9 @@ input[type="password"],
 input[type="email"],
 input[type="tel"],
 input[type="date"],
-input[type="number"],
 select,
 textarea {
+    cursor: pointer;
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -796,15 +775,32 @@ textarea {
 }
 
 input[type="text"]:focus,
-input[type="password"]:focus
-input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="email"]:focus,
 input[type="tel"]:focus,
 input[type="date"]:focus,
-input[type="number"],
+input[type="number"]:focus,
 select:focus,
 textarea:focus {
     border-color: var(--primary-color);
 }
+input[type="radio"],
+input[type="checkbox"]{
+    cursor: pointer;
+    padding: 4px;
+}
+.hidden {
+    display: none;
+}
 
+.user-name-display{
+    text-transform: lowercase;
+    border: 3px solid #fafdf6;
+    padding: .5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.user-name-display:hover{
+    cursor: pointer;
+    border: 3px solid var(--primary-color);
+}

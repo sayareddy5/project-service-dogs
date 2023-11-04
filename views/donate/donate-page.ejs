@@ -1,0 +1,95 @@
+<div class="donate-options-page-main-container">
+    <h1 class="content-header">SERVICE DOGS</h1>
+    <div class="donate-options-page-inner-container">
+        <form action="/donate/process-payment" id="donationForm" method="post"class="donate-page-form">
+
+            <input type="checkbox" id="honourCheckbox" name="honourCheckbox">
+            <label for="honourCheckbox">Make this donation in honour of an individual</label><br>
+        
+            <div id="tributeInfo" style="display:none;">
+                <label for="honoreeName">Honoree Name:</label>
+                <input type="text" id="honoreeName" name="honoreeName"><br>
+        
+                <label for="honoreeMessage">Honoree Message:</label>
+                <textarea style="resize:none;" id="honoreeMessage" name="honoreeMessage"></textarea><br>
+            </div>
+
+            
+            <div class="donation-type">
+                <h5>Donation type: </h5>
+                <input type="radio" id="personal" name="donationType" value="personal" required checked>
+                <label for="personal">Personal Donation</label><br>
+                
+                <input type="radio" id="organization" name="donationType" value="organization" required>
+                <label for="organization">Organization Donation</label><br>
+            </div>
+            
+            <div class="personal-info">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required><br>
+            
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required><br>
+
+            </div>
+            
+            <div class="organization-info" style="display: none;">
+                <label for="organizationName">Organization Name:</label>
+                <input type="text" id="organizationName" name="organizationName" placeholder="Organization Name"><br>
+               
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br>
+                <div id="emailError" class="error-message"></div>
+            </div>
+            <div>
+
+                <input type="checkbox" id="emailCheckbox" name="emailPermission">
+                <label for="emailCheckbox">I allow Service Dogs for the Blind to contact me by email</label><br>
+                
+                <input type="checkbox" id="mailCheckbox" name="mailPermission">
+                <label for="mailCheckbox">I allow Service Dogs for the Blind to contact me by mail</label><br>
+                
+            </div>
+            <input type="submit" class="btn btn-primary proceed-payment" value="Proceed to Payment">
+        </form>
+        
+        
+    </div>
+    <!-- <div class="donation-content">
+        <a target=_blank href="https://www.sandbox.paypal.com/donate/?hosted_button_id=4TTJFAWB6S8U6" style="color:black;" class="btn btn-primary hero-donate-btn">Donate</a>
+        
+    </div> -->
+    
+</div>
+
+<script>
+    const honourCheckbox = document.getElementById("honourCheckbox");
+    const tributeInfo = document.getElementById("tributeInfo");
+    const personalRadioButton = document.getElementById("personal");
+    const organizationRadioButton = document.getElementById("organization");
+    const organizationInfoDiv = document.querySelector(".organization-info");
+    const personalInfoDiv = document.querySelector(".personal-info");
+
+    honourCheckbox.addEventListener("change", function() {
+        tributeInfo.style.display = honourCheckbox.checked ? "block" : "none";
+    });
+
+
+    organizationRadioButton.addEventListener("change", function() {
+        if (organizationRadioButton.checked) {
+            organizationInfoDiv.style.display = "block";
+            personalInfoDiv.style.display = "none";
+        }
+    });
+
+    personalRadioButton.addEventListener("change", function() {
+        if (personalRadioButton.checked) {
+            organizationInfoDiv.style.display = "none";
+            personalInfoDiv.style.display = "block";
+        }
+    });
+
+
+</script>

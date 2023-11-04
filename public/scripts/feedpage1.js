@@ -1,14 +1,14 @@
 // ----------for feed-------------------
 document.addEventListener('DOMContentLoaded', function() {
     const currentPath = window.location.pathname;
-    console.log(currentPath)
+    // console.log(currentPath)
     const sidebarLinks = document.querySelectorAll('.sidebar ul li a');
     
     sidebarLinks.forEach(link => {
         const href = link.getAttribute('href');
         const linkParent = link.closest('li');
         if (currentPath.endsWith(href)) {
-            console.log("parent ele", linkParent)
+            // console.log("parent ele", linkParent)
             linkParent.classList.add('active');
         } else {
             linkParent.classList.remove('active');

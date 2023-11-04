@@ -6,6 +6,7 @@ const ContactController = require('../controllers/contactControllerFile')
 // router.get('/', userController.getUserList);
 
 router.get('/',ContactController.index);
+router.post('/contact-request',ContactController.contactFormHandle);
 
 
 console.log("In Contact Routes")

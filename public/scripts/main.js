@@ -1,14 +1,14 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const menuItems = document.querySelectorAll('.nav-item');
-        menuItems.forEach(item => {
-            try{
-                const submenu = item.querySelector('.submenu');
-                submenu.style.display = 'none';
-            }catch(error){
-                console.log("error")
-            }
-    })
-});
+
+const menuItems = document.querySelectorAll('.nav-item');
+    menuItems.forEach(item => {
+        try{
+            const submenu = item.querySelector('.submenu');
+            submenu.style.display = 'none';
+        }catch(error){
+            console.log("error")
+        }
+})
+
 //------------- when scrolled the header stays fixed-------------
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
      // ---------to display submenu respective to menu-------------------
+    const menuItems = document.querySelectorAll('.nav-item');
     menuItems.forEach(item => {
         const submenu = item.querySelector('.submenu');
         const navElement = item.querySelector('.nav-link')
@@ -70,10 +71,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
         photoItems.forEach(item => {
             const img = item.querySelector('img');
+
             const imgWidth = img.width;
+            console.log("image width: ",imgWidth)
 
             // max width value
-            const thresholdWidth = 300;
+            const thresholdWidth = 200;
 
             if (imgWidth > thresholdWidth) {
                 item.classList.add('wide');
@@ -128,57 +131,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-
-
-
-
-
-
-
-document.addEventListener("DOMContentLoaded", function() {
-    try{
-
-    
-        const form = document.getElementById("trainingForm");
-        const submitBtn = document.getElementById("submitFormBtn");
-        const successModal = document.getElementById("successModal");
-        const closeFormBtn = document.getElementById("close-form");
-
-        submitBtn.addEventListener("click", function() {
-            
-            var formData = new FormData(form);
-            console.log("in jscript")
-        
-            fetch("/our-dogs/training-application", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                
-                    successModal.style.display = "block";
-                    setTimeout(function() {
-                        successModal.style.display = "none";
-                        
-                        window.location.href = "/our-dogs/acquire-a-dog";
-                    }, 2000);
-                } else {
-                    console.error("Form submission failed");
-                }
-            })
-            .catch(error => {
-                console.error("Fetch error:", error);
-            });
-        });
-
-        closeFormBtn.addEventListener("click", function() {
-            successModal.style.display = "none";
-        });
-    }catch(error){
-        console.error("some error in main js file")
-    }
-});
 
 
 

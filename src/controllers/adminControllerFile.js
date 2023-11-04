@@ -3,33 +3,74 @@ const DogDetails = require("../models/dogDetailsModel");
 const VolunteerRequests = require("../models/volunteerForm");
 const TrainingApplications = require("../models/trainingForm");
 const User = require("../models/User");
-const fs = require('fs');
 
 
 const AdminController = {
-    index: (req, res) => {
+    index: async (req, res) => {
         const authorized = req.session.user && req.session.user.authorized === true;
-        const username = req.session.user ? req.session.user.username : null;
+        var username = req.session.user ? req.session.user.username : null;
         
-        console.log(req.session.user)
-        res.render('admin/admin-home.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Admin Home", error:  null});
+        try{
+
+            const userObject = await User.findOne({username})
+           
+            console.log(userObject)
+            console.log(userObject.isAdmin)
+            if(!userObject.isAdmin){
+                username = null
+    
+                console.log("in index inside",username);
+            }
+        }catch(error){
+            console.log("error")
+        }
+        return res.render('admin/admin-home.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Admin Home", error:  null});
     },
 
     adminLogin: async (req, res) => {
         const authorized = req.session.user && req.session.user.authorized === true;
-        const username = req.session.user ? req.session.user.username : null;
+        var username = req.session.user ? req.session.user.username : null;
         
-       
-        console.log(req.session.user)
-        res.render('admin/admin-login.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Admin Login", error: null});
+        console.log("username", username)
+        try{
+
+            const userObject = await User.findOne({username : username})
+           
+            console.log(userObject)
+            console.log(userObject.isAdmin)
+            if(!userObject.isAdmin){
+                username = null
+    
+                console.log("in login inside",username);
+            }
+        }catch(error){
+            console.log(error)
+        }
+        
+        return res.render('admin/admin-login.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Admin Login", error: null});
     },
 
     adminRegister: async (req, res) => {
         const authorized = req.session.user && req.session.user.authorized === true;
-        const username = req.session.user ? req.session.user.username : null;
+        var username = req.session.user ? req.session.user.username : null;
         
-        console.log(req.session.user)
-        res.render('admin/admin-register.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Admin Register",error: null});
+        try{
+
+            const userObject = await User.findOne({username})
+           
+            console.log(userObject)
+            console.log(userObject.isAdmin)
+            if(!userObject.isAdmin){
+                username = null
+    
+                console.log("in register inside",username);
+            }
+        }catch(error){
+            console.log("error")
+        }
+
+        console.log("register after if",username);
+        return res.render('admin/admin-register.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Admin Register",error: null});
     },
 
     HandleLogout: async (req,res) =>{
@@ -39,12 +80,11 @@ const AdminController = {
 
     HandleLoginForm: async (req, res) => {
 
-        console.log("in handling login")
-        console.log(req.body)
+        
         const { username, password } = req.body;
         const user = await User.findOne({ username })
 
-        console.log("admin-detail",user)
+        
         if(!user){
             return res.render('admin/admin-login.ejs', {
             authorized: false,
@@ -62,11 +102,11 @@ const AdminController = {
             username: user.username,
             authorized: true,
             }
-            console.log("in success",req.session.user)
+           
             return res.redirect("/admin");
 
         }else{
-            console.log("failed login")
+           
             return res.render('admin/admin-login.ejs', {
             authorized: false,
             username: null,
@@ -80,7 +120,7 @@ const AdminController = {
     
         try {
 
-            console.log("admin-data-registration", req.body)
+            
             const { username, email, password, confirmpassword } = req.body;
             if( password != confirmpassword ){
             return res.status(400).render("user/register", {
@@ -123,7 +163,7 @@ const AdminController = {
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
         
-        console.log("in dog upload function",req.session.user)
+        
         res.render('admin/dog-upload.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Upload Dog Content"});
     },
     volunteerRequests: async (req, res) => {
@@ -145,66 +185,44 @@ const AdminController = {
         
         
         const imagePath = req.file.path
-        fs.readFile(imagePath, (err, imageBuffer) => {
-            if (err) {
-                console.error('Error reading image file:', err);
-            } else {
-                // Create a new DogDetails document with the image path, image buffer, and other data
-                const newDogPhoto = new DogPhoto({
-                    imagePath: imagePath,
-                    imageData: {
-                        data: imageBuffer,
-                        contentType: 'image/jpeg' // Set the appropriate content type of your image
-                    }
-                });
         
-                // Save the DogDetails document to MongoDB
-                newDogPhoto.save()
-                    .then(savedDog => {
-                        console.log('Dog details saved:', savedDog);
-                    })
-                    .catch(error => {
-                        console.error('Error saving dog details:', error);
-                    });
-            }
-        });
-
+        try{
             
-        return res.redirect("/admin")
+            const newDogPhoto = new DogPhoto({
+                imageUrl: imagePath,
+            });
+    
+            newDogPhoto.save()
+                
+            return res.redirect("/admin")
+        }catch(error){
+            console.log("error occured while saving dog image",error)
+        }
+
     },
     dogDetailsUpload: (req, res) => {
         
         
         const { breed, age, service, status } = req.body;
         const imagePath = req.file.path
-        fs.readFile(imagePath, (err, imageBuffer) => {
-            if (err) {
-                console.error('Error reading image file:', err);
-            } else {
-                // Create a new DogDetails document with the image path, image buffer, and other data
-                const newDogDetails = new DogDetails({
-                    imagePath: imagePath,
-                    imageData: {
-                        data: imageBuffer,
-                        contentType: 'image/jpeg' // Set the appropriate content type of your image
-                    },
-                    breed: breed,
-                    age: age,
-                    inService: service,
-                    status: status
-                });
         
-                // Save the DogDetails document to MongoDB
-                newDogDetails.save()
-                    .then(savedDog => {
-                        console.log('Dog details saved:', savedDog);
-                    })
-                    .catch(error => {
-                        console.error('Error saving dog details:', error);
-                    });
-            }
-        });
-        return res.redirect("/admin")
+        try{
+            
+            const newDogDetails = new DogDetails({
+                imageUrl: imagePath,
+                breed: breed,
+                age: age,
+                inService: service,
+                status: status
+            });
+
+            newDogDetails.save()
+            return res.redirect("/admin")
+        }catch(error){
+            console.log("error occured while saving dog image",error)
+        }
+                
+          
 }};
 
 module.exports = AdminController

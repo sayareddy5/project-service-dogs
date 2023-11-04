@@ -1,0 +1,33 @@
+.donate-options-page-main-container{
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    /* text-align: center; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2rem;
+}
+
+.donate-page-form div{
+    margin: 2rem 0;
+}
+
+.donation-type{
+    border: 1px solid rgba(0,0,0,.2);
+    padding: 1rem;
+    border-radius: 10px;
+}
+.donate-page-form h5{
+    font-size: 1.2rem;
+}
+
+.proceed-payment{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /* justify-self: center; */
+    width: 100%;
+}
+

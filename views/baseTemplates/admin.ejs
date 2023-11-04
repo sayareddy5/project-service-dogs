@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Page</title>
+    <title><%= title %></title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -141,13 +141,13 @@
     
 
     <script>
-        // Get the modals and buttons
+        
         const dogImageModal = document.getElementById("dogImageModal");
         const dogUploadModal = document.getElementById("dogUploadModal");
         const dogImageUploadBtn = document.getElementById("dogImageUploadBtn");
         const dogUploadBtn = document.getElementById("dogUploadBtn");
 
-        // When the user clicks the button, open the modal
+        // ----when the user clicks the button, open the modal
         dogImageUploadBtn.onclick = function () {
             dogImageModal.style.display = "block";
         };
@@ -156,7 +156,7 @@
             dogUploadModal.style.display = "block";
         };
 
-        // When the user clicks on <span> (x), close the modal
+        // --the user clicks on x, close the modal
         const closeButtons = document.getElementsByClassName("close");
         for (const closeButton of closeButtons) {
             closeButton.onclick = function () {
@@ -165,7 +165,7 @@
             };
         }
 
-        // Close the modal if the user clicks outside the modal
+        //----close the modal if the user clicks outside the modal
         window.onclick = function (event) {
             if (event.target === dogImageModal) {
                 dogImageModal.style.display = "none";
@@ -175,7 +175,7 @@
             }
         };
 
-        // Submit dog information (you can send this data to a server via AJAX)
+        
         const submitDogBtn = document.getElementById("submitDog");
         submitDogBtn.onclick = function () {
             const breed = document.getElementById("breed").value;
@@ -183,27 +183,7 @@
             const inService = document.getElementById("inService").checked;
             const status = document.getElementById("status").value;
 
-            // Here, you can send the data to your server using AJAX
-            // For example, using fetch API:
-            // fetch('your-server-endpoint', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify({
-            //         breed: breed,
-            //         age: age,
-            //         inService: inService,
-            //         status: status
-            //     })
-            // })
-            // .then(response => response.json())
-            // .then(data => {
-            //     console.log(data);
-            // })
-            // .catch(error => {
-            //     console.error(error);
-            // });
+            
         };
 
     </script>
