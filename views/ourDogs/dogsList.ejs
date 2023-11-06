@@ -1,8 +1,95 @@
 <div class="dogs-list-main-container">
     <h1 class="content-header">Service Dogs list</h1>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium necessitatibus amet quidem aspernatur possimus nihil nemo delectus ducimus odio, nesciunt illum deleniti nisi iste fuga ratione aliquid expedita quasi eum minus ipsa. Illo porro sit impedit pariatur. Nulla, illo a.</p>
+    <div class="filter-options">
+        <form id="filterForm">
+            <div>
+
+                <label for="breed">Breed:</label>
+                <select id="breed" name="breed">
+                    <option value="">All</option>
+                    <option value="labrador">Labrador</option>
+                    <option value="golden retriever">Golden Retriever</option>
+                </select>
+                
+            </div>
+            <div>
+
+                <label for="status">Status:</label>
+                <select id="status" name="status">
+                    <option value="">All</option>
+                    <option value="available">Available</option>
+                    <option value="notAvailable">Unavailable</option>
+                </select>
+            </div>
+            <div>
+                <label for="inService">In-Service Months: </label>
+                <select id="inService" name="inService">
+                    <option value="">All</option>
+                    
+                    <option value="6">6 months</option>
+                    <option value="12">12 months</option>
+                    <option value="18">18 months</option>
+                    
+                </select>
+            </div>
+            <div>
+
+                <button id="filterButton">Filter</button>
+            </div>
+        </form>
+    </div>
+    <!-- Display filtered dogs here -->
+    <div class="dogs-inner-container" id="filteredDogs">
+        <!-- Filtered dogs will be displayed here using EJS -->
+    </div>
     <div class="dogs-inner-container">
-        <% totalDogs.forEach(dog => { %>
+        <!-- <div class="dog-container">
+            <div class="dog-image-container">
+                <img src="../images/assistance-dog-3.jpg" alt="">
+            </div>
+            <div class="dog-detail-container">
+                <h3>Breed: <span>jimpa</span></h3>
+                <h3>Age: <span>3 years</span></h3>
+                <h3>In Service: <span>14 Months</span></h3>
+                <h3>Status: <span>Available</span></h3>
+            </div>
+        </div>
+        <div class="dog-container">
+            <div class="dog-image-container">
+                <img src="../images/pexels-blue-bird-7210748(1).jpg" alt="">
+            </div>
+            <div class="dog-detail-container">
+                <h3>Breed: <span>Pambba</span></h3>
+                <h3>Age: <span>2 years</span></h3>
+                <h3>In Service: <span>8 Months</span></h3>
+                <h3>Status: <span>Available</span></h3>
+            </div>
+        </div>
+        <div class="dog-container">
+            <div class="dog-image-container">
+                <img src="../images/assistance-dog-3.jpg" alt="">
+            </div>
+            <div class="dog-detail-container">
+                <h3>Breed: <span>pamin</span></h3>
+                <h3>Age: <span>3 years</span></h3>
+                <h3>In Service: <span>14 Months</span></h3>
+                <h3>Status: <span>Available</span></h3>
+            </div>
+        </div>
+        <div class="dog-container">
+            <div class="dog-image-container">
+                <img src="../images/assistance-dog-3.jpg" alt="">
+            </div>
+            <div class="dog-detail-container">
+                <h3>Breed: <span>jimpa</span></h3>
+                <h3>Age: <span>3 years</span></h3>
+                <h3>In Service: <span>14 Months</span></h3>
+                <h3>Status: <span>Available</span></h3>
+            </div>
+        </div> -->
+        
+        <!-- <% totalDogs.forEach(dog => { %>
 
             <div class="dog-container">
                 <div class="dog-image-container">
@@ -15,6 +102,104 @@
                     <h3>Status: <span><%= dog.status %></span></h3>
                 </div>
             </div>
-        <% }) %>
+        <% }) %> -->
     </div>
 </div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        const filteredDogsContainer = document.getElementById('filteredDogs');
+        
+        const filterButton = document.getElementById('filterButton');
+        const breedFilter = document.getElementById('breed');
+        const statusFilter = document.getElementById('status');
+        const inServiceFilter = document.getElementById('inService');
+        
+        
+        try {
+            const response = await fetch(`/our-dogs/total-dogs-list/all`);
+            
+            if (response.ok) {
+                const totalDogsList = await response.json();
+                console.log(totalDogsList)
+                displayFilteredDogs(totalDogsList);
+            } else {
+                console.error('Error occurred while fetching dogs list');
+            }
+        } catch (error) {
+            console.error('Error occurred while getting all dogs data:', error);
+        }
+    
+        
+        filterButton.addEventListener('click', async (e) => {
+            e.preventDefault()
+            const selectedBreed = breedFilter.value;
+            const selectedStatus = statusFilter.value;
+            const selectedInService = inServiceFilter.value;
+            console.log("filtertags: ",selectedBreed,selectedStatus, selectedInService)
+            try {
+                const response = await fetch(`/our-dogs/total-dogs-list/filter?breed=${selectedBreed}&status=${selectedStatus}&inService=${selectedInService}`);
+                
+                if (response.ok) {
+                    const filteredDogs = await response.json();
+                    console.log(filteredDogs)
+                    displayFilteredDogs(filteredDogs);
+                } else {
+                    console.error('Error occurred while fetching filtered dogs');
+                }
+            } catch (error) {
+                console.error('Error occurred while filtering dogs:', error);
+            }
+        });
+
+        function displayFilteredDogs(dogs) {
+            filteredDogsContainer.innerHTML = ''; // Clear previous results
+            
+            dogs.forEach(dog => {
+                var dogStatus = "";
+                if(dog.status == "available"){
+                    dogStatus = "Available"
+                }else{
+                    dogStatus = "Not Available"
+                }
+                const dogContainer = document.createElement('div');
+                dogContainer.classList.add('dog-container');
+                
+                const dogImageContainer = document.createElement('div');
+                dogImageContainer.classList.add('dog-image-container');
+                
+                const dogImage = document.createElement('img');
+                dogImage.src = `/${dog.imageUrl}`;
+                dogImage.alt = dog.breed;
+                
+                dogImageContainer.appendChild(dogImage);
+                
+                const dogDetailContainer = document.createElement('div');
+                dogDetailContainer.classList.add('dog-detail-container');
+
+                const breedElement = document.createElement('h3');
+                breedElement.innerHTML = `Breed: <span>${dog.breed}</span>`;
+                dogDetailContainer.appendChild(breedElement);
+                
+                const ageElement = document.createElement('h3');
+                ageElement.innerHTML = `Age: <span>${dog.age} years</span>`;
+                dogDetailContainer.appendChild(ageElement);
+                
+                const inServiceElement = document.createElement('h3');
+                inServiceElement.innerHTML = `In Service: <span>${dog.inService} Months</span>`;
+                dogDetailContainer.appendChild(inServiceElement);
+                
+                const statusElement = document.createElement('h3');
+                statusElement.innerHTML = `Status: <span>${dogStatus}</span>`;
+                dogDetailContainer.appendChild(statusElement);
+                
+                dogContainer.appendChild(dogImageContainer);
+                dogContainer.appendChild(dogDetailContainer);
+                
+                filteredDogsContainer.appendChild(dogContainer);
+            });
+        }
+
+    });
+</script>

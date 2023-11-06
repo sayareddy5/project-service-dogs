@@ -13,6 +13,7 @@ const volunteerRoutes = require('./src/routes/volunteerRouterFile');
 const adminRoutes = require('./src/routes/adminRouterFile');
 const crypto = require('crypto');
 const passport = require('passport');
+
 const expressLayouts = require("express-ejs-layouts");
 const multer = require("./config/multerC")
 
@@ -47,9 +48,6 @@ app.use(expressLayouts);
 app.set('layout', 'baseTemplates/base');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(multer.single('image'));
-// app.use(cache.middleware());
-
 
 
 // Routes
@@ -58,13 +56,11 @@ app.use('/user', userRoutes);
 app.use('/about-us', aboutRoutes);
 app.use('/volunteer', volunteerRoutes);
 app.use('/our-dogs', ourDogRoutes);
-console.log("after our fogs")
 app.use('/feed', feedRoutes);
 app.use('/contact', contactRoutes);
 app.use('/donate', donateRoutes);
 app.use('/admin', adminRoutes);
 
-// app.use('/', userRoutes);
 
 
 

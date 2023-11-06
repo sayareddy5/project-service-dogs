@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // menuLinks.forEach(function(link) {
             //     link.style.color = '#000';
             // });
-            logoImage.src = '../images/logo-black.png';
+            logoImage.src = '/images/logo-black.png';
             logoImage.style.maxHeight = '60px';
             header.style.boxShadow = "4px 6px 6px grey";
         } else {
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
             //     link.style.color = 'var(--navbar-text-color)';
             // });
 
-            logoImage.src = '../images/logo-primary.png';
+            logoImage.src = '/images/logo-primary.png';
             logoImage.style.maxHeight = '80px';
             
         }

@@ -1,17 +1,15 @@
 const Contact = require("../models/contactForm")
-
+const user = require("../models/User")
 const ContactController = {
-    index: (req, res) => {
+    index: async (req, res) => {
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
-        
+        const userImageUrl = req.session.user ? req.session.user.imageUrl : null
 
-        res.render('contact/contact-us.ejs',{authorized, username, title: "Contact"});
+        res.render('contact/contact-us.ejs',{authorized, username, title: "Contact",imageUrl:userImageUrl});
     },
     contactFormHandle: async(req, res) => {
-        const authorized = req.session.user && req.session.user.authorized === true;
-        const username = req.session.user ? req.session.user.username : null;
-        
+
         const { name, email, question } = req.body;
   
         try {

@@ -1,0 +1,57 @@
+<div class="password-reset-container">
+    <h1>reset password</h1>
+    <form id="reset-email-form">
+        <p style="height:50px; " class="reset-message" id="reset-email-message"></p>
+        <div class="spinner" id="spinner" ></div>
+        <div>
+            <label  for="email">Email: </label>
+            <input style="font-size:1.3rem;padding:.5rem" type="email" name="email" id="reset-email">
+        </div>
+        <button class="btn btn-primary" type="submit" id="">send code</button>
+    </form>
+
+</div>
+<script>
+
+    const resetEmailElement = document.getElementById("reset-email")
+    const resetEmailForm = document.getElementById('reset-email-form')
+    const resetEmailMessage = document.getElementById('reset-email-message')
+    const spinner = document.getElementById('spinner');
+    
+    resetEmailForm.addEventListener('submit', async (e) => {
+        e.preventDefault()
+        const resetEmail = resetEmailElement.value
+        console.log("reset email: ",resetEmail)
+        spinner.style.display = 'block';
+        resetEmailMessage.style.display = "none";
+        try{
+            const response = await fetch("/user/forgot-password", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: resetEmail }),
+
+            })
+
+            if(response.ok){
+                const message = await response.text();
+                resetEmailMessage.textContent = message
+                resetEmailMessage.style.display = "block"
+            }else{
+                resetEmailMessage.textContent = "something is wrong, please try again later"
+            }
+        }catch(error){
+            console.log("error while reset email ",error)
+        } finally {
+            
+            spinner.style.display = 'none';
+
+            setTimeout(() =>{
+                resetEmailMessage.textContent = ""
+            }, 4000)
+        }
+    });
+    
+    
+</script>

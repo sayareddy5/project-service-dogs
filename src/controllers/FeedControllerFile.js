@@ -6,18 +6,26 @@ const FeedController = {
     home: async (req, res) => {
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
+        const userImageUrl = req.session.user ? req.session.user.imageUrl : null
+
         try {
             const totalPosts = await Feed.find({})
             .populate({
                 path: 'user',
-                select: 'username', 
+                select: 'username imageUrl', 
             })
             .populate({
                 path: 'comments.user',
+                select: 'username imageUrl',
+            })
+            .populate({
+                path: 'likes.user',
                 select: 'username',
             })
             .sort({ datePosted: -1 });
-            res.render('feed/feed-main.ejs',{authorized, username, title: "Feed",totalPosts : totalPosts});
+
+            
+            res.render('feed/feed-main.ejs',{authorized, username, title: "Feed",totalPosts : totalPosts, imageUrl:userImageUrl});
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: 'Internal Server Error' });
@@ -25,31 +33,37 @@ const FeedController = {
         
     },
 
-    showCreatePost: (req, res) =>{
+    showCreatePost: async (req, res) =>{
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
-        
-      
-        res.render('feed/new-post.ejs',{authorized, username, title: "Create Post"});
+        const userImageUrl = req.session.user ? req.session.user.imageUrl : null
+
+        res.render('feed/new-post.ejs',{authorized, username, title: "Create Post",imageUrl:userImageUrl});
     },
     showUserPosts: async (req, res) =>{
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
-       
+        var userImageUrl = req.session.user ? req.session.user.imageUrl : null
+
         try{
             const user = await User.findOne({ username : username})
-           
+            var userImageUrl = user.imageUrl ? user.imageUrl : null
             const userPosts = await Feed.find({ user: user._id }).populate({
                 path: 'user',
-                select: 'username', 
+                select: 'username imageUrl', 
             })
             .populate({
                 path: 'comments.user',
+                select: 'username imageUrl',
+            })
+            .populate({
+                path: 'likes.user',
                 select: 'username',
             })
             .sort({ datePosted: -1 });
-           
-            res.render('feed/your-posts.ejs',{authorized, username, title: "User Posts",userPosts : userPosts});
+
+            res.render('feed/your-posts.ejs',{authorized, username, title: "User Posts",userPosts : userPosts,imageUrl:userImageUrl});
+
         }catch(error){
             console.error(error);
             res.status(500).json({ error: 'Internal Server Error' });
@@ -58,6 +72,7 @@ const FeedController = {
     
     },
     createFeed: async( req, res) =>{
+        
         try {
             // Get other form data from the request body
             const { description, username } = req.body;
@@ -66,6 +81,7 @@ const FeedController = {
             const filePath = req.file.path;
            
             const user = await User.findOne({ username: username });
+            
             // Create a new feed instance with image data and content type
             const newFeed = new Feed({
                 imageUrl: filePath,
@@ -108,8 +124,8 @@ const FeedController = {
             await newComment.save()
             feed.comments.push(newComment);
             await feed.save();
-
-            res.status(201).json(newComment);
+           
+            res.status(201).json({ totalComments: feed.comments.length, newComment: newComment });
         } catch (error) {
             console.error('Error posting comment:', error);
             res.status(500).json({ error: 'Internal Server Error' });
@@ -129,32 +145,55 @@ const FeedController = {
         }
     },
     postLike : async (req,res) => {
-        const { postId } = req.params;
-       
-        const currentUsername = req.session.user.username; // Assuming you store user ID in req.session.user
-        const user = await User.findOne({username : currentUsername})
-        try {
-            // Create a new like and associate it with the current user and postId
-            const newLike = new Like({
-                user: user._id,
-                postId: postId,
-            });
 
-            // Find the corresponding post and push the new like into the post's likes array
-            const feed = await Feed.findById(postId);
-            if (!feed) {
-                return res.status(404).json({ error: 'Feed not found' });
+        
+        const { postId } = req.params;
+        const username = req.session.user.username;
+        const { liked } = req.body;
+
+        const userLiked = await User.findOne({username : username})
+        const currentFeed = await Feed.findById(postId)
+        try {
+            let updatedPost;
+
+            if (liked) {
+
+                console.log("user deleting like")
+                // User wants to remove the like
+                const likeInstance = await Like.findOne({ user: userLiked, postId: currentFeed })
+
+                await Like.findByIdAndRemove({_id: likeInstance._id});
+                currentFeed.likes.pull(likeInstance._id)
+                await currentFeed.save();
+                console.log("reoved feed")
+                
+            } else {
+                console.log("user liking like")
+                const newLike = new Like({ user: userLiked, postId: currentFeed });
+                await newLike.save()
+                console.log("currentfeed", currentFeed)
+                currentFeed.likes.push(newLike)
+                await currentFeed.save()
             }
 
-            feed.likes.push(newLike);
+            // Retrieve the updated post with populated user and comments
+            updatedPost = await Feed.findById(postId)
+                .populate({
+                    path: 'user',
+                    select: 'username imageUrl',
+                })
+                .populate({
+                    path: 'comments.user',
+                    select: 'username imageUrl',
+                })
+                .populate({
+                    path: 'likes.user',
+                    select: 'username',
+                });
 
-            // Save the updated post with the new like
-            await feed.save();
-
-            // Return the updated post data to the client
-            res.status(200).json({ likes: feed.likes });
+            res.json({ success: true, updatedPost });
         } catch (error) {
-            console.error('Error toggling like/dislike:', error);
+            console.error(error);
             res.status(500).json({ error: 'Internal Server Error' });
         }
     }

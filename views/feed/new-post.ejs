@@ -8,24 +8,28 @@
             </ul>
         </div>
         <div class="post-display-main-content main-content" id="new-post-container">
-            <h3 class="post-content-header">Create a new post</h3>
+            
             <form action="/feed/upload/new-post" method="post" enctype="multipart/form-data" class="form-post-container">
                 <div>
 
                     <label for="image">Image:</label>
                     <input type="file" id="image" name="image" accept="image/*" >
-                    <img id="image-preview" src="#" alt="Image Preview" style="display: none; max-width: 100%; max-height: 300px;">
+                    <img id="image-preview" src="#" alt="Image Preview" style="display: none; max-width: 90%; max-height: 260px;">
                     <input type="hidden" name="username" value="<%= username %>" >
                 </div>
 
                 <div>
                     <label for="description">Description:</label>
                     <textarea id="description" name="description" rows="6" cols="45" required></textarea>
-                    <button type="submit" class="btn btn-secondary post-submit">Post</button>
+                    <button type="submit" class="btn btn-secondary post-submit">Create</button>
                 </div>
                 
                 
             </form>
+        </div>
+        <div class="trending-posts-main-container">
+            <h3>TRENDING POSTS</h3>
+            <p>Feature Under Development</p>
         </div>
     </div>
 </div>

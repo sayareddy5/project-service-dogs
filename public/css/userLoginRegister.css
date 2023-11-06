@@ -24,21 +24,22 @@
     flex-direction: column;
     justify-content: space-around;
     padding-bottom: 2rem;
-    transition: all 2s ease-in-out;
+    /* transition: all .5s ease-in-out; */
     
 }
-
+.registration-container{
+    width: 80%;
+}
 .form-container h2{
     display: inline-block;
     font-size: 1.4rem;
     /* background-color: blue; */
     
 }
+
 .user-form{
     display: flex;
     flex-direction: column;
-    font-size: 1.2rem;
-    position: relative;
 }
 .user-form input{
     font-size:1.1rem;
@@ -47,6 +48,11 @@
 .user-form div{
 
     margin: .5rem 1rem;
+}
+.submit-form-container{
+    width: 100%;
+    grid-column: span 2;
+    /* background-color: red; */
 }
 
 .form-group {
@@ -58,6 +64,14 @@
 }
 .form-group input{
     max-width: 70%;
+}
+
+.register-form{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    flex-direction: column;
+    font-size: 1.2rem;
+    position: relative;
 }
 .form-control {
     font-size: 1.4rem;
@@ -74,7 +88,7 @@
     padding-left: 40px;
     padding-right: 40px;
     align-self: center;
-    margin-top: 3rem;
+
 }
 
 .form-container .errors {
@@ -90,6 +104,7 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem; 
+    /* background-color: blue; */
 }
 
 .input-field-password-container {
@@ -135,18 +150,200 @@
 
 .confirmpassword-container{
     /* background-color: red; */
+    align-items: start;
+    margin-top: 10px;
     position: relative;
 }
-#show-password{
+.password-inner-container{
+    position: relative;
+}
+
+.show-password{
     position: absolute;
     cursor: pointer;
     right:0;
-    top: -20%;
-    /* background-color: red; */
+    top: -6%;
     padding: 5px 10px;
     font-size: 14px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    height: max-content;
+    border-left: 2px solid rgba(0, 0, 0, 0.1);
     text-transform: lowercase;
+}
+
+.password-inner-container .show-password{
+    top: 17%;
+    right: 2%;
+} 
+
+.login-submit-container{
+    position: relative;
+    margin-top: 4rem;
+}
+
+/* --------------reset password--------------- */
+.password-reset-container{
+    margin-top: 27vh;
+    width: 40%;
+    border: 2px solid var(--primary-color);
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-bottom: 3rem;
+    border-radius: 10px;
+}
+.password-reset-container form{
+    margin: 2rem;
+    font-size: 1.2rem;
+}
+
+.password-reset-container input{
+    width: 80%;
+    margin-left: 0;
+    padding-left: 0;
+    margin-bottom: 1rem;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left: 4px solid var(--primary-color);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: spin 2s linear infinite;
+    display: none;
+    margin-bottom: 2rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ------------profile page------------- */
+
+.profile-container {
+    width:  60%;
+    margin-top: 27vh;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3rem;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    
+}
+/* border-radius: 50%;
+    overflow: hidden;
+    width: 100px;
+    height: 100px; */
+
+.profile-container label, input {
+    margin-bottom: 10px;
+}
+
+.profile-container #save-button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.profile-container #save-button:hover {
+    background-color: #2980b9;
+}
+
+.profile-form-container{
+    display: flex;
+    justify-content: space-around;
+    height: 16rem;
+}
+
+.profile-page-pic-container{
+    /* background-color: red; */
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 1rem;
+
+}
+
+.profile-page-pic-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.file-input-container {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.file-input {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    /* opacity: 0; */
+}
+
+.custom-file-button {
+    background-color: #63a6ed;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.custom-file-button i {
+    margin-right: 5px; /* Adjust the spacing between the icon and text */
+}
+
+
+
+
+
+.profile-page-details-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+/* -------------change password------------ */
+.change-password-container{
+    width: 30rem;
+    margin-top: 27vh;
+    margin-bottom: 3rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding-bottom: 2rem;
+}
+#change-password-message{
+    font-size:16px;
+    height: 20px;
+}
+.change-password-container .changepassword-form{
+    width: 90%;
+}
+
+#changepassword-form div input{
+    max-width: 90% !important;
+    font-size:1.1rem;
+}
+
+#changepassword-form li{
+    list-style: none;;
+}
+#password-match-error-new{
+    font-size: 14px;
+    height: 18px;
 }

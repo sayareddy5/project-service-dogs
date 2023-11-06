@@ -1,19 +1,27 @@
 const Question = require("../models/faqModel")
+const User = require("../models/User")
+
 const AboutController = {
-    organizationHandle: (req, res) => {
+    organizationHandle:async (req, res) => {
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
-        res.render('abouttemplates/organization.ejs',{username, authorized, title:"Our Organization"});
+        const userImageUrl = req.session.user ? req.session.user.imageUrl : null
+        
+        res.render('abouttemplates/organization.ejs',{username, authorized, title:"Our Organization",imageUrl:userImageUrl});
     },
-    FAQHandle: (req, res) => {
+    FAQHandle: async (req, res) => {
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
-        res.render('abouttemplates/faq.ejs',{username, authorized, title:"FAQ"});
+        const userImageUrl = req.session.user ? req.session.user.imageUrl : null
+
+        res.render('abouttemplates/faq.ejs',{username, authorized, title:"FAQ",imageUrl:userImageUrl});
     },
-    newsletterHandle: (req, res) => {
+    newsletterHandle: async (req, res) => {
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
-        res.render('abouttemplates/newsletter.ejs',{username, authorized, title:"NewsLetter"});
+        const userImageUrl = req.session.user ? req.session.user.imageUrl : null
+        
+        res.render('abouttemplates/newsletter.ejs',{username, authorized, title:"NewsLetter",imageUrl:userImageUrl});
     },
     faqFormHanle: async (req, res) => {
         const { question, email } = req.body;

@@ -1,9 +1,17 @@
-<div class="form-container registration-cotainer">
+<div class="form-container registration-container">
     <h2>Register</h2>
     
     <a href="/user/auth/google" class="btn btn-google">Signup with Google</a>
     <p class="or-element">or</p>
-    <form class='user-form' action="/user/register" method="post">
+    <form class='user-form register-form' action="/user/register" method="post">
+        <div class="form-group">
+            <label for="firstName">First name: </label>
+            <input type="text" class="form-control" id="firstName" name="firstName" required>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name: </label>
+            <input type="text" class="form-control" id="lastName" name="lastName" required>
+        </div>
         <div class="form-group">
             <label for="username">Username: </label>
             <input type="text" class="form-control" id="username" name="username" required>
@@ -30,13 +38,17 @@
             <label for="confirmpassword">Confirm Password: </label>
             <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" required>
             <!-- <input type="checkbox" id="show-password">show -->
-            <p id="show-password" data-show="false">show</p>
+            <p id="show-password" class="show-password" data-show="false">show</p>
         </div>
-        <% if (error) { %>
-        <p class="errors" id="register-error-message" ><%= error %></p>
-        <% } %>
-        <p id="password-match-error" class="errors"></p>
-        <button type="submit" class="btn btn-primary form-btn" id="register-button" disabled>Register</button>
+        
+        <div class="submit-form-container">
+
+            <% if (error) { %>
+                <p class="errors" id="register-error-message" ><%= error %></p>
+            <% } %>
+            <p id="password-match-error" class="errors"></p>
+            <button type="submit" class="btn btn-primary form-btn" id="register-button" disabled>Register</button>
+        </div>
     </form>
     <div class="already-user">
         Already registered ? Try <a style="color:blue" href="/user/login">Login</a>

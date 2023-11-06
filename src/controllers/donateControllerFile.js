@@ -1,19 +1,20 @@
 const Donation = require("../models/donationModel")
+const User = require("../models/User")
 
 const DonateController = {
-    index: (req, res) => {
+    index: async (req, res) => {
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
-        
-        
-        res.render('donate/donate-main.ejs',{authorized, username, title: "Donate"});
+        const userImageUrl = req.session.user ? req.session.user.imageUrl : null
+
+        res.render('donate/donate-main.ejs',{authorized, username, title: "Donate",imageUrl:userImageUrl});
     },
-    paymentPage: (req, res) => {
+    paymentPage: async (req, res) => {
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
-        
+        const userImageUrl = req.session.user ? req.session.user.imageUrl : null
        
-        res.render('donate/donate-page.ejs',{layout: 'baseTemplates/payment.ejs',authorized, username, title: "Payment Page"});
+        res.render('donate/donate-page.ejs',{layout: 'baseTemplates/payment.ejs',authorized, username, title: "Payment Page",imageUrl:userImageUrl});
     },
 
     handlePayment: async (req, res) =>{

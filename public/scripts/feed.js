@@ -38,9 +38,13 @@ document.addEventListener("DOMContentLoaded", function() {
                         
                     if (response.status === 200 || response.status === 201) {
                         
-                        const commentData = await response.json();
-                        console.log(commentData);
-                        updateCommentsSection(postId, commentData);
+                        const responseData = await response.json();
+                        const totalComments = responseData.totalComments;
+                        const newCommentData = responseData.newComment;
+                        
+                        updateCommentsSection(postId, newCommentData);
+                        document.getElementById(`commentsButton-${postId}`).textContent = `Comments (${totalComments})`;
+                        
                     } else if (response.status === 401) {
                        
                         console.log('User is not logged in. Redirecting to login page.');
@@ -64,14 +68,14 @@ document.addEventListener("DOMContentLoaded", function() {
     function updateCommentsSection(postId, commentData) {
         const commentsContainer = document.getElementById(`comments-${postId}`);
         const commentItem = createCommentElement(commentData);
-    
+        const formElement = document.getElementById(`comment-form-${postId}`);
         if (commentsContainer) {
             if (commentsContainer.querySelector('.no-comments')) {
                 //--------remove the no comments message
                 commentsContainer.querySelector('.no-comments').remove();
             }
     
-            commentsContainer.appendChild(commentItem);
+            commentsContainer.insertBefore(commentItem, formElement);
         }
     }
 
@@ -136,42 +140,5 @@ document.addEventListener("DOMContentLoaded", function() {
     
     });
 
-  
-    const likeButtons = document.querySelectorAll('.like-btn');
-
-    likeButtons.forEach(button => {
-        button.addEventListener('click', async function(event) {
-            event.preventDefault();
-            const postId = button.getAttribute('data-post-id');
-
-            try {
-                const response = await fetch(`/feed/${postId}/like`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    credentials: 'same-origin', 
-                });
-
-                if (response.status === 200) {
-                    
-                    const responseData = await response.json();
-                    console.log(responseData)
-                    
-                    button.textContent = `Like (${responseData.likes.length})`;
-                } else if (response.status === 401) {
-        
-                    console.log('User is not logged in. Redirecting to login page.');
-                    
-                    window.location.href = '/user/login';
-                } else {
-                    
-                    console.error('Failed to like post:', response.statusText);
-                }
-            } catch (error) {
-                console.error('Error liking post:', error);
-            }
-        });
-    });
 
 });

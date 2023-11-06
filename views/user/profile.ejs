@@ -1,0 +1,81 @@
+
+<div class="profile-container">
+    <h2>Profile Settings</h2>
+    
+    <h3 id="successMessage" style="height: 24px; font-size:16px; text-align: center;" data-message="<%= successMessage %>"><%= successMessage ? successMessage : "" %></h3>
+    
+    <form action="/user/<%= username %>/profile" enctype="multipart/form-data" method="POST" id="profile-form" class="profile-form-container">
+
+        <div>
+            <div class="profile-page-pic-container">
+                <% if(imageUrl) { %>
+                    <img id="profile-avatar" src="<%= imageUrl %>" alt="">
+
+                <% } else { %>
+                    <img id="profile-avatar" src="/images/user-avatar.png" alt="">
+
+                <% } %>
+                <img id="preview" src="#" alt="Preview" >
+            </div>
+            <div >
+
+                <input class="file-input" type="file" id="profilePic" accept="image/*" name="profilePic">
+                <label for="profilePic" class="custom-file-button">
+                    <i class="fa fa-camera"></i> Upload Photo
+                </label>
+            </div>
+        </div>
+        <div class="profile-page-details-container" >
+
+            <div>
+    
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" value="<%= firstName ? firstName : '' %> ">
+            </div>
+            <div>
+    
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" value="<%= lastName ? lastName : '' %>">
+            </div>
+            
+            <button style="width:100%; font-size:1.2rem; margin-left:auto; margin-right:auto;" type="submit" id="save-button">save</button>
+        </div>
+        
+    </form>
+</div>
+
+
+<script>
+    
+    const profilePicInput = document.getElementById("profilePic");
+    const previewImage = document.getElementById("preview");
+    const dummyAvatar = document.getElementById("profile-avatar");
+    const successMessageElement = document.getElementById('successMessage');
+  
+
+    if (successMessageElement) {
+        const successMessage = successMessageElement.getAttribute("data-message");
+
+        setTimeout(function() {
+            successMessageElement.textContent = ""; 
+        }, 4000);
+    }
+
+    profilePicInput.addEventListener("change", function () {
+        const file = profilePicInput.files[0];
+
+        if (file && file.type.startsWith("image/")) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                dummyAvatar.style.display = "none"; 
+                previewImage.src = e.target.result;
+                previewImage.style.display = "block"; 
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+
+
+</script>

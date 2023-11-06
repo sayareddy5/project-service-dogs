@@ -7,6 +7,8 @@ const OurDogsController = require('../controllers/OurDogsControllerFile')
 
 router.get('/photo-gallery',OurDogsController.photoGallery);
 router.get('/total-dogs-list',OurDogsController.dogsList);
+router.get('/total-dogs-list/all',OurDogsController.fullDogsList);
+router.get('/total-dogs-list/filter',OurDogsController.filterDogs);
 router.get('/acquire-a-guide-dog',OurDogsController.acquireDog);
 router.get('/guide-dog-journey',OurDogsController.dogJourney);
 router.get('/realities-of-a-guide-dog',OurDogsController.realityGuide);
