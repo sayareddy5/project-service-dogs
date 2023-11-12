@@ -16,5 +16,4 @@ router.get('/upload-dog-content',AdminLoggedIn, AdminController.uploadDogContent
 router.post('/dog-photos',AdminLoggedIn, upload.single('image'),AdminController.dogImageUpload);
 router.post('/dog-details',AdminLoggedIn, upload.single('image'),AdminController.dogDetailsUpload);
 
-console.log("In Admin Routes")
 module.exports = router;

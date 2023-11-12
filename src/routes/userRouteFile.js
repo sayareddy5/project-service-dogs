@@ -49,5 +49,5 @@ router.get('/auth/google/callback',
         res.redirect('/'); 
     }
 );
-console.log("In user Routes")
+
 module.exports = router;

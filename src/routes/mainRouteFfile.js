@@ -8,5 +8,5 @@ const mainController = require('../controllers/mainControllerFile')
 router.get('/',mainController.index);
 router.get('/careers',mainController.careers);
 
-console.log("In Main Routes")
+
 module.exports = router;

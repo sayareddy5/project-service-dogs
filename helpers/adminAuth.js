@@ -8,13 +8,9 @@ async function isLoggedIn(req, res, next) {
             const user = await User.findOne({ username: current_user_username });
             
             if (user && user.isAdmin) {
-               
-                console.log("in user admin okay")
                 return next();
 
             }else{
-                console.log("in user admin not okay")
-
                 req.session.returnTo = req.originalUrl;
                 return res.render('admin/admin-login', { error: "The user is not authorized to access this page. Please try with admin credentials.",authorized: false,
                 username: null,
@@ -23,14 +19,14 @@ async function isLoggedIn(req, res, next) {
             }
         }
         
-        console.log("not reached end")
-        // User is not logged in or not an admin, redirect to /admin/login and send an error message
+        
+        // user is not logged in or not an admin, redirect to /admin/login 
         return res.render('admin/admin-login', { error: null,authorized: false,
         username: null,
         title: " Admin Login",
         layout: 'baseTemplates/admin', });
     } catch (error) {
-        // Handle errors, such as database connection issues
+
         console.error(error);
         return res.status(500).send("Internal Server Error");
     }

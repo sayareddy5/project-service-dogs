@@ -9,5 +9,4 @@ router.get('/',ContactController.index);
 router.post('/contact-request',ContactController.contactFormHandle);
 
 
-console.log("In Contact Routes")
 module.exports = router;

@@ -92,7 +92,7 @@ const UserController = {
       const { username, password } = req.body;
       const user = await User.findOne({ username})
 
-      
+      console.log('Session before save:', req.session);
       if(!user){
         // req.session.error = true
         return res.render('user/login', {
@@ -111,6 +111,9 @@ const UserController = {
           authorized: true,
           imageUrl: user.imageUrl ? user.imageUrl : null
         }
+        await req.session.save()
+        
+        console.log('Session after save:', req.session);
         const returnTo = req.session.returnTo || "/"
         
         return res.redirect(returnTo);
@@ -135,7 +138,7 @@ const UserController = {
 
   handleForgotPassword: async (req, res) =>{
       const { email } = req.body;
-      const resetToken = crypto.randomBytes(20).toString('hex');
+      const resetToken = crypto.randomBytes(60).toString('hex');
       const getUser = await User.findOne({email: email})
       try{
 
@@ -155,7 +158,6 @@ const UserController = {
 
           transporter.sendMail(mailOptions, (error, info) => {
               if (error) {
-                console.error(error);
                 return res.status(500).send('Error sending email.');
               } else {
                 console.log('Email sent: ' + info.response);
@@ -200,7 +202,6 @@ const UserController = {
           imageUrl: user.imageUrl ? user.imageUrl : null
           
         };
-        console.log(user)
         await user.save();
         const imageUrl = user.imageUrl
         res.render('user/reset-succesful', { authorized:req.session.user.authorized, username:req.session.user.username, error: null, title:"password reset Succesful" ,imageUrl:imageUrl});
@@ -209,7 +210,6 @@ const UserController = {
       }
   },
   getProfilePage: async (req, res) => {
-      console.log("in get profile page")
       const authorized = req.session.user && req.session.user.authorized === true;
       const username = req.session.user ? req.session.user.username : null;
 
@@ -225,13 +225,12 @@ const UserController = {
       const lastName = user.lastName ? user.lastName : null
       const imageUrl = user.imageUrl ? user.imageUrl : null
       
-      console.log("sending get profile page")
       
       return res.render('user/profile', { authorized, username, error: null, title: 'Profile',firstName:firstName, lastName:lastName,imageUrl:imageUrl , successMessage: successMessage});
   },
 
   saveProfilePage: async (req, res) => {
-      console.log("in savveeee profile prage")
+
       const reqestedUsername = req.params.username
 
       
@@ -242,14 +241,10 @@ const UserController = {
           res.status(500).json({ error: "Internal server error." });
       }
 
-     
-      console.log("image path", req.file)
-
       const newImageUrl = req.file ? `/uploads/${req.file.filename}` : null;
       const { firstName, lastName} = req.body;
 
       const existingProfile = await User.findOne({ username: username });
-      console.log("existing user", existingProfile)
 
       try {
           // const existingProfile = await User.findOne({ username: username });
@@ -278,7 +273,6 @@ const UserController = {
           const UpdatedlastName = existingProfile.lastName ? existingProfile.lastName : null
           const imageUrl = existingProfile.imageUrl ? existingProfile.imageUrl : null
           req.session.user.imageUrl = imageUrl
-          console.log("image url sending: ",imageUrl)
 
           return res.render('user/profile', { authorized, username, error: null, title: 'Profile',firstName:UpdatedfirstName, lastName:UpdatedlastName,imageUrl:imageUrl,  successMessage:"Profile changed Succesfully"});
 
@@ -300,14 +294,12 @@ const UserController = {
 
   handleChangePassword : async(req, res) =>{
     const { userId, oldPassword, newPassword} = req.body;
-    console.log("user id",userId)
     try {
         const user = await User.findOne({_id : userId});
 
         if (!user) {
             return res.status(404).json({ error: 'User not found.' });
         }
-        console.log("passwords: ",user.password,oldPassword )
         // Check if the old password provided matches the user's current password
         if (user.password !== oldPassword) {
             return res.status(401).json({ error: 'Incorrect old password.' });

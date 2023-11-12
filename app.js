@@ -1,7 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const session = require("express-session")
 const path = require('path');
+const crypto = require('crypto');
+const passport = require('passport');
+const expressLayouts = require("express-ejs-layouts");
+const multer = require("./config/multerC")
+const {db, MongoStore} = require("./config/database")
+
+// route imports
 const mainRoutes = require('./src/routes/mainRouteFfile');
 const userRoutes = require('./src/routes/userRouteFile');
 const aboutRoutes = require('./src/routes/aboutRouterFile');
@@ -11,30 +17,22 @@ const donateRoutes = require('./src/routes/donateRouterFile');
 const feedRoutes = require('./src/routes/feedRouterFile');
 const volunteerRoutes = require('./src/routes/volunteerRouterFile');
 const adminRoutes = require('./src/routes/adminRouterFile');
-const crypto = require('crypto');
-const passport = require('passport');
-
-const expressLayouts = require("express-ejs-layouts");
-const multer = require("./config/multerC")
 
 const secret = crypto.randomBytes(32).toString('hex');
-console.log('Generated Secret Key:', secret);
-
 const app = express();
 
-// MongoDB connection setup
-const db = require('./config/database');
 
-app.use(session({
-  secret: secret,
-  resave: false,
-  saveUninitialized: true,
-  store:new (require('express-session').MemoryStore)(),
-  cookie: {
-    maxAge: 1000 * 60 * 60 * 24 * 30,
-  },
-  cookie: { secure: false },
-}));
+app.use(
+  session({
+    secret: secret,
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: db }),
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24,
+    },
+  })
+);
 
 // Middleware
 app.use(passport.initialize());
@@ -60,8 +58,6 @@ app.use('/feed', feedRoutes);
 app.use('/contact', contactRoutes);
 app.use('/donate', donateRoutes);
 app.use('/admin', adminRoutes);
-
-
 
 
 const port = process.env.PORT || 3000;

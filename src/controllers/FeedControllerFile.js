@@ -74,28 +74,23 @@ const FeedController = {
     createFeed: async( req, res) =>{
         
         try {
-            // Get other form data from the request body
             const { description, username } = req.body;
-    
-            // Get the image buffer data and content type
+
             const filePath = req.file.path;
-           
+
             const user = await User.findOne({ username: username });
             
-            // Create a new feed instance with image data and content type
             const newFeed = new Feed({
                 imageUrl: filePath,
                 description: description,
                 user: user 
             });
     
-            // Save the feed to the database
+ 
             const savedFeed = await newFeed.save();
     
-            // Respond with the saved feed data
             return res.redirect("/feed");
         } catch (error) {
-            // Handle error
             console.error(error);
             res.status(500).json({ error: 'Internal Server Error' });
         }
@@ -105,16 +100,13 @@ const FeedController = {
             const { postId } = req.params;
             const { commentText } = req.body;
             
-            const username = req.session.user.username; // Get the authenticated user's ID from the session
+            const username = req.session.user.username; 
             const userComment = await User.findOne({username: username})
-            // Find the feed by postId
             const feed = await Feed.findById(postId);
     
             if (!feed) {
                 return res.status(404).json({ error: 'Feed not found' });
             }
-
-            // Create a new comment and associate it with the current user
             
             const newComment = new Comment({
                 user: userComment,
@@ -158,25 +150,21 @@ const FeedController = {
 
             if (liked) {
 
-                console.log("user deleting like")
-                // User wants to remove the like
+                // user already like so remove the like
                 const likeInstance = await Like.findOne({ user: userLiked, postId: currentFeed })
 
                 await Like.findByIdAndRemove({_id: likeInstance._id});
                 currentFeed.likes.pull(likeInstance._id)
                 await currentFeed.save();
-                console.log("reoved feed")
-                
             } else {
-                console.log("user liking like")
+                // user liked the post
                 const newLike = new Like({ user: userLiked, postId: currentFeed });
                 await newLike.save()
-                console.log("currentfeed", currentFeed)
                 currentFeed.likes.push(newLike)
                 await currentFeed.save()
             }
 
-            // Retrieve the updated post with populated user and comments
+            // retrieve the updated post with populated user and comments
             updatedPost = await Feed.findById(postId)
                 .populate({
                     path: 'user',

@@ -17,6 +17,4 @@ router.get('/assistance-dogs',OurDogsController.assistanceDogs);
 router.get('/training-application',OurDogsController.trainingApplication);
 router.post('/training-application',OurDogsController.handleTrainingForm);
 
-
-console.log("In Our Dogs Routes")
 module.exports = router;

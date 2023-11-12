@@ -10,5 +10,4 @@ router.get('/faq',AboutController.FAQHandle);
 router.post('/faq/ask-question',AboutController.faqFormHanle);
 router.get('/newsletter',AboutController.newsletterHandle);
 
-console.log("In About Routes")
 module.exports = router;

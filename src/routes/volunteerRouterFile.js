@@ -9,6 +9,4 @@ router.get('/volunteering',VolunteerController.volunteering);
 router.get('/volunteer-application',VolunteerController.showVolunteerApplication);
 router.post('/submit-volunteer-form',VolunteerController.HandleVolunteerForm);
 
-
-console.log("In Volunteer Routes")
 module.exports = router;

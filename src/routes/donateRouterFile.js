@@ -9,6 +9,4 @@ router.get('/',DonateController.index);
 router.get('/payment-page',DonateController.paymentPage);
 router.post('/process-payment',DonateController.handlePayment);
 
-
-console.log("In Donate Routes")
 module.exports = router;

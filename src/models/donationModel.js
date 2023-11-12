@@ -13,8 +13,8 @@ const donationSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
     organizationName: String,
-    emailPermission: Boolean,
-    mailPermission: Boolean,
+    emailPermission: {type: Boolean, default: false},
+    mailPermission: {type: Boolean, default: false},
 
 });
 

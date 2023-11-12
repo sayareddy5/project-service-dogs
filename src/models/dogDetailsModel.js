@@ -11,7 +11,6 @@ const dogDetailsSchema = new mongoose.Schema({
 
 });
 
-// Create a Mongoose model
 const DogDetails = mongoose.model('DogDetails', dogDetailsSchema);
 
 module.exports = DogDetails;

@@ -27,19 +27,16 @@ const AboutController = {
         const { question, email } = req.body;
 
         try {
-            // Create a new Question instance
             const newQuestion = new Question({
                 question,
                 email
             });
 
-            // Save the new question to the database
             await newQuestion.save();
 
-            // Send a success response
             res.status(200).send('Form submitted successfully!');
         } catch (error) {
-            // Handle errors appropriately
+            
             console.error('Error saving question form data:', error);
             res.status(500).send('Internal Server Error');
         }

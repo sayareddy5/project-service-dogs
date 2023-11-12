@@ -20,6 +20,3 @@ const MainController = {
 
 module.exports = MainController
 
-// register: (req,res) => {
-//     res.render('user/login.ejs');
-// }

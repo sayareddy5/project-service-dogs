@@ -10,8 +10,7 @@ function isLoggedIn(req, res, next) {
             return res.status(401).json({ error: 'Unauthorized' });
         } else {
 
-            console.log("redirecting to login")
-            // For non-API routes, redirect to the login page
+            // for non-json routes, redirect to the login page
             req.session.returnTo = req.originalUrl;
             return res.redirect('/user/login');
         }

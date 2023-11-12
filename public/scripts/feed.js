@@ -22,8 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
             event.preventDefault();
             const postId = form.getAttribute('id').split('-')[2];
             const commentText = form.elements.commentText.value;
-            console.log("submittedd comment",postId)
-            console.log("comment text----", commentText)
+            
             if(commentText){
 
                 try {
@@ -129,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (response.ok) {
                     
                     button.closest('.post-container').remove();
-                    console.log('Post deleted successfully');
+                    
                 } else {
                     console.error('Failed to delete post');
                 }

@@ -33,10 +33,10 @@ const DonateController = {
             mailPermission,
         });
 
+        await newDonation.save();
         try {
             
-            const savedDonation = await newDonation.save();
-            // Redirect to PayPal payment page
+            // redirect to PayPal payment page
             const paypalPaymentUrl = `https://www.sandbox.paypal.com/donate/?hosted_button_id=4TTJFAWB6S8U6`;
             res.redirect(paypalPaymentUrl);
         } catch (error) {

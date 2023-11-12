@@ -18,5 +18,4 @@ router.delete('/:postId',isLoggedIn, FeedController.deletePost);
 
 // router.get('/:feedId', FeedController.getFeedById);
 
-console.log("In Feed Routes")
 module.exports = router;

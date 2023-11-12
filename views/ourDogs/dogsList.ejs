@@ -27,9 +27,13 @@
                 <select id="inService" name="inService">
                     <option value="">All</option>
                     
-                    <option value="6">6 months</option>
-                    <option value="12">12 months</option>
-                    <option value="18">18 months</option>
+                    <option value="12">up to 12 months</option>
+                    <option value="18">up to 18 months</option>
+                    <option value="30">up to 30 months</option>
+                    <option value="40">up to 40 months</option>
+                    <option value="50">up to 50 months</option>
+                    <option value="60">up to 60 months</option>
+                    <option value="70">up to 70 months</option>
                     
                 </select>
             </div>
@@ -122,7 +126,7 @@
             
             if (response.ok) {
                 const totalDogsList = await response.json();
-                console.log(totalDogsList)
+                
                 displayFilteredDogs(totalDogsList);
             } else {
                 console.error('Error occurred while fetching dogs list');
@@ -137,13 +141,13 @@
             const selectedBreed = breedFilter.value;
             const selectedStatus = statusFilter.value;
             const selectedInService = inServiceFilter.value;
-            console.log("filtertags: ",selectedBreed,selectedStatus, selectedInService)
+            
             try {
                 const response = await fetch(`/our-dogs/total-dogs-list/filter?breed=${selectedBreed}&status=${selectedStatus}&inService=${selectedInService}`);
                 
                 if (response.ok) {
                     const filteredDogs = await response.json();
-                    console.log(filteredDogs)
+                    
                     displayFilteredDogs(filteredDogs);
                 } else {
                     console.error('Error occurred while fetching filtered dogs');

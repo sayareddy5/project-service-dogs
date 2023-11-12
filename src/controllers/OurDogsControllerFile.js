@@ -67,21 +67,18 @@ const OurDogsController = {
         try {
             const formData = req.body;
             
-            console.log(formData)
             const applicationForm = new ApplicationForm(formData);
 
             await applicationForm.save();
             res.status(200).json({ success: true });
         } catch (error) {
         
-            console.error('Form submission error:', error);
             res.status(500).json({ success: false, error: 'Form submission failed' });
         }
     },
     fullDogsList : async (req, res) => {
         try {
             const totalDogs = await DogDetails.find({})
-            console.log(totalDogs)
             res.json(totalDogs);
         } catch (error) {
             res.status(500).json({ error: 'Internal Server Error' });
@@ -91,31 +88,28 @@ const OurDogsController = {
         const { breed, inService, status } = req.query;
         let filter = {};
         
-        console.log("got request filtering", breed, inService, status)
-        
         if (breed) {
-            console.log("in breed")
+            
 
-            filter.breed = breed;
+            filter.breed = breed.toLowerCase();
         }
-        console.log("filter : ", filter)
+        
         if (inService) {
-            console.log("inservice")
-            filter.inService = parseInt(inService);
+            
+            filter.inService = { $lte: inServiceValue };
+            
+            
         }
-        console.log("filter : ", filter)
-
+        
         if (status) {
-            console.log("in status")
 
             filter.status = status;
         }
-        console.log("filter : ", filter)
+        
 
         try {
             const filteredDogs = await DogDetails.find(filter);
-            console.log(filteredDogs
-                )
+            
             res.json(filteredDogs);
         } catch (error) {
             res.status(500).json({ error: 'Internal Server Error' });

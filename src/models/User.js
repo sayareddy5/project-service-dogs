@@ -18,8 +18,7 @@ const userSchema = new mongoose.Schema({
 }, {timestamps : true});
 
 const User = mongoose.model('User', userSchema);
-console.log("user-data",User)
-console.log("In UserModel")
+
 module.exports = User;
 
 

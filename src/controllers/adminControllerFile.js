@@ -13,13 +13,9 @@ const AdminController = {
         try{
 
             const userObject = await User.findOne({username})
-           
-            console.log(userObject)
-            console.log(userObject.isAdmin)
+    
             if(!userObject.isAdmin){
                 username = null
-    
-                console.log("in index inside",username);
             }
         }catch(error){
             console.log("error")
@@ -31,17 +27,12 @@ const AdminController = {
         const authorized = req.session.user && req.session.user.authorized === true;
         var username = req.session.user ? req.session.user.username : null;
         
-        console.log("username", username)
         try{
 
             const userObject = await User.findOne({username : username})
-           
-            console.log(userObject)
-            console.log(userObject.isAdmin)
             if(!userObject.isAdmin){
                 username = null
     
-                console.log("in login inside",username);
             }
         }catch(error){
             console.log(error)
@@ -57,19 +48,13 @@ const AdminController = {
         try{
 
             const userObject = await User.findOne({username})
-           
-            console.log(userObject)
-            console.log(userObject.isAdmin)
             if(!userObject.isAdmin){
                 username = null
-    
-                console.log("in register inside",username);
             }
         }catch(error){
             console.log("error")
         }
 
-        console.log("register after if",username);
         return res.render('admin/admin-register.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Admin Register",error: null});
     },
 
@@ -152,7 +137,6 @@ const AdminController = {
             const newUser = new User({ username, email, password,isAdmin });
             await newUser.save();
         
-            // res.redirect('/user/success');
             return res.redirect("/admin/login")
         } catch (err) {
             console.error(err);
@@ -210,7 +194,7 @@ const AdminController = {
             
             const newDogDetails = new DogDetails({
                 imageUrl: imagePath,
-                breed: breed,
+                breed: breed.toLowerCase(),
                 age: age,
                 inService: service,
                 status: status
@@ -219,6 +203,7 @@ const AdminController = {
             newDogDetails.save()
             return res.redirect("/admin")
         }catch(error){
+            
             console.log("error occured while saving dog image",error)
         }
                 
