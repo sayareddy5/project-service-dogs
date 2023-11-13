@@ -15,4 +15,4 @@ db.once('open', () => {
   console.log('MongoDB connected successfully');
 });
 
-module.exports = {db, MongoStore};
+module.exports = {db,session, MongoStore};

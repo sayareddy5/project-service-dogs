@@ -1,11 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const crypto = require('crypto');
 const passport = require('passport');
 const expressLayouts = require("express-ejs-layouts");
-const multer = require("./config/multerC")
-const {db, MongoStore} = require("./config/database")
+const multer = require("./config/multerC");
+
+// database configure
+const {db,session, MongoStore} = require("./config/database");
 
 // route imports
 const mainRoutes = require('./src/routes/mainRouteFfile');
@@ -18,13 +19,13 @@ const feedRoutes = require('./src/routes/feedRouterFile');
 const volunteerRoutes = require('./src/routes/volunteerRouterFile');
 const adminRoutes = require('./src/routes/adminRouterFile');
 
-const secret = crypto.randomBytes(32).toString('hex');
+
 const app = express();
 
-
+// configuring sessions
 app.use(
   session({
-    secret: secret,
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: new MongoStore({ mongooseConnection: db }),

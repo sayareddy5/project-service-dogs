@@ -132,9 +132,9 @@ const AdminController = {
                 layout: 'baseTemplates/admin',
                 });
             }
-            const isAdmin = true;
             // or create a new user 
-            const newUser = new User({ username, email, password,isAdmin });
+            const isAdmin = true;
+            const newUser = new User({ username, email, password, isAdmin });
             await newUser.save();
         
             return res.redirect("/admin/login")

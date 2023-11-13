@@ -18,6 +18,15 @@ This website design and content have been inspired by guidedogs.com. The overall
   - EMAIL_ID = 'your email id'
   - EMAIL_PASSWORD = 'your password'
 
+- Also create a session secret key with value in .env
+
+  SESSION_SECTRET = "your secret"
+
+- The port number the app use by default is '3000'. If you want to use different port number , create a port key and number in .env file
+
+  - PORT = 3004
+
 - run command "npm install". This will install all the necessary packages used in the project.
+
 - run command "node app.js". This will startup the local server. Naviagte to any browser
-  and got to http://localhost:3000 .
+  and got to http://localhost:3000 . Note: the app url is 3000 by default, use your port number if changed the default.
