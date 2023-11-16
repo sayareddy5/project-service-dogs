@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // });
             logoImage.src = '/images/logo-black.png';
             logoImage.style.maxHeight = '60px';
-            header.style.boxShadow = "4px 6px 6px grey";
+            // header.style.boxShadow = "4px 6px 6px grey";
         } else {
             // header.style.backgroundColor = 'transparent';
             // menuLinks.forEach(function(link) {

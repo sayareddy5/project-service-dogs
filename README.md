@@ -15,6 +15,7 @@ This website design and content have been inspired by guidedogs.com. The overall
 - This app used nodemailer package to send reset mail
 - if using less secure mail providers we can easilty setup nodemailer Email and password in .env file ,if using gmail, create an app password in gmail account.
 
+  - EMAIL_SERVICE = 'email service provider'
   - EMAIL_ID = 'your email id'
   - EMAIL_PASSWORD = 'your password'
 

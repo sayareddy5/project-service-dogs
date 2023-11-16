@@ -11,16 +11,24 @@ passport.use(new GoogleStrategy({
     },
     async (accessToken, refreshToken, profile, done) => {
         try {
+            // genereate a username with the displayName
             let generatedUsername = generateUniqueUsername(profile.displayName);
+
+            // check if the user exits with the users profile.id , we get from the google
             const user = await User.findOne({ googleId: profile.id });
 
             if (user) {
+
+                // return the user
                 return done(null, user);
             } else {
+
+                // check if the generate username name exits because we append random numners at the end, there is a probability if the username already exists
                 while (await User.findOne({ username: generatedUsername })) {
                     generatedUsername = generateUniqueUsername(profile.displayName);
                 }
 
+                // create a new user isntance
                 const newUser = new User({
                     googleId: profile.id,
                     username: generatedUsername,
@@ -30,6 +38,7 @@ passport.use(new GoogleStrategy({
                     
                 });
 
+                // save the new user
                 await newUser.save();
                 
                 return done(null, newUser);
@@ -41,6 +50,7 @@ passport.use(new GoogleStrategy({
 ));
 
 function generateUniqueUsername(displayName) {
+    // function used for generating a username which appends some random number and returns the generate username
     const baseUsername = displayName.replace(/\s/g, '').toLowerCase();
     const randomSuffix = Math.floor(Math.random() * 9000) + 1000
     const uniqueUsername = `${baseUsername}${randomSuffix}`;

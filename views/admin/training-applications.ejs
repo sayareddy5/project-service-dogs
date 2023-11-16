@@ -1,10 +1,12 @@
-<div class="application-main-container training-requests-container">
+<div style="margin-top:14rem;" class="application-main-container training-requests-container">
     <% trainingRequests.forEach(function(application) { %>
         <div class="application-container">
 
-            <p>Name: <span><%= application.name %></span></p>
+            <p>Name: <span><%= application.firstName %> <%= application.lastName %></span></p>
+            <p>City: <span><%= application.city %></span></p>
+            <p>Registered Blind: <span><%= application.registeredBlind %></span></p>
             <p>Occupation: <span><%= application.occupation %></span></p>
-            <p>Age: <span><%= application.age %></span></p>
+            <p>Date of Birth: <span><%= application.dob %></span></p>
             <p>Date Requested: <span><%= application.applicationDate.toLocaleDateString() %></span></p>
         </div>
         

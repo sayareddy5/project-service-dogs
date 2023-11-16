@@ -1,7 +1,9 @@
-<div class="admin-container">
-    <a href="/admin/upload-dog-content"> <button class="action-button"> Upload Dog Content</button></a>
-    <a href="/admin/volunteer-requests"><button class="action-button"> Volunteer Requests</button></a>
-    <a href="/admin/training-applications"><button class="action-button"> Training Applications</button></a>
+<div style="margin-top:16rem;">
+
+    <div class="admin-container">
+        <a href="/admin/upload-dog-content"> <button class="action-button"> Upload Dog Content</button></a>
+        <a href="/admin/volunteer-requests"><button class="action-button"> Volunteer Requests</button></a>
+        <a href="/admin/training-applications"><button class="action-button"> Training Applications</button></a>
 </div>
 
 <div id="dogImageModal" class="modal">
@@ -9,7 +11,7 @@
         <span class="close">&times;</span>
         <h2>Dog Image Upload</h2>
         <form action="/admin/dog-photos" enctype="multipart/form-data" method="POST">
-
+            
             
             <label for="image">Image: </label>
             <input type="file" accept="image/*" id="dogImageFile" name="image">
@@ -38,7 +40,7 @@
             </div>
             <div>
                 <label for="inService">In Service:</label>
-
+                
                 <input type="text" placeholder="Months" id="inService" name="service">
             </div>
             <div>
@@ -52,4 +54,5 @@
             <button id="submitDog">Submit</button>
         </form>
     </div>
+        </div>
 </div>

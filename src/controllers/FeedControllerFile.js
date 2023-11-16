@@ -4,11 +4,13 @@ const fs = require('fs');
 
 const FeedController = {
     home: async (req, res) => {
+        // get the user details if the user exists in  req.session  object
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
         const userImageUrl = req.session.user ? req.session.user.imageUrl : null
-
+        
         try {
+            // get all the feed data and populate it with the user details, comments and likes and sort them in recent data
             const totalPosts = await Feed.find({})
             .populate({
                 path: 'user',
@@ -25,6 +27,9 @@ const FeedController = {
             .sort({ datePosted: -1 });
 
             
+            console.log(totalPosts)
+            // render the feed page with the necessary details
+        
             res.render('feed/feed-main.ejs',{authorized, username, title: "Feed",totalPosts : totalPosts, imageUrl:userImageUrl});
         } catch (error) {
             console.error(error);
@@ -34,20 +39,28 @@ const FeedController = {
     },
 
     showCreatePost: async (req, res) =>{
+        // get the user details if the user exists in  req.session  object
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
         const userImageUrl = req.session.user ? req.session.user.imageUrl : null
 
+        // render the page witrh required details
         res.render('feed/new-post.ejs',{authorized, username, title: "Create Post",imageUrl:userImageUrl});
     },
     showUserPosts: async (req, res) =>{
+        // get the user details if the user exists in  req.session  object
         const authorized = req.session.user && req.session.user.authorized === true;
         const username = req.session.user ? req.session.user.username : null;
         var userImageUrl = req.session.user ? req.session.user.imageUrl : null
 
         try{
+            // get the user based on the username from the re.session object
             const user = await User.findOne({ username : username})
+
+            // check if the has profile image else set it to null
             var userImageUrl = user.imageUrl ? user.imageUrl : null
+
+            // get all the user posts and sort them in new data first and populate it with the user info, comment and likes of the feeds
             const userPosts = await Feed.find({ user: user._id }).populate({
                 path: 'user',
                 select: 'username imageUrl', 
@@ -74,21 +87,25 @@ const FeedController = {
     createFeed: async( req, res) =>{
         
         try {
+            // get the feed data from the req.body object
             const { description, username } = req.body;
 
+            // get the file path from the req.file object
             const filePath = req.file.path;
 
+            // get the current user based on  the username
             const user = await User.findOne({ username: username });
             
+            // create a new feed instance
             const newFeed = new Feed({
                 imageUrl: filePath,
                 description: description,
                 user: user 
             });
     
- 
-            const savedFeed = await newFeed.save();
-    
+            // save the new feed data
+            await newFeed.save();
+            
             return res.redirect("/feed");
         } catch (error) {
             console.error(error);
@@ -97,26 +114,36 @@ const FeedController = {
     },
     postComment: async (req, res) => {
         try {
+            // get the post id from  the url, which is stored in req.params
             const { postId } = req.params;
+            // get the comment data from req.body
             const { commentText } = req.body;
             
+            // get the current user
             const username = req.session.user.username; 
+
             const userComment = await User.findOne({username: username})
+
+            // get the current feed  user comment by the postId
             const feed = await Feed.findById(postId);
-    
+            
+            // if no feed exists return error
             if (!feed) {
                 return res.status(404).json({ error: 'Feed not found' });
             }
             
+            // else create a new comment isntance
             const newComment = new Comment({
                 user: userComment,
                 comment: commentText,
                 postId: postId
             })
             await newComment.save()
+            // push the new comment to the feed comments array
             feed.comments.push(newComment);
+            // save the Updated feed data
             await feed.save();
-           
+
             res.status(201).json({ totalComments: feed.comments.length, newComment: newComment });
         } catch (error) {
             console.error('Error posting comment:', error);
@@ -128,9 +155,9 @@ const FeedController = {
         const { postId } = req.params;
 
         try {
-            
+            // delete the feed 
             await Feed.findByIdAndRemove(postId);
-            res.status(204).send(); // Send a success response
+            res.status(204).send(); 
         } catch (error) {
             console.error('Error deleting post:', error);
             res.status(500).json({ error: 'Internal Server Error' });

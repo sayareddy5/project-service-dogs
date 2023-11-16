@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <link rel="stylesheet" type="text/css" href="/css/userLoginRegister.css">
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -35,7 +38,7 @@
         .modal {
             display: none;
             position: fixed;
-            z-index: 1;
+            z-index: 1000000;
             left: 0;
             top: 0;
             width: 100%;
@@ -55,7 +58,7 @@
         .close {
             color: #aaa;
             float: right;
-            font-size: 28px;
+            font-size: 35px;
             font-weight: bold;
             cursor: pointer;
         }
@@ -95,7 +98,12 @@
             margin-bottom: 10px;
             font-size: 16px;
         }
-        
+        button{
+            background-color: blue;
+            color:white;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
         a {
             color: blue;
             text-decoration: none;
@@ -116,26 +124,47 @@
             margin-left: auto;
             margin-right: auto
         }
+
         
     </style>
 </head>
 
 <body>
-    <div>
-        <h1> Welcome to Admin Page</h1>
 
-        <p><a href="/admin">Admin Main  Page</a></p>
-        <% if (authorized && username) { %>
-            <p class="">Hi, Admin <span style="font-size: 1.6rem"><%= username %></span> !&nbsp</>
-            <a href="/admin/logout"><button class="action-button">Logout</button></a>
+    <div class="header">
+        
+        <div class="navbar">
+            <div class="logo-header">
+                <a class="navbar-brand" href="/admin">
+                    <img id="logoImage" src="/images/logo-primary.png" alt="Logo" class="logo">
+                </a>
+                
+                <div class="menu-icon" id="menuIcon">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+            <div class="menu" id="navbarNav">
+                
+                <ul class="user-login">
+                    
+                    <% if (authorized && username) { %>
+                
+                    <p class="">Hi, <span style="font-size: 1.6rem"><%= username %></span> !&nbsp</p>
+                    <li class=""><a href="/admin/logout">Logout</a></li>
+                    <% } else { %>
+                    <li class=""><a href="/admin/login">Login</a></li>
+                    <li class=""><a href="/admin/register">Sign Up</a></li>
+                    <% } %>
+                </ul>
 
-            <% } else { %>
-            <a href="/admin/login"><button class="action-button" >Login</button></a>
-            <a href="/admin/register"><button class="action-button">Sign Up</button></a>
-        <% } %>
+                
+            </div>
+            <!-- <h2 style="display:inline;">Admin Page</h2> -->
+            <a href="/admin"><button>Admin Home Page</button></a>
+        </div>
+        
     </div>
-
-    <div>
+    <div >
         <%- body %>
     </div>
     

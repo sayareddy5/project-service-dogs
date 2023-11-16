@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const User = require("../models/User")
-
 
 const commentSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
@@ -8,6 +6,7 @@ const commentSchema = new mongoose.Schema({
     datePosted: { type: Date, default: Date.now },
     postId: { type: mongoose.Schema.Types.ObjectId, ref: 'Feed', required: true },
 }, { timestamps: true });
+
 
 const likeSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
@@ -25,6 +24,9 @@ const feedSchema = new mongoose.Schema({
     totalLikes: { type: Number, default: 0 },
     totalComments: { type: Number, default: 0 },
 } , {timestamps : true});
+
+
+
 
 const Feed = mongoose.model('Feed', feedSchema);
 const Like = mongoose.model('Like', likeSchema);

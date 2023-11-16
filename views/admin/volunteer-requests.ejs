@@ -1,8 +1,8 @@
-<div class="application-main-container volunteer-requests-container">
+<div style="margin-top:16rem;" class="application-main-container volunteer-requests-container">
     <% volunteerRequests.forEach(function(application) { %>
         <div class="application-container">
 
-            <p>Name: <span><%= application.name %></span></p>
+            <p>Name: <span><%= application.firstName %> <%= application.lastName %></span></p>
             <p>Occupation: <span><%= application.occupation %></span></p>
             <p>Age: <span><%= application.age %></span></p>
             <p>Date Requested: <span><%= application.requestDate.toLocaleDateString() %></span></p>

@@ -1,6 +1,5 @@
-
-
 const mongoose = require('mongoose');
+const {Comment, Like, Feed} = require("../models/userFeed")
 
 const userSchema = new mongoose.Schema({
   imageUrl: {type: String},
@@ -16,6 +15,27 @@ const userSchema = new mongoose.Schema({
   resetCode: { type: String },
   mobileNumber: {type: String},
 }, {timestamps : true});
+
+userSchema.pre('remove', async function (next) {
+
+  const userId = this._id;
+
+  try {
+    // Remove likes associated with the user
+    await Like.deleteMany({ user: userId });
+
+    // Remove comments associated with the user
+    await Comment.deleteMany({ user: userId });
+
+    // Remove feeds created by the user
+    await Feed.deleteMany({ user: userId });
+
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 const User = mongoose.model('User', userSchema);
 

@@ -1,17 +1,20 @@
 const User = require('../models/User');
-const cache = require('memory-cache');
 const passport = require("../controllers/authController")
 const fs = require('fs');
 const path = require('path');
+const bcrypt = require('bcrypt')
 
 require('dotenv').config();
-const crypto = require("crypto")
-cache.put('user_logged', false);
+const saltRounds = 10;
 
+const crypto = require("crypto")
+
+// use nodemailer to send the emails to the user
 const nodemailer = require('nodemailer');
 
+// setup the required authentication to send an email
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: process.env.EMAIL_SERVICE,
   auth: {
     user: process.env.EMAIL_ID,
     pass: process.env.EMAIL_PASSWORD,
@@ -21,6 +24,7 @@ const transporter = nodemailer.createTransport({
 const UserController = {
 
   showRegisterForm: (req, res) => {
+    // get the user details if the user exists in  req.session  object
     const authorized = req.session.user && req.session.user.authorized === true;
     const username = req.session.user ? req.session.user.username : null;
     
@@ -64,7 +68,8 @@ const UserController = {
         }
 
         // or create a new user 
-        const newUser = new User({ username, email, password, firstName,lastName });
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        const newUser = new User({ username, email, password:hashedPassword, firstName,lastName });
         await newUser.save();
       
         // res.redirect('/user/success');
@@ -76,6 +81,7 @@ const UserController = {
   },
 
   showLoginForm: (req, res) => {
+    // get the user details if the user exists in  req.session  object
       const authorized = req.session.user && req.session.user.authorized === true;
       const username = req.session.user ? req.session.user.username : null;
       
@@ -92,7 +98,6 @@ const UserController = {
       const { username, password } = req.body;
       const user = await User.findOne({ username})
 
-      console.log('Session before save:', req.session);
       if(!user){
         // req.session.error = true
         return res.render('user/login', {
@@ -100,11 +105,12 @@ const UserController = {
           username: null,
           error: 'User does not exist',
           title: "Login"
-      })
+        })
       }
-      
-      if(password == user.password){
-        
+      const passwordMatch = bcrypt.compare(password, user.password);
+
+      if(passwordMatch){
+        // save the user in req.session object
         req.session.user = {
           id: user._id,
           username: user.username,
@@ -113,7 +119,7 @@ const UserController = {
         }
         await req.session.save()
         
-        console.log('Session after save:', req.session);
+       
         const returnTo = req.session.returnTo || "/"
         
         return res.redirect(returnTo);
@@ -132,20 +138,26 @@ const UserController = {
     req.session.destroy();
     return res.redirect("/");
   },
+
   showForgotPassword: (req, res) => {
     res.render('user/reset-page', { authorized:null, username:null, error: null, title:"Forgot Password" ,imageUrl:null});
   },
 
   handleForgotPassword: async (req, res) =>{
       const { email } = req.body;
+
+      // gnerate a random token
       const resetToken = crypto.randomBytes(60).toString('hex');
       const getUser = await User.findOne({email: email})
       try{
 
         if (getUser) {
+          // set the token in the users resetCode field
           getUser.resetCode = resetToken;
+          // save the user with the reset token
           await getUser.save();
           
+          // construct an email to send to the user to reset their password with the link
           const mailOptions = {
             from: process.env.EMAIL_ID,
             to: email,
@@ -156,6 +168,7 @@ const UserController = {
             </div>`
           };
 
+          // send the email to the user
           transporter.sendMail(mailOptions, (error, info) => {
               if (error) {
                 return res.status(500).send('Error sending email.');
@@ -172,20 +185,27 @@ const UserController = {
       }
   },
   handleResetToken: async(req, res) =>{
+
+      // get the token from the req.query
       const { token } = req.query;
 
-      
+      // fing the user with the given token
       const user = await User.findOne({ resetCode: token });
       
       if (!user) {
           return res.send('Invalid or expired reset link.');
       }
       const user_id = user._id
+
+      // render the new-password page to let the user to change therir password
       res.render('user/new-password-page.ejs',{ authorized:null, username:null, error: null, title:"Reset Password" ,resetCode : token, userId:user_id, imageUrl:null} );
   },
 
   handleResetPassword: async(req,res) =>{
+
+      // get the detiils from the req.body
       const { userId, newPassword, resetCode } = req.body;
+      const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
 
       const user = await User.findOne({_id: userId, resetCode: resetCode});
       if (!user) {
@@ -193,8 +213,13 @@ const UserController = {
       }
       try{
 
-        user.password = newPassword;
+        // set the users password to the new password
+        user.password = hashedPassword;
+
+        // set the users resetCode field to null 
         user.resetCode = null;
+
+        // save the user to the req.session 
         req.session.user = {
           id: user._id,
           username: user.username, 
@@ -221,6 +246,7 @@ const UserController = {
         res.send(`User Does not Exist`);
       }
       
+      // check if the user already has filed values exists to pass them to the front end or set to null
       const firstName = user.firstName ? user.firstName : null
       const lastName = user.lastName ? user.lastName : null
       const imageUrl = user.imageUrl ? user.imageUrl : null
@@ -269,6 +295,7 @@ const UserController = {
           
           await existingProfile.save();
 
+          // set the values to the updated filed values if the user provided
           const UpdatedfirstName = existingProfile.firstName ? existingProfile.firstName : null
           const UpdatedlastName = existingProfile.lastName ? existingProfile.lastName : null
           const imageUrl = existingProfile.imageUrl ? existingProfile.imageUrl : null
