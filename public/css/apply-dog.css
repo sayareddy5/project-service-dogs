@@ -6,6 +6,9 @@
     /* background-color: red; */
 }
 
+.apply-dog-main-container{
+    margin-top: 27vh !important;
+}
 
 .dog-type-apply{
 
@@ -38,3 +41,36 @@
     text-transform: uppercase !important;
 }
 
+@media (max-width:1100px){
+    .apply-dog-main-container{
+        margin-top: 20vh !important;
+    }
+    .dog-type-apply img{
+        width: 50%;
+        height: 80%;
+    }
+}
+@media (max-width:990px){
+    .dog-type-apply img{
+        width: 50%;
+        height: 70%;
+        margin-left: .5rem;
+    }
+}
+
+@media (max-width:768px){
+    .apply-dog-main-container{
+        margin-top: 25vh !important;
+    }
+    .dog-type-apply{
+        flex-direction: column;
+        width: 100%;
+        height: max-content;
+        margin-bottom: 3rem;
+        text-align: justify;
+    } 
+    .dog-type-apply img{
+        width: 100%;
+        margin-top: 2rem;
+    }  
+}

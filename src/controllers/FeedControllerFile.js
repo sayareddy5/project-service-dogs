@@ -27,7 +27,7 @@ const FeedController = {
             .sort({ datePosted: -1 });
 
             
-            console.log(totalPosts)
+        
             // render the feed page with the necessary details
         
             res.render('feed/feed-main.ejs',{authorized, username, title: "Feed",totalPosts : totalPosts, imageUrl:userImageUrl});

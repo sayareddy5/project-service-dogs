@@ -90,18 +90,43 @@
 .milestone:last-child {
     margin-bottom: 0;
 }
+@media (max-width: 1100px) {
 
+    .organization-container{
+        margin-top: 20vh;
+    }
+}
+@media (max-width: 992px) {
+    .organization-container{
+        margin-top: 24vh;
+    }
+    .who-we-are{
 
+        display: flex;
+        flex-direction: column;
+    }
+    .organization-image-container,.container-one{
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .organization-image-container{
+        margin: 0;
+    }
+    .container-one{
+        justify-content: flex-end;
+        align-items: center;
+        border-radius: 10px;
+        
+        
+    }
+}
 @media (max-width:768px){
     .who-we-are{
         display: flex;
         flex-direction: column;
         padding: 1rem;
         align-items: center;
-    }
-    .organization-image-container,.container-one{
-        width: 100%;
-    
     }
     .organization-image-container img{
         width: 100%;

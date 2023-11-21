@@ -66,9 +66,10 @@
 }
 
 .instructions-container a{
-    display: inline-block;
-    /* width: 100%; */
-    margin-left:40%;
+    display: block;
+    width: max-content;
+    margin-left:auto;
+    margin-right: auto;
     /* background-color: red; */
 }
 
@@ -247,4 +248,180 @@
 }
 .content-second-header{
     margin:0;
+}
+@media (max-width: 1100px) {
+    
+    .journey-main-container{
+        margin: 0;
+        margin-top: 15vh;
+        margin-bottom: 3rem;
+    }
+    .acquiring-main-container{
+        width: 90%;
+        font-size: 1rem;
+        margin-top: 16vh;
+        /* line-height: 2rem; */
+    }
+    .training-main-container{
+        margin-top: 16vh;
+        font-size: 1rem;
+        
+    }
+    .reality-main-container{
+        margin-top: 16vh;
+    }
+}
+
+
+@media (max-width: 992px) {
+    
+    .acquiring-main-container{
+        width: 90%;
+        font-size: 1rem;
+        margin-top: 16vh;
+        /* line-height: 2rem; */
+    }
+    .journey-main-container{
+        margin: 0;
+        margin-top: 18vh;
+        margin-bottom: 3rem;
+    }
+    .journey-main-container h1{
+        text-align: center;
+    }
+    .guide-dog-image{
+        width: 90%;
+        margin-top: 1rem;
+    }
+    .guide-dog-inner-content{
+        width: 90%;
+        /* padding: 0 2rem; */
+    }
+
+    .training-main-container{
+        margin-top: 16vh;
+        font-size: 1rem;
+        
+    }
+    .training-input-form input,select{
+        font-size: 1rem;
+    }
+    .reality-main-container{
+        margin-top: 16vh;
+        width: 90%;
+        font-size: 1rem;
+    }
+    .acquiring-main-container h1{
+        line-height: 2.5rem;
+
+    }
+    .information-container{
+        flex-direction: column;
+        height: max-content;
+    }
+    .information-content{
+        width: 100%;
+        font-size: 1rem;      
+    }
+    .information-content h1{
+        text-align: left;
+    }
+    
+    .information-image {
+        width: 100%;
+    }
+    .financial-container{
+        flex-direction: column;
+    }
+    
+    .financial-content{
+        width: 100%;
+    }
+    
+    .financial-image img{
+        width: 100%;
+        height: 100%;
+        margin-right: 0;
+    }
+    .information-reality-container{
+        flex-direction: column;
+    
+    }
+    .information-reality-content{
+        width: 100%;
+    }
+
+    .information-reality-image{
+        width: 100%;
+    }
+    
+    .information-reality-image img{
+        width: 100%;
+        height: 100%;
+    }
+    .training-input-form{
+        width: 90%;
+        padding: 2rem;
+
+    }
+    .option-form div{
+        width: 100%;
+    }
+}
+@media (max-width: 768px) {
+    .acquiring-main-container{
+        width: 90%;
+        font-size: 1rem;
+        margin-top: 23vh;
+        /* line-height: 2rem; */
+    }
+    .reality-main-container{
+        margin-top: 26vh;
+        width: 90%;
+        font-size: 1rem;
+    }
+    .training-main-container{
+        margin-top: 25vh;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 1rem;
+    }
+    .training-input-form{
+        padding: 1rem;
+    }
+    .guide-dog-content{
+        font-size: 1rem;
+        flex-direction: column;
+    }
+    .journey-main-container{
+        margin: 0;
+        width: 90%;
+        margin-top: 25vh;
+        margin-bottom: 3rem;
+    }
+    .acquiring-main-container{
+        width: 90%;
+        font-size: 1rem;
+        margin-top: 16vh;
+        /* line-height: 2rem; */
+    }
+    .guide-dog-inner-content{
+        width: 90%;
+        /* padding: 0 2rem; */
+    }
+}
+
+@media (max-width: 600px) {
+    .acquiring-main-container{
+        margin-top: 27vh;
+    }
+    .reality-main-container{
+        margin-top: 28vh;
+    }
+    .training-main-container{
+        margin-top: 27vh;
+    }
+    .journey-main-container{
+        margin-top: 27vh;
+    }
 }

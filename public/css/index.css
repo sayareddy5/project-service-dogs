@@ -306,9 +306,7 @@ a{
 /* -------------------------- hero section----------------------------------- */
 
 .content-container{
-
     margin-top: 18vh;
-    
 }
 
 .hero {
@@ -475,7 +473,6 @@ a.btn.btn-primary.hero-donate-btn {
 }
 .help-ways-container{
     display: flex;
-    flex-direction: row;
     justify-content: space-around;
     padding: 2rem;
 }
@@ -660,12 +657,60 @@ a.btn.btn-primary.hero-donate-btn {
 
 /* ----------Media query for smaller screens -- */
 @media (max-width: 768px) {
+
+    .help-ways-container{
+        flex-direction: column;
+    }
+    .help-way{
+        border-bottom: 1px solid rgba(0,0,0,.2);
+    }
+    .our-dogs-container{
+        flex-direction: column;
+    }
+    .our-dogs-image{
+        display: none;
+    }
+    .our-dogs-content-container{
+        width: 90%;
+        height: max-content;
+    }
+    .our-organization-image{
+        display: none;
+    }
+    .our-organization-content{
+        width: 80%;
+    }
+
+    .our-organization-content-container{
+        width: 90%;
+    }
+
+    .our-events-inside-container{
+        width: 90%;
+        flex-direction: column;
+    }
+
+    .our-events{
+        width:90%;
+        padding: 0;
+        margin-bottom: 2rem;
+    }
+    .our-events-container{
+        width: 100%;
+        margin: 0;
+    }
+    .our-newsletter-container{
+        width: 90%;
+    }
     .navbar {
         flex-direction: column;
         align-items: flex-start;
         padding: 10px 20px;
     }
-    
+    .logo {
+        max-height: 60px;
+        padding: 20px;
+    }
 
     .menu-icon {
         display: flex;

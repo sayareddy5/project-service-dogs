@@ -110,6 +110,7 @@
 .input-field-password-container {
     display: flex;
     width: 100%;
+
     justify-content: space-between;
 }
 
@@ -346,4 +347,149 @@
 #password-match-error-new{
     font-size: 14px;
     height: 18px;
+}
+
+
+/*--------- for tablet scrrens */
+@media (max-width: 1100px) {
+    .password-reset-container{
+
+        width: 60%;
+
+    }
+    .form-container{
+        width: 60%;
+        min-height: max-content;
+    }
+    .form-group{
+        flex-direction: column;
+        align-self: flex-start;
+        /* background-color: red; */
+        width: 90%;
+        padding: 0;
+        
+    }
+    .form-group label{
+        display: block;
+        width: 90%;
+        /* background-color: red; */
+    }
+    .form-group input{
+        max-width: 90%;
+    }
+    .register-form{
+        display: flex;
+        flex-direction: column;
+    }
+    .input-field-password-container {
+        flex-direction: column;
+        /* background-color: red; */
+        align-items: center;
+
+        
+    }
+    .show-password{
+
+        top: 25%;
+        right: 20px;
+
+    }
+    .confirmpassword-container{
+        /* background-color: red; */
+        align-items: center;
+    }
+    .form-container .errors {
+        bottom: 5rem;
+    }
+    .change-password-container{
+        width: 60%;
+    }
+    .profile-container {
+        width:  60%;
+        padding: 0;
+        padding-bottom: 2rem;
+        
+    }
+    .profile-form-container{
+        flex-direction: column;
+        justify-content: space-around;
+        height: max-content;
+        align-items: center;
+    }
+    .profile-page-details-container{
+        margin-top: 2rem;
+    }
+
+}
+
+/* ----------Media query for smaller screens -- */
+@media (max-width: 768px) {
+
+    .password-reset-container{
+
+        width: 90%;
+
+    }
+    .form-container{
+        width: 90%;
+        min-height: max-content;
+    }
+    .form-group{
+        flex-direction: column;
+        align-self: flex-start;
+        /* background-color: red; */
+        width: 90%;
+        padding: 0;
+        
+    }
+    .form-group label{
+        display: block;
+        width: 90%;
+        /* background-color: red; */
+    }
+    .form-group input{
+        max-width: 90%;
+    }
+    .register-form{
+        display: flex;
+        flex-direction: column;
+    }
+    .input-field-password-container {
+        flex-direction: column;
+        /* background-color: red; */
+        align-items: center;
+
+        
+    }
+    .show-password{
+
+        top: 25%;
+        right: 10px;
+
+    }
+    .confirmpassword-container{
+        /* background-color: red; */
+        align-items: center;
+    }
+    .form-container .errors {
+        bottom: 5rem;
+    }
+    .change-password-container{
+        width: 90%;
+    }
+    .profile-container {
+        width:  90%;
+        padding: 0;
+        padding-bottom: 2rem;
+        
+    }
+    .profile-form-container{
+        flex-direction: column;
+        justify-content: space-around;
+        height: max-content;
+        align-items: center;
+    }
+    .profile-page-details-container{
+        margin-top: 2rem;
+    }
 }
