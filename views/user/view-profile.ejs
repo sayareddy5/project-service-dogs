@@ -1,35 +1,104 @@
 
-<div class="profile-container">
+
+<div class="feed-main-container">
+    <div class="feed-inner-container">
+
+        <div class="sidebar">
+            <ul>
+                <li><a href="/user/<%= userView.username %>" id="homeLink">Profile</a></li>
+                <li><a href="/user/<%= userView.username %>/posts" id="homeLink">Posts</a></li>
+                <li><a href="" id="">message</a></li>
+            </ul>
+        </div>
+        <div class="main-content" id="mainContent">
+           
+            <div class="profile-container">
 
 
-        <div>
-            <div class="profile-page-pic-container">
-                <% if(userProfile.imageUrl) { %>
-                    <img id="profile-avatar" src="<%= userProfile.imageUrl %>" alt="">
-
-                <% } else { %>
-                    <img id="profile-avatar" src="/images/user-avatar.png" alt="">
-
-                <% } %>
-            </div>
+                <div>
+                    <div class="profile-page-pic-container">
+                        <% if(userView.imageUrl) { %>
+                            <img id="profile-avatar" src="<%= userView.imageUrl %>" alt="">
+        
+                        <% } else { %>
+                            <img id="profile-avatar" src="/images/user-avatar.png" alt="">
+        
+                        <% } %>
+                    </div>
+                
+                </div>
+                <div class="profile-page-details-container" >
+        
+                    <div>
+                        <% if(userView.firstName) { %>
+                        <label for="firstName">First Name:</label>
+                        <p > <%= userView.firstName %></p>
+                        <% } %>
+                    </div>
+                    <div>
+                        <% if(userView.lastName) { %>
+                        <label for="lastName">Last Name:</label>
+                        <p> <%= userView.lastName %></p>
+                        <% } %>
+                    </div>
+                    
+                
         
         </div>
-        <div class="profile-page-details-container" >
-
-            <div>
-                <% if(userProfile.firstName) { %>
-                <label for="firstName">First Name:</label>
-                <p type="text" id="firstName" name="firstName" value="<%= firstName ? firstName : '' %> ">
-                <% } %>
-            </div>
-            <div>
-                <% if(userProfile.lastName) { %>
-                <label for="lastName">Last Name:</label>
-                <p type="text" id="lastName" name="lastName" value="<%= lastName ? lastName : '' %>">
-                <% } %>
-            </div>
+        </div>
+        <div>
             
-        
-
+        </div>
+    </div>
+    
 </div>
 
+<script>
+    // Select all like buttons on the page
+    const likeButtons = document.querySelectorAll('.like-btn');
+
+    // Attach click event to each like button
+    likeButtons.forEach(likeButton => {
+        likeButton.addEventListener('click', async function(event) {
+            const postId = likeButton.getAttribute('data-post-id');
+            const likesTotal = document.querySelector(`input[name='likesTotal']`).value;
+            const usernameCurrent = document.querySelector(`input[name='usernameCurrent']`).value;
+            const liked = likeButton.getAttribute('data-liked') === 'true';
+            console.log("user -liked ?",liked)
+            
+            console.log("curretn usernname: ",usernameCurrent)
+            JSON.parse(likesTotal).forEach(item => {
+                const username = item.user.username;
+                console.log(username); 
+            });
+            try {
+                const response = await fetch(`/feed/${postId}/like`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ liked }),
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    
+                    const updatedPost = data.updatedPost;
+
+                    const postElement = document.querySelector(`.post-container[data-post-id="${updatedPost._id}"]`);
+
+                    // Update the like/dislike status in the frontend
+                    likeButton.setAttribute('data-liked', updatedPost.likes.some(like => like.user.username === usernameCurrent));
+                    likeButton.innerHTML = `${updatedPost.likes.some(like => like.user.username === usernameCurrent) ? 'Dislike' : 'Like'} (${updatedPost.likes.length})`;
+                } else {
+                    console.error('Failed to update like/dislike status');
+                }
+            } catch (error) {
+                console.error('Error occurred while updating like/dislike status:', error);
+            }
+        });
+    });
+
+    
+</script>

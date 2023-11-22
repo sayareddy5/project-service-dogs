@@ -359,21 +359,21 @@ const UserController = {
           const userView = await User.findOne({ username : username})
           console.log(userView)
           // get all the user posts and sort them in new data first and populate it with the user info, comment and likes of the feeds
-          const userPosts = await Feed.find({ user: userView._id }).populate({
-              path: 'user',
-              select: 'username imageUrl', 
-          })
-          .populate({
-              path: 'comments.user',
-              select: 'username imageUrl',
-          })
-          .populate({
-              path: 'likes.user',
-              select: 'username',
-          })
-          .sort({ datePosted: -1 });
-
-          res.render('user/view-profile.ejs',{authorized, username: currentUsername, title: `${username} profile`,userPosts : userPosts,imageUrl:userImageUrl,});
+          // const userPosts = await Feed.find({ user: userView._id }).populate({
+          //     path: 'user',
+          //     select: 'username imageUrl', 
+          // })
+          // .populate({
+          //     path: 'comments.user',
+          //     select: 'username imageUrl',
+          // })
+          // .populate({
+          //     path: 'likes.user',
+          //     select: 'username',
+          // })
+          // .sort({ datePosted: -1 });
+          console.log(userView.firstName)
+          res.render('user/view-profile.ejs',{authorized, username: currentUsername, title: `${username} profile`,imageUrl:userImageUrl, userView,});
 
       }catch(error){
           console.error(error);
@@ -407,7 +407,7 @@ const UserController = {
               })
               .sort({ datePosted: -1 });
 
-              res.render('user/view-user-posts.ejs',{authorized, username: currentUsername, title: `${username} profile`,userPosts : userPosts,imageUrl:userImageUrl});
+              res.render('user/view-user-posts.ejs',{authorized, username: currentUsername, title: `${username} profile`,userView,userPosts : userPosts,imageUrl:userImageUrl});
 
           }catch(error){
               console.error(error);
