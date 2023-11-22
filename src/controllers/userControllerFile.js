@@ -42,7 +42,9 @@ const UserController = {
         
         // get registration data
         
-        const { username, email, password, confirmpassword, firstName,lastName } = req.body;
+        const { email, password, confirmpassword, firstName,lastName } = req.body;
+        let usernameUpdated = req.body.username
+  
         if(password != confirmpassword){
           return res.status(400).render("user/register", {
             authorized: false,
@@ -53,7 +55,7 @@ const UserController = {
         }
         // check if the user exists
         const existingUser = await User.findOne({
-            $or: [{ username: username }, { email: email }]
+            $or: [{ username: usernameUpdated }, { email: email }]
         });
 
         if (existingUser) {
@@ -69,7 +71,7 @@ const UserController = {
 
         // or create a new user 
         const hashedPassword = await bcrypt.hash(password, saltRounds);
-        const newUser = new User({ username, email, password:hashedPassword, firstName,lastName });
+        const newUser = new User({ usernameUpdated, email, password:hashedPassword, firstName,lastName });
         await newUser.save();
       
         // res.redirect('/user/success');
@@ -95,7 +97,8 @@ const UserController = {
 
   HandleLoginForm: async (req, res) => {
       
-      const { username, password } = req.body;
+      let  { username, password } = req.body;
+      username = username.toLowerCase()
       const user = await User.findOne({ username})
 
       if(!user){
