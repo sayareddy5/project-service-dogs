@@ -3,15 +3,15 @@
 
         <div class="sidebar">
             <ul>
-                <li><a href="/feed" id="homeLink">Home</a></li>
-                <li><a href="/feed/user-posts" id="yourPostsLink">Your Posts</a></li>
-                <li><a href="/feed/create-new-post" id="newPostLink">New Post</a></li>
+                <li><a href="/feed" id="homeLink">Profile</a></li>
+                <li><a href="/feed" id="homeLink">Posts</a></li>
+                <li><a href="/feed/create-new-post" id="newPostLink">message</a></li>
             </ul>
         </div>
         <div class="main-content" id="mainContent">
             
-            <% if(totalPosts.length > 0) { %>
-                <% totalPosts.forEach(post => { %>
+            <% if(userPosts.length > 0) { %>
+                <% userPosts.forEach(post => { %>
                     <div class="post-container">
                         
                         <div class="profile-pic-container">
@@ -71,9 +71,8 @@
             
         
         </div>
-        <div class="trending-posts-main-container">
-            <h3>TRENDING POSTS</h3>
-            <p>Feature Under Development</p>
+        <div>
+            
         </div>
     </div>
     

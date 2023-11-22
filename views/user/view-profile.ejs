@@ -1,0 +1,35 @@
+
+<div class="profile-container">
+
+
+        <div>
+            <div class="profile-page-pic-container">
+                <% if(userProfile.imageUrl) { %>
+                    <img id="profile-avatar" src="<%= userProfile.imageUrl %>" alt="">
+
+                <% } else { %>
+                    <img id="profile-avatar" src="/images/user-avatar.png" alt="">
+
+                <% } %>
+            </div>
+        
+        </div>
+        <div class="profile-page-details-container" >
+
+            <div>
+                <% if(userProfile.firstName) { %>
+                <label for="firstName">First Name:</label>
+                <p type="text" id="firstName" name="firstName" value="<%= firstName ? firstName : '' %> ">
+                <% } %>
+            </div>
+            <div>
+                <% if(userProfile.lastName) { %>
+                <label for="lastName">Last Name:</label>
+                <p type="text" id="lastName" name="lastName" value="<%= lastName ? lastName : '' %>">
+                <% } %>
+            </div>
+            
+        
+
+</div>
+

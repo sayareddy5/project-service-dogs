@@ -1,5 +1,6 @@
 const User = require('../models/User');
-const passport = require("../controllers/authController")
+const passport = require("../controllers/authController");
+const {Feed, Like, Comment} = require("../models/userFeed");
 const fs = require('fs');
 const path = require('path');
 const bcrypt = require('bcrypt')
@@ -44,7 +45,7 @@ const UserController = {
         
         const { email, password, confirmpassword, firstName,lastName } = req.body;
         let usernameUpdated = req.body.username
-  
+        
         if(password != confirmpassword){
           return res.status(400).render("user/register", {
             authorized: false,
@@ -53,6 +54,8 @@ const UserController = {
             title: "sign up"
           })
         }
+
+        console.log("updated: ",usernameUpdated)
         // check if the user exists
         const existingUser = await User.findOne({
             $or: [{ username: usernameUpdated }, { email: email }]
@@ -71,7 +74,7 @@ const UserController = {
 
         // or create a new user 
         const hashedPassword = await bcrypt.hash(password, saltRounds);
-        const newUser = new User({ usernameUpdated, email, password:hashedPassword, firstName,lastName });
+        const newUser = new User({ username: usernameUpdated, email, password:hashedPassword, firstName,lastName });
         await newUser.save();
       
         // res.redirect('/user/success');
@@ -257,7 +260,7 @@ const UserController = {
       
       return res.render('user/profile', { authorized, username, error: null, title: 'Profile',firstName:firstName, lastName:lastName,imageUrl:imageUrl , successMessage: successMessage});
   },
-
+  
   saveProfilePage: async (req, res) => {
 
       const reqestedUsername = req.params.username
@@ -345,7 +348,73 @@ const UserController = {
         console.error(error);
         return res.status(500).json({ error: 'Internal server error.' });
     }
-  }
+  },
+  viewUserProfile : async (req, res) =>{
+      const { username } = req.params;
+      const authorized = req.session.user && req.session.user.authorized === true;
+      const currentUsername = req.session.user ? req.session.user.username : null;
+      const userImageUrl = req.session.user ? req.session.user.imageUrl : null
+      try{
+            
+          const userView = await User.findOne({ username : username})
+          console.log(userView)
+          // get all the user posts and sort them in new data first and populate it with the user info, comment and likes of the feeds
+          const userPosts = await Feed.find({ user: userView._id }).populate({
+              path: 'user',
+              select: 'username imageUrl', 
+          })
+          .populate({
+              path: 'comments.user',
+              select: 'username imageUrl',
+          })
+          .populate({
+              path: 'likes.user',
+              select: 'username',
+          })
+          .sort({ datePosted: -1 });
+
+          res.render('user/view-profile.ejs',{authorized, username: currentUsername, title: `${username} profile`,userPosts : userPosts,imageUrl:userImageUrl,});
+
+      }catch(error){
+          console.error(error);
+          res.status(500).json({ error: 'Internal Server Error' });
+        
+      }
+      
+  },
+
+  viewUserProfilePosts : async (req, res) =>{
+      const { username } = req.params;
+      const authorized = req.session.user && req.session.user.authorized === true;
+      const currentUsername = req.session.user ? req.session.user.username : null;
+      const userImageUrl = req.session.user ? req.session.user.imageUrl : null
+          try{
+            
+              const userView = await User.findOne({ username : username})
+              console.log(userView)
+              // get all the user posts and sort them in new data first and populate it with the user info, comment and likes of the feeds
+              const userPosts = await Feed.find({ user: userView._id }).populate({
+                  path: 'user',
+                  select: 'username imageUrl', 
+              })
+              .populate({
+                  path: 'comments.user',
+                  select: 'username imageUrl',
+              })
+              .populate({
+                  path: 'likes.user',
+                  select: 'username',
+              })
+              .sort({ datePosted: -1 });
+
+              res.render('user/view-user-posts.ejs',{authorized, username: currentUsername, title: `${username} profile`,userPosts : userPosts,imageUrl:userImageUrl});
+
+          }catch(error){
+              console.error(error);
+              res.status(500).json({ error: 'Internal Server Error' });
+            
+          }
+    }
 };
 
 module.exports = UserController;

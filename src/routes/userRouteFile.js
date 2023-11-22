@@ -22,6 +22,14 @@ router.post('/change-password', userController.handleResetPassword);
 
 router.post('/login', userController.HandleLoginForm);
 
+router.get('/:username',isLoggedIn,userController.viewUserProfilePosts);
+
+router.get('/:username/posts',isLoggedIn,userController.viewUserProfilePosts);
+
+// router.get('/currentuser:username/requesteduser:username/chat',isLoggedIn,userController.viewUserProfilePosts);
+
+// router.post('/currentuser:username/requesteduser:username/chat',isLoggedIn,userController.viewUserProfilePosts);
+
 router.get('/:username/profile',isLoggedIn, userController.getProfilePage);
 
 router.get('/:username/change-password',isLoggedIn, userController.showChangePassword);
