@@ -12,6 +12,8 @@ router.post('/register', userController.handleRegistration);
 
 router.get('/login', userController.showLoginForm);
 
+router.get('/logout',userController.HandleLogout);
+
 router.get('/forgot-password', userController.showForgotPassword);
 
 router.post('/forgot-password', userController.handleForgotPassword);
@@ -38,7 +40,7 @@ router.post('/:username/change-password',isLoggedIn, userController.handleChange
 
 router.post('/:username/profile',isLoggedIn,upload.single('profilePic'), userController.saveProfilePage);
 
-router.get('/logout',userController.HandleLogout);
+
 
 router.get('/auth/google',
     passport.authenticate('google', { scope: ['profile', 'email'] })
