@@ -903,3 +903,57 @@ input[type='file']{
 .error-border {
     border: 2px solid red;
 }
+
+
+
+.slideshow-container {
+    max-width: 800px;
+    position: relative;
+    margin: auto;
+}
+
+.mySlides {
+    display: none;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #fff;
+    background-color: #333;
+    border-radius: 5px;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+.review {
+    text-align: center;
+    padding: 20px;
+}
+
+.rating {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.name {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+img {
+    width: 100%;
+    border-radius: 50%;
+}

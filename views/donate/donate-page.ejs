@@ -70,7 +70,7 @@
     const organizationRadioButton = document.getElementById("organization");
     const organizationInfoDiv = document.querySelector(".organization-info");
     const personalInfoDiv = document.querySelector(".personal-info");
-    paymentButton.disabled = true;
+    
     honourCheckbox.addEventListener("change", function() {
         tributeInfo.style.display = honourCheckbox.checked ? "block" : "none";
     });
@@ -139,6 +139,8 @@
         if(checkEmail()){
             paymentButton.disabled = false;
             
+        }else{
+            paymentButton.disabled = true;
         }
     })
 </script>
