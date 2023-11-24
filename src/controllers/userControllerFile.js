@@ -180,7 +180,7 @@ const UserController = {
                 return res.status(500).send('Error sending email.');
               } else {
                 console.log('Email sent: ' + info.response);
-                return res.status(201).send('Email sent successfully.');
+                return res.status(201).send('Email sent successfully. Please check your inbox.');
               }
             });
           } else {

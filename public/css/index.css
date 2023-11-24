@@ -155,7 +155,7 @@ a{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 3px solid #fafdf6 ;
+    border: 3px solid transparent ;
     max-width: 13rem;
     height: 2rem;
 }
@@ -760,6 +760,7 @@ a.btn.btn-primary.hero-donate-btn {
         justify-content: center;
         align-items: center;
         width: 100%;
+        border-radius: 10px;
         background-color: var(--primary-color);
     }
     .user-login{
@@ -893,4 +894,12 @@ input[type='file']{
     font-family: inherit;
     margin: .5rem;
 
+}
+
+.error {
+    color: red;
+}
+
+.error-border {
+    border: 2px solid red;
 }

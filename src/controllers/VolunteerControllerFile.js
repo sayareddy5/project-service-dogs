@@ -22,7 +22,7 @@ const volunteerController = {
         // render page with required detail
         res.render('volunteer/volunteer-application.ejs',{authorized, username, title: "Volunteer Application",imageUrl:userImageUrl});
     },
-    HandleVolunteerForm: (req, res) => {
+    HandleVolunteerForm: async (req, res) => {
 
         // get the form data
         const formData = req.body;
@@ -30,10 +30,11 @@ const volunteerController = {
         const volunteerForm = new VolunteerForm(formData);
 
         // save the volunteer from
-        volunteerForm.save()
-            
+    
+        await volunteerForm.save();
+        res.status(200).json({ success: true });
         // redirec to volunteering page
-        return res.redirect("/volunteer/volunteering");
+        
 
     }
 };

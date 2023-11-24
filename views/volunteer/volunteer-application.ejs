@@ -26,7 +26,7 @@
             driving record. Prior to starting, you will receive orientation specific to this driving position, including protocol related to “sighted guide”
             and handling dogs as needed.</p>
         </div>
-        <form action="/volunteer/submit-volunteer-form" method="post" class="volunteer-form">
+        <form class="volunteer-form" id="volunteerForm">
             <h3>Volunteer Options:</h3>
             <div class="volunteer-group">
                 <div class="volunteer-inner-group">
@@ -164,6 +164,203 @@
                 </div>
             </div>
                 
-            <button type="submit" class="btn btn-primary volunteer-btn">Submit Application</button>
+            <button type="submit" id="submitFormBtn" class="btn btn-primary volunteer-btn">Submit Application</button>
         </form>
+        <div id="successModal">
+            <div>
+              
+                <p id="volunteer-submit-message"></p>
+            </div>
+        </div>
 </div>
+<script>
+
+    const volunteerForm = document.getElementById('volunteerForm');
+    const successModal = document.getElementById('successModal');
+    successModal.style.display = 'none';
+    const errorElement = document.getElementById('volunteer-submit-message')
+
+    document.getElementById('submitFormBtn').addEventListener('click', function (event) {
+        var form = document.getElementById('volunteerForm');
+        
+    
+        
+        var elements = form.elements;
+    
+        for (var i = 0; i < elements.length; i++) {
+            if (elements[i].hasAttribute('required') && elements[i].value.trim() === '') {
+                elements[i].style.borderColor = 'red';
+                insertErrorMessage(elements[i].parentNode, 'This field is required');
+            } else {
+                elements[i].style.borderColor = '';
+                removeErrorMessages(elements[i].parentNode);
+            }
+        }
+    
+        
+        if (form.querySelector('.error')) {
+            event.preventDefault();
+        }
+    });
+    
+    function insertErrorMessage(parentNode, message) {
+        var errorMessage = parentNode.querySelector('.error');
+        if (!errorMessage) {
+            errorMessage = document.createElement('span');
+            errorMessage.className = 'error';
+            errorMessage.style.fontSize = "13px"
+            parentNode.appendChild(errorMessage);
+        }
+        errorMessage.textContent = message;
+    }
+    
+    function removeErrorMessages(parentNode) {
+        if (parentNode) {
+            var errorMessages = parentNode.querySelectorAll('.error');
+            for (var i = 0; i < errorMessages.length; i++) {
+                parentNode.removeChild(errorMessages[i]);
+            }
+    
+            // clear the border color
+            parentNode.querySelector('input, select').style.borderColor = '';
+        }
+    }
+
+
+    var inputFields = document.querySelectorAll('input[type="text"], input[type="number"],input[type="tel"],input[type="email"]',);
+    inputFields.forEach(input => {
+        input.addEventListener('input', () => {
+            var parentNode = input.parentNode;
+            removeErrorMessages(parentNode);
+        });
+    });
+    
+
+
+    volunteerForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const isEmailValid = checkEmail();
+        const isMobileNumberValid = checkMobileNumber();
+
+        if (!isEmailValid || !isMobileNumberValid) {
+            return;
+        }
+        const formDataObject = {};
+
+        const formData = new URLSearchParams(new FormData(volunteerForm));
+
+        for (const [key, value] of formData.entries()) {
+            formDataObject[key] = value;
+
+        }
+        
+        fetch('/volunteer/submit-volunteer-form', {
+            method: 'POST',
+            body: JSON.stringify(formDataObject),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                successModal.style.display = 'block';
+                
+                errorElement.textContent = "Volunteer Application Submitted Succesfully.";
+
+                setTimeout(function() {
+                    successModal.style.display = 'none';
+                }, 4000);
+                volunteerForm.reset();
+            } else {
+
+                successModal.style.display = 'block';
+                
+                errorElement.textContent = "Error submitting form, Please try again later.";
+                setTimeout(function() {
+                    successModal.style.display = 'none';
+
+                }, 4000);
+
+                console.error('Error submitting form:', response.status, response.statusText);
+                
+            }
+        })
+        .catch(error => {
+            console.error('Error submitting form:', error);
+        });
+    });
+    const mobileNumberInput = document.getElementById('phoneNumber');
+
+
+    const emailInput = document.getElementById('email');
+
+    function isValidEmail(email) {
+        const allowedProviders = ['gmail.com', 'hotmail.com'];
+        const allowedExtensions = ['.net', '.dev', '.com', '.in'];
+
+        if (!email || email.indexOf('@') < 1) {
+            return false;
+        }
+
+        const [username, domain] = email.split('@');
+        const [, extension] = domain.split('.');
+
+        const isProviderValid = allowedProviders.includes(domain);
+        const isExtensionValid = allowedExtensions.includes(`.${extension}`);
+
+        return isProviderValid && isExtensionValid;
+    }
+
+
+    function checkEmail() {
+        const emailValue = emailInput.value.trim();
+        const isEmailValid = isValidEmail(emailValue);
+        const emailElement = document.getElementById('email');
+        
+        var parentNode = emailElement.parentElement;
+     
+        if (emailValue === '') {
+            emailElement.style.borderColor = '#ccc';
+            removeErrorMessages(parentNode);
+        } else if (isEmailValid) {
+            emailElement.style.borderColor = 'green';
+            removeErrorMessages(parentNode);
+        } else {
+            emailElement.style.borderColor = 'red';
+            insertErrorMessage(parentNode, 'Invalid Email Address');
+        }
+
+        return isEmailValid;
+    }
+
+  
+    function isValidMobileNumber(mobileNumber) {
+        const mobileRegex = /^\d{10}$/;
+        return mobileRegex.test(mobileNumber);
+    }
+
+    
+    function checkMobileNumber() {
+        const mobileNumberValue = mobileNumberInput.value.trim();
+        const isMobileNumberValid = isValidMobileNumber(mobileNumberValue);
+        const mobileNumberElement = document.getElementById('phoneNumber');
+        var parentNode = mobileNumberElement.parentElement;
+        if (mobileNumberValue === '') {
+            mobileNumberElement.style.borderColor = '#ccc';
+            removeErrorMessages(parentNode);
+        } else if (isMobileNumberValid) {
+            mobileNumberElement.style.borderColor = 'green';
+            removeErrorMessages(parentNode);
+        } else {
+            mobileNumberElement.style.borderColor = 'red';
+            insertErrorMessage(parentNode, 'Invalid Phone Number');
+            
+        }
+
+        return isMobileNumberValid;
+    }
+    
+    emailInput.addEventListener('input', checkEmail);
+    mobileNumberInput.addEventListener('input', checkMobileNumber);
+</script>

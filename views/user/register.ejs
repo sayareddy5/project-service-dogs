@@ -19,6 +19,7 @@
         <div class="form-group">
             <label for="email">Email: </label>
             <input type="email" class="form-control" id="email" name="email" required>
+           
         </div>
         <div class="form-group password-field-signup">
             <div class="input-field-password-container">
@@ -56,7 +57,44 @@
 </div>
 
 <script>
-   
+    function isValidEmail(email) {
+        const allowedProviders = ['gmail.com', 'hotmail.com'];
+        const allowedExtensions = ['.net', '.dev', '.com', '.in'];
+    
+        
+        if (!email || email.indexOf('@') < 1) {
+            return false;
+        }
+    
+        const [username, domain] = email.split('@');
+        const [, extension] = domain.split('.');
+    
+        const isProviderValid = allowedProviders.includes(domain);
+        const isExtensionValid = allowedExtensions.includes(`.${extension}`);
+    
+        return isProviderValid && isExtensionValid;
+    }
+
+
+    function checkEmail() {
+        const emailValue = emailInput.value.trim();
+        const isEmailValid = isValidEmail(emailValue);
+        const emailElement = document.getElementById('email');
+
+        if (emailValue === '') {
+            emailElement.style.borderColor = '#ccc';
+           
+        } else if (isEmailValid) {
+            emailElement.style.borderColor = 'green';
+            
+        } else {
+            emailElement.style.borderColor = 'red';
+            
+        }
+
+        return isEmailValid;
+    }
+
     var errorMessage = document.getElementById('register-error-message');
     const passwordMatchError = document.getElementById('password-match-error');
     if (errorMessage) {
@@ -103,7 +141,7 @@
         const confirmPasswordValue = confirmPasswordInput.value.trim();
     
         const isUsernameValid = usernameValue !== '';
-        const isEmailValid = emailValue !== '';
+        const isEmailValid = checkEmail();
         const isPasswordValid = passwordValue !== '';
         const isConfirmPasswordValid = confirmPasswordValue !== '';
         const isPasswordMatch = passwordValue === confirmPasswordValue;
@@ -126,11 +164,14 @@
             passwordMatchError.textContent = 'Passwords do not match';
         }
     })
+
+    
     usernameInput.addEventListener('input', checkInputs);
     emailInput.addEventListener('input', checkInputs);
     passwordInput.addEventListener('input', checkInputs);
     confirmPasswordInput.addEventListener('input', checkInputs);
-
+    emailInput.addEventListener('input', checkEmail);
+    
     showPasswordButton.addEventListener('click', () => {
         const isShow = showPasswordButton.getAttribute('data-show') === 'false';
         

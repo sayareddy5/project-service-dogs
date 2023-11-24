@@ -180,12 +180,33 @@
     border: 2px solid var(--primary-color);
     box-shadow: 0 4px 4px 4px rgba(0,0,0,.1);
 }
-#form-error-training{
+#application-submit-message{
     font-size: 1.6rem;
     display: inline-block;
     /* background-color: blue; */
     margin-bottom: auto;
     /* position: absolute; */
+}
+
+.error{
+    color: red;
+    margin:0;
+    /* margin-bottom: 1rem; */
+    align-self: center;
+    justify-self: flex-end;
+}
+
+
+.radioLabel {
+    /* background-color: black; */
+    /* color: white; */
+    padding: 5px;
+    cursor: pointer;
+}
+
+.radioLabelSelected {
+    background-color: green;
+    color: white;
 }
 /* -----------guide-dog-journey----------------- */
 .journey-main-container{

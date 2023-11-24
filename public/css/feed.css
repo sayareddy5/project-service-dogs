@@ -342,9 +342,11 @@
 
 .no-posts-container{
     text-align: center;
+    font-size: 1rem;
 }
-.no-posts-container .no-posts-icon{
-    font-size: 5rem;
+.view-profile-container{
+    display: flex;
+    justify-content: space-around;
 }
 
 @media (max-width:1100px){

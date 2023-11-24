@@ -129,6 +129,20 @@ document.addEventListener("DOMContentLoaded", function() {
                     
                     button.closest('.post-container').remove();
                     
+                    const containerElement = document.getElementById('userPostsMainContent')
+                    
+                    if (containerElement.childElementCount === 0) {
+                        // Create a new div element with the desired HTML content
+                        const noPostsContainer = document.createElement('div');
+                        noPostsContainer.className = 'post-container no-posts-container';
+                        noPostsContainer.innerHTML = `
+                            <h1 class="no-posts-icon"><i class="fa-regular fa-face-frown"></i></h1>
+                            <h1>No posts, Try creating a new post</h1>
+                        `;
+                    
+                        // Append the new div to the container
+                        containerElement.appendChild(noPostsContainer);
+                    }
                 } else {
                     console.error('Failed to delete post');
                 }

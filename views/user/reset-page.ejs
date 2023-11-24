@@ -7,7 +7,7 @@
             <label  for="email">Email: </label>
             <input style="font-size:1.3rem;padding:.5rem" type="email" name="email" id="reset-email">
         </div>
-        <button class="btn btn-primary" type="submit" id="">send code</button>
+        <button class="btn btn-primary" type="submit" id="sendCodeBtn">send code</button>
     </form>
 
 </div>
@@ -17,9 +17,61 @@
     const resetEmailForm = document.getElementById('reset-email-form')
     const resetEmailMessage = document.getElementById('reset-email-message')
     const spinner = document.getElementById('spinner');
-    
+    const sendCodeButton = document.getElementById('sendCodeBtn');
+
+    function isValidEmail(email) {
+        const allowedProviders = ['gmail.com', 'hotmail.com'];
+        const allowedExtensions = ['.net', '.dev', '.com', '.in'];
+
+        if (!email || email.indexOf('@') < 1) {
+            return false;
+        }
+
+        const [username, domain] = email.split('@');
+        const [, extension] = domain.split('.');
+
+        const isProviderValid = allowedProviders.includes(domain);
+        const isExtensionValid = allowedExtensions.includes(`.${extension}`);
+
+        return isProviderValid && isExtensionValid;
+    }
+
+
+    function checkEmail() {
+        const emailValue = resetEmailElement.value.trim();
+        const isEmailValid = isValidEmail(emailValue);
+        
+        
+        
+     
+        if (emailValue === '') {
+            resetEmailElement.style.borderColor = '#ccc';
+            resetEmailMessage.textContent = 'Email cannot be empty'
+            resetEmailMessage.style.color = "red";
+        } else if (isEmailValid) {
+            resetEmailElement.style.borderColor = 'green';
+            resetEmailMessage.textContent = ''
+            
+        } else {
+            resetEmailElement.style.borderColor = 'red';
+            resetEmailMessage.textContent = 'Invalid Email'
+            resetEmailMessage.style.color = "red";
+        }
+
+        return isEmailValid;
+    }
+    resetEmailElement.addEventListener('input', function () {
+        //  validity of the email and edit button
+        sendCodeButton.disabled = !checkEmail();
+        
+    });
+
+
     resetEmailForm.addEventListener('submit', async (e) => {
         e.preventDefault()
+        if(!checkEmail()){
+            return
+        }
         const resetEmail = resetEmailElement.value
         console.log("reset email: ",resetEmail)
         spinner.style.display = 'block';
@@ -38,6 +90,8 @@
                 const message = await response.text();
                 resetEmailMessage.textContent = message
                 resetEmailMessage.style.display = "block"
+                resetEmailMessage.style.color = 'green';
+
             }else{
                 resetEmailMessage.textContent = "something is wrong, please try again later"
             }

@@ -31,10 +31,13 @@
     flex-direction: column;
     justify-content: space-between;
     /* background-color: red; */
-    margin:1rem;
+    /* margin:1rem; */
     
 }
-
+.contact-container textarea{
+    /* background-color: red; */
+    margin-left: 0;
+}
 .question-field-title span{
     color: red;
 }

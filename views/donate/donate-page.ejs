@@ -1,6 +1,6 @@
 <div class="donate-options-page-main-container">
-    <h1 class="content-header">SERVICE DOGS</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit delectus reprehenderit sequi porro excepturi, laudantium obcaecati ea ducimus, sint, dignissimos numquam quas. Ipsam, veniam? Recusandae modi natus reprehenderit itaque repudiandae!</p>
+    <h1 class="content-header">Empower Lives with Your Donation</h1>
+    <p>Join us in making a difference. Your contribution supports our mission to provide life-changing service dogs for the blind. Together, let's empower individuals with visual impairments to lead more independent and fulfilling lives.</p>
     <div class="donate-options-page-inner-container">
         <form action="/donate/process-payment" id="donationForm" method="post"class="donate-page-form">
 
@@ -8,10 +8,10 @@
             <label for="honourCheckbox">Make this donation in honour of an individual</label><br>
         
             <div id="tributeInfo" style="display:none;">
-                <label for="honoreeName">Honoree Name:</label>
+                <label for="honoreeName">Name:</label>
                 <input type="text" id="honoreeName" name="honoreeName"><br>
         
-                <label for="honoreeMessage">Honoree Message:</label>
+                <label for="honoreeMessage">Message:</label>
                 <textarea style="resize:none;" id="honoreeMessage" name="honoreeMessage"></textarea><br>
             </div>
 
@@ -49,11 +49,10 @@
                 <input type="checkbox" id="emailCheckbox" name="emailPermission" value="true">
                 <label for="emailCheckbox">I allow Service Dogs for the Blind to contact me by email</label><br>
                 
-                <input type="checkbox" id="mailCheckbox" name="mailPermission" value="true">
-                <label for="mailCheckbox">I allow Service Dogs for the Blind to contact me by mail</label><br>
+
                 
             </div>
-            <input type="submit" class="btn btn-primary proceed-payment" value="Proceed to Payment">
+            <input type="submit" class="btn btn-primary proceed-payment"  id="paymentButton" value="Proceed to Payment">
         </form>
         
         
@@ -66,10 +65,12 @@
     const honourCheckbox = document.getElementById("honourCheckbox");
     const tributeInfo = document.getElementById("tributeInfo");
     const personalRadioButton = document.getElementById("personal");
+    const donationForm = document.getElementById("donationForm");
+    const paymentButton = document.getElementById("paymentButton");
     const organizationRadioButton = document.getElementById("organization");
     const organizationInfoDiv = document.querySelector(".organization-info");
     const personalInfoDiv = document.querySelector(".personal-info");
-
+    paymentButton.disabled = true;
     honourCheckbox.addEventListener("change", function() {
         tributeInfo.style.display = honourCheckbox.checked ? "block" : "none";
     });
@@ -88,6 +89,56 @@
             personalInfoDiv.style.display = "block";
         }
     });
+    
+    
+    
+    
+    const emailInput = document.getElementById('email');
+
+    function isValidEmail(email) {
+        const allowedProviders = ['gmail.com', 'hotmail.com'];
+        const allowedExtensions = ['.net', '.dev', '.com', '.in'];
+
+        if (!email || email.indexOf('@') < 1) {
+            return false;
+        }
+
+        const [username, domain] = email.split('@');
+        const [, extension] = domain.split('.');
+
+        const isProviderValid = allowedProviders.includes(domain);
+        const isExtensionValid = allowedExtensions.includes(`.${extension}`);
+
+        return isProviderValid && isExtensionValid;
+    }
 
 
+    function checkEmail() {
+        const emailValue = emailInput.value.trim();
+        const isEmailValid = isValidEmail(emailValue);
+        const emailElement = document.getElementById('email');
+        
+        var parentNode = emailElement.parentElement;
+     
+        if (emailValue === '') {
+            emailElement.style.borderColor = '#ccc';
+        
+        } else if (isEmailValid) {
+            emailElement.style.borderColor = 'green';
+        
+        } else {
+            emailElement.style.borderColor = 'red';
+        
+        }
+
+        return isEmailValid;
+    }
+
+    emailInput.addEventListener('input', () =>{
+
+        if(checkEmail()){
+            paymentButton.disabled = false;
+            
+        }
+    })
 </script>
