@@ -907,15 +907,16 @@ input[type='file']{
 
 /* -------slide show css */
 .slideshow-container {
-    max-width: 800px;
+    width: 100%;
     position: relative;
     margin: auto;
-    overflow: hidden; /* Ensure hidden overflow for smooth transition */
+    overflow: hidden;
 }
 
 .mySlides {
     display: none;
-    transition: transform 1s ease; /* Add transition for smooth effect */
+    transition: transform 1s ease;
+    background-color: #bde0fe;
 }
 
 .prev, .next {

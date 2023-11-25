@@ -357,7 +357,12 @@ const UserController = {
       try{
             
           const userView = await User.findOne({ username : username})
-          console.log(userView)
+          console.log("requestedProfile", userView.username, 'currentUser', currentUsername)
+          if(userView.username == currentUsername){
+            return res.redirect(`/user/${currentUsername}/profile`);
+          }
+
+          
           // get all the user posts and sort them in new data first and populate it with the user info, comment and likes of the feeds
           // const userPosts = await Feed.find({ user: userView._id }).populate({
           //     path: 'user',
@@ -372,7 +377,7 @@ const UserController = {
           //     select: 'username',
           // })
           // .sort({ datePosted: -1 });
-          console.log(userView.firstName)
+          // console.log(userView.firstName)
           res.render('user/view-profile.ejs',{authorized, username: currentUsername, title: `${username} profile`,imageUrl:userImageUrl, userView,});
 
       }catch(error){
@@ -392,6 +397,9 @@ const UserController = {
             
               const userView = await User.findOne({ username : username})
               console.log(userView)
+              if(userView.username == currentUsername){
+                return res.redirect(`/user-posts`);
+              }
               // get all the user posts and sort them in new data first and populate it with the user info, comment and likes of the feeds
               const userPosts = await Feed.find({ user: userView._id }).populate({
                   path: 'user',
