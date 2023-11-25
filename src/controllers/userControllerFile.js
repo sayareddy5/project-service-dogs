@@ -169,7 +169,7 @@ const UserController = {
             to: email,
             subject: 'Password Reset Link - Service Dogs',
             html: `<div style="font-family: Arial, sans-serif; max-width: 400px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 5px;">
-            <p style="font-size: 16px; color: #333; margin-bottom: 15px;">Please click on the below link to reset your password. Remember, it only works once.</p>
+            <p style="font-size: 16px; color: #333; margin-bottom: 15px;">We received a request to reset the password . To proceed with the password reset, please click on the link below.</p>
             <a href="http://localhost:3000/user/reset-password?token=${resetToken}" style="display: inline-block; padding: 10px 20px; font-size: 18px; color: #fff; background-color: #3498db; text-decoration: none; border-radius: 5px; transition: background-color 0.3s ease;">Reset Password</a>
             </div>`
           };
@@ -398,7 +398,7 @@ const UserController = {
               const userView = await User.findOne({ username : username})
               console.log(userView)
               if(userView.username == currentUsername){
-                return res.redirect(`/user-posts`);
+                return res.redirect(`/feed/user-posts`);
               }
               // get all the user posts and sort them in new data first and populate it with the user info, comment and likes of the feeds
               const userPosts = await Feed.find({ user: userView._id }).populate({
