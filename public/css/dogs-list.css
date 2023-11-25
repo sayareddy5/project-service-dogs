@@ -92,6 +92,11 @@
     filter: brightness(60%); 
 }
 
+.filter-message{
+    grid-column: 1 / -1;
+    text-align: center;
+}
+
 @media (max-width:1100px){
     .dogs-list-main-container{
         margin-top: 18vh;

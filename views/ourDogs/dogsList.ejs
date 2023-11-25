@@ -149,7 +149,13 @@
                 if (response.ok) {
                     const filteredDogs = await response.json();
                     
-                    displayFilteredDogs(filteredDogs);
+                    
+                    if(filteredDogs.length > 0){
+                        displayFilteredDogs(filteredDogs);
+                    }else{
+                        
+                        filteredDogsContainer.innerHTML =` <p class="filter-message"> "Sorry, no breeds match the selected criteria. Please try adjusting your filters or explore our full list of breeds."  </p> `
+                    }
                 } else {
                     console.error('Error occurred while fetching filtered dogs');
                 }

@@ -905,15 +905,17 @@ input[type='file']{
 }
 
 
-
+/* -------slide show css */
 .slideshow-container {
     max-width: 800px;
     position: relative;
     margin: auto;
+    overflow: hidden; /* Ensure hidden overflow for smooth transition */
 }
 
 .mySlides {
     display: none;
+    transition: transform 1s ease; /* Add transition for smooth effect */
 }
 
 .prev, .next {
@@ -953,7 +955,6 @@ input[type='file']{
     margin-bottom: 10px;
 }
 
-img {
-    width: 100%;
+.slideshow-container img{
     border-radius: 50%;
 }
