@@ -641,7 +641,78 @@ a.btn.btn-primary.hero-donate-btn {
 }
 
 /* ----------End of our events-------------------- */
+/* ---reviews  */
+/* -------slide show css */
+.slideshow-container{
+    background-color: #f6fff8;
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #FDC500; */
+    
+}
+.slideshow-inner-container{
+    /* width: 80%; */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    padding: 1rem;
+    padding-bottom: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+    /* background-color: blue; */
+    justify-content: center;
+    
+}
 
+
+
+.mySlides .review{
+    
+    width: 50%;
+    /* position: absolute; */
+    bottom: 1rem;
+    box-shadow: 2px 2px 4px rbga(0,0,0,.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: #edf6f9;
+    text-align: center;
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 30px;
+
+}
+.mySlides .dog-review-photo{
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+    
+}
+.dog-review-photo img{
+    border-radius: 0;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+.mySlides .name {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.mySlides .rating {
+    font-size: 18px;
+   
+}
+.review img{
+    width: 60px;
+    border-radius: 50%;;
+}
+
+/* ---end of reviews */
 
 
 /* ----------Media query for tablets --------------- */
@@ -653,11 +724,44 @@ a.btn.btn-primary.hero-donate-btn {
     .submenu:before {
         right: 20px;
     }
+    .slideshow-inner-container{
+        /* width: 80%; */
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+        
+    }
+    
+    
+    
+    .mySlides .review{
+        
+        width: 80%;
+        /* position: absolute; */
+
+    
+    }
 }
 
 /* ----------Media query for smaller screens -- */
 @media (max-width: 768px) {
+    .slideshow-inner-container{
+        /* width: 80%; */
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 20px;
+        
+    }
+    
+    
+    
+    .mySlides .review{
+        
+        width: 80%;
+        /* position: absolute; */
 
+    
+    }
     .help-ways-container{
         flex-direction: column;
     }
@@ -905,72 +1009,3 @@ input[type='file']{
 }
 
 
-/* -------slide show css */
-.slideshow-container{
-    background-color: #f6fff8;
-    padding-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    /* background-color: #FDC500; */
-    
-}
-.slideshow-inner-container{
-    /* width: 80%; */
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 20px;
-    padding: 1rem;
-    padding-bottom: 3rem;
-    margin-left: auto;
-    margin-right: auto;
-    /* background-color: blue; */
-    justify-content: center;
-    
-}
-
-
-
-.mySlides .review{
-    
-    width: 50%;
-    /* position: absolute; */
-    bottom: 1rem;
-    box-shadow: 2px 2px 4px rbga(0,0,0,.1);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    background-color: #edf6f9;
-    text-align: center;
-    padding: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 30px;
-
-}
-.mySlides .dog-review-photo{
-    width: 100%;
-    margin-top: auto;
-    margin-bottom: auto;
-    
-}
-.dog-review-photo img{
-    border-radius: 0;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-
-.mySlides .name {
-    font-style: italic;
-    margin-bottom: 10px;
-}
-
-.mySlides .rating {
-    font-size: 18px;
-   
-}
-.review img{
-    width: 60px;
-    border-radius: 50%;;
-}

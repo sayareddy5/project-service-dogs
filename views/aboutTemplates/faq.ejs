@@ -89,7 +89,7 @@
                 <div class="question-container">
 
                     <label class='question-field-title' for="email">Email : </label>
-                    <input class="input-form" type="email" class="ask-question-email" name="email" required>
+                    <input class="input-form" type="email" id="email" class="ask-question-email" name="email" required>
                 
                 </div>
                 <button type="submit" class="btn btn btn-primary submit-btn">submit</button>
@@ -101,11 +101,16 @@
 </section>
 
 <script>
+    const emailElement = document.getElementById('email');
 
     questionFormContainer = document.querySelector(".question-form-main-container")
     questionForm = document.querySelector('#question-from-container')
     questionForm.addEventListener('submit', async function(event) {
         event.preventDefault();
+
+        if(!checkEmail()){
+            return
+        }
         const question = document.querySelector('input[name="question"]').value;
         const email = document.querySelector('input[name="email"]').value;
         const successMessage = document.getElementById('faq-successMessage');
@@ -140,5 +145,51 @@
         successMessage.classList.remove('hidden');
         // Handle other errors (e.g., network issues)
     }
+    });
+
+    function isValidEmail(email) {
+        const allowedProviders = ['gmail.com', 'hotmail.com'];
+        const allowedExtensions = ['.net', '.dev', '.com', '.in'];
+
+        if (!email || email.indexOf('@') < 1) {
+            return false;
+        }
+
+        const [username, domain] = email.split('@');
+        const [, extension] = domain.split('.');
+
+        const isProviderValid = allowedProviders.includes(domain);
+        const isExtensionValid = allowedExtensions.includes(`.${extension}`);
+
+        return isProviderValid && isExtensionValid;
+    }
+
+
+    function checkEmail() {
+        const emailValue = emailElement.value.trim();
+        const isEmailValid = isValidEmail(emailValue);
+        
+        
+        
+     
+        if (emailValue === '') {
+            emailElement.style.borderColor = '#ccc';
+
+        } else if (isEmailValid) {
+            emailElement.style.borderColor = 'green';
+            
+            
+        } else {
+            emailElement.style.borderColor = 'red';
+            
+        }
+
+        return isEmailValid;
+    }
+
+    emailElement.addEventListener('input', function () {
+        // Enable or disable the button based on the validity of the email
+        checkEmail()
+        
     });
 </script>
