@@ -1,6 +1,7 @@
 .feed-main-container{
     margin-top: 24vh;
     padding-bottom: 3rem;
+    font-family: 'Sofia Sans Semi Condensed', sans-serif;
 
     /* background-color: #e0e1dd; */
 }
@@ -148,6 +149,27 @@
 
 }
 
+.delete-image{
+    position: absolute;
+    top: 15px;
+    right: 0;
+    color: white;
+    border: none;
+    background-color: #ef233c;
+    display: inline;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.user-name{
+    border-bottom: 2px solid transparent;
+}
+
+.user-name:hover{
+    border-bottom: 2px solid rgba(0,0,0,.3);
+}
+
 .post-content-container{
     /* background-color: yellow; */
     display: flex;
@@ -176,6 +198,7 @@
 .post-des{
     max-height: 40%;
     /* background-color: blue; */
+    width:  80%;
     padding: 1.2rem;
     margin-top: 1.2rem;
     font-size: 1.3rem;
@@ -200,7 +223,28 @@
     display: block;
 
 }
+.post-add-btn{
+    background-color: #63a6ed;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: inline;
+    width: 10rem;
+    
+}
+.post-input-field{
+    display: inline;
+}
 
+.post-create-image-container div{
+    /* display: flex; */
+    /* width: 100%; */
+    position: relative;
+    /* flex-direction: row; */
+    /* background-color: red; */
+    /* justify-content: space-around; */
+}
 .comments textarea {
     width: 90%;
     margin: 10px;
@@ -256,7 +300,15 @@
 }
 
 /* ------------New post page---------- */
-
+#new-post-container #newPost{
+    background-color: #043493;
+    color: white;
+    font-family: inherit;
+    padding: 10px 15px;
+    margin-bottom: 1rem;
+    border: none;
+    cursor: pointer;
+}
 .post-display-main-content{
     display: flex;
     flex-direction: column;

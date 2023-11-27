@@ -23,7 +23,7 @@ passport.use(new GoogleStrategy({
                 return done(null, user);
             } else {
 
-                // check if the generate username name exits because we append random numners at the end, there is a probability if the username already exists
+                // check if the generate username name exits because we append random numners at the end, there is a possibility if the username already exists
                 while (await User.findOne({ username: generatedUsername })) {
                     generatedUsername = generateUniqueUsername(profile.displayName);
                 }

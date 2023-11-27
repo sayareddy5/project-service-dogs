@@ -1,41 +1,26 @@
 <div class="careers-container">
     <h1 class="content-header">Careers</h1>
-    <table>
-        <tr>
-            <th>Role</th>
-            <td>Guide Dog Mobility Instructor</td>
-        </tr>
-        <tr>
-            <th>Status</th>
-            <td>Ongoing</td>
-        </tr>
-        <tr>
-            <th>Job Description</th>
-            <td>Canadian Guide Dogs for the Blind (CGDB) is currently seeking a Guide Dog Mobility Instructor (GDMI) to work full-time in Manotick, Ontario, initially on a two-year contract, renewable.
-                You will be expected to train guide dogs and guide dog teams, perform aftercare visits nationwide, and occasionally attend CGDB related events. Candidates should be prepared to spend nights away from home, throughout Canada, when required. In your spare time, you will be able to enjoy hiking, canoeing, camping, skiing, snowboarding, boating, various cultural events, and amazing cuisine from all parts of the world.</td>
-        </tr>
-        <tr>
-            <th>Contact</th>
-            <td>careers@servicedogs.ca</td>
-        </tr>
-    </table>
-    <table>
-        <tr>
-            <th>Role</th>
-            <td>Assistance Dog Trainer</td>
-        </tr>
-        <tr>
-            <th>Status</th>
-            <td>Ongoing</td>
-        </tr>
-        <tr>
-            <th>Job Description</th>
-            <td>Canadian Guide Dogs for the Blind (CGDB) is currently seeking an Assistance Dog Trainer to join our team in Manotick, Ontario, initially on a one-year contract, renewable.
-                You will be expected to train assistance dogs and assistance dog teams, perform aftercare visits within a 200 kms. radius of our National Training Centre, and occasionally attend CGDB events. In your spare time, you will be able to enjoy hiking, canoeing, camping, skiing, snowboarding, boating, various cultural events, and amazing cuisine from all parts of the world.</td>
-        </tr>
-        <tr>
-            <th>Contact</th>
-            <td>careers@servicedogs.ca</td>
-        </tr>
-    </table>
+
+    <% allJobDetails.forEach((jobDetail) => { %>
+        <table>
+            <tr>
+                <th>Role</th>
+                <td><%= jobDetail.role %></td>
+            </tr>
+            
+            <tr>
+                <th>Job Description</th>
+                <td><%= jobDetail.jobDescription %></td>
+            </tr>
+            <tr>
+                <th>Location</th>
+                <td><%= jobDetail.location %></td>
+            </tr>
+            <tr>
+                <th>Contact</th>
+                <td><%= jobDetail.contact %></td>
+            </tr>
+        </table>
+        <% }); %>
+    
 </div>

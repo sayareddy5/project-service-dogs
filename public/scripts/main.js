@@ -1,5 +1,9 @@
 
-const menuItems = document.querySelectorAll('.nav-item');
+//------------- when scrolled the header stays fixed-------------
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    const menuItems = document.querySelectorAll('.nav-item');
     menuItems.forEach(item => {
         try{
             const submenu = item.querySelector('.submenu');
@@ -7,11 +11,7 @@ const menuItems = document.querySelectorAll('.nav-item');
         }catch(error){
             console.log("error")
         }
-})
-
-//------------- when scrolled the header stays fixed-------------
-
-document.addEventListener("DOMContentLoaded", function() {
+    })
     window.addEventListener("scroll", function() {
         var header = document.querySelector('.header');
         var menuLinks = document.querySelectorAll('.menu ul li a');
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
      // ---------to display submenu respective to menu-------------------
-    const menuItems = document.querySelectorAll('.nav-item');
+    // const menuItems = document.querySelectorAll('.nav-item');
     menuItems.forEach(item => {
         const submenu = item.querySelector('.submenu');
         const navElement = item.querySelector('.nav-link')

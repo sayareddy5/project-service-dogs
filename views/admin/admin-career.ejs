@@ -1,0 +1,54 @@
+<div class="admin-user-main-container admin-jobs-main-container">
+
+    <div style="min-width: 25rem;" class="form-container login-container admin-user-container admin-career-container">
+        <h2>Job Details Form</h2>
+        <form action="/admin/career-list" method="post">
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <input type="text" id="role" name="role" required>
+            </div>
+            <div class="form-group">
+
+                <label for="jobDescription">Job Description:</label>
+                <textarea id="jobDescription" name="jobDescription" required></textarea>
+            </div>
+            <div class="form-group">
+                
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" required>
+            </div>
+            <div class="form-group">
+
+                
+                <label for="contact">Contact:</label>
+                <input type="text" id="contact" name="contact" required>
+            </div>
+    
+            <button type="submit">Submit</button>
+        </form>
+        
+    </div>
+    <div class="admin-jobs-container">
+        <% allJobDetails.forEach((jobDetail) => { %>
+            <table>
+            <tr>
+                <th>Role</th>
+                <td><%= jobDetail.role %></td>
+            </tr>
+            <tr>
+                <th>Job Description</th>
+                <td><%= jobDetail.jobDescription %></td>
+            </tr>
+            <tr>
+                <th>Location</th>
+                <td><%= jobDetail.location %></td>
+            </tr>
+            <tr>
+                <th>Contact</th>
+                <td><%= jobDetail.contact %></td>
+            </tr>
+        </table>
+        <% }); %>
+    </div>
+
+</div>

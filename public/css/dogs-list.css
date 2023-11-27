@@ -96,7 +96,9 @@
     grid-column: 1 / -1;
     text-align: center;
 }
-
+#breed option{
+    text-transform: capitalize;
+}
 @media (max-width:1100px){
     .dogs-list-main-container{
         margin-top: 18vh;

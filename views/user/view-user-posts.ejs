@@ -27,7 +27,7 @@
                 
                         <div class="post-content-container">
                             <div class="post-image-container">
-                                <img class="post-image" src="/<%= post.imageUrl %>" alt="Post Image">
+                                <img class="post-image" src="<%= post.imageUrl %>" alt="Post Image">
                             </div>
                             <div class="post-des"><%= post.description %></div>
                         </div>
@@ -44,7 +44,7 @@
                                 <% if (post.comments.length > 0) { %>
                                     <% post.comments.forEach(function(comment) { %>
                                         <div class="comment-item">
-                                            <strong class="comment-user"><%= comment.user.username %> </strong> : 
+                                            <a href="/user/view-profile/<%= comment.user.username %>"><strong class="comment-user"><%= comment.user.username %> </strong></a> : 
                                             <span><%= comment.comment %></span>
                                         </div>
                                     <% }); %>

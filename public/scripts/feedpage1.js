@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
     try{
         const fileInput = document.getElementById('image');
         const imagePreview = document.getElementById('image-preview');
-
+        const deleteButton = document.getElementById('deleteImage');
+        
         fileInput.addEventListener('change', function() {
             const file = fileInput.files[0]; 
 
@@ -28,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 reader.onload = function(event) {
                     imagePreview.src = event.target.result;
                     imagePreview.style.display = 'block';
+                    deleteButton.style.display = 'block';
                 };
 
                 // read the image file as base64 encoded string
@@ -35,10 +37,20 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 
                 imagePreview.style.display = 'none';
+                deleteButton.style.display = 'none';
             }
     
         });
-    }catch(error){
-        console.error("Image file not provided to render the preview")
+
+        deleteButton.addEventListener('click', function () {
+            // reset file input and hide image preview and delete button
+            fileInput.value = null;
+            imagePreview.src = '#';
+            imagePreview.style.display = 'none';
+            deleteButton.style.display = 'none';
+        });
+
+    }catch(err){
+        
     }
 });

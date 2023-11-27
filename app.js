@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const passport = require('passport');
 const expressLayouts = require("express-ejs-layouts");
-const multer = require("./config/multerC");
 
 // database configure
 const {db,session, MongoStore} = require("./config/database");
@@ -19,8 +18,9 @@ const feedRoutes = require('./src/routes/feedRouterFile');
 const volunteerRoutes = require('./src/routes/volunteerRouterFile');
 const adminRoutes = require('./src/routes/adminRouterFile');
 
-
+require('dotenv').config();
 const app = express();
+
 
 // configuring sessions
 app.use(
@@ -38,7 +38,7 @@ app.use(
 // Middleware
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('views', path.join(__dirname, 'views'));

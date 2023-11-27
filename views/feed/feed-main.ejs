@@ -5,7 +5,6 @@
             <ul>
                 <li><a href="/feed" id="homeLink">Home</a></li>
                 <li><a href="/feed/user-posts" id="yourPostsLink">Your Posts</a></li>
-                <li><a href="/feed/create-new-post" id="newPostLink">New Post</a></li>
             </ul>
         </div>
         <div class="main-content" id="mainContent">
@@ -22,14 +21,16 @@
                                 <span class="profile-pic"><i class="fa-solid fa-circle-user"></i></span>
                             <% } %>
                             
-                            <span class="user-name"><a href="/user/view-profile/<%= post.user.username %>/"><%= post.user.username %></a>
+                            <span class="user-name"><a href="/user/view-profile/<%= post.user.username %>"><%= post.user.username %></a>
                                 </span>
                         </div>
                 
                         <div class="post-content-container">
+                            <% if(post.imageUrl)  { %>
                             <div class="post-image-container">
-                                <img class="post-image" src="/<%= post.imageUrl %>" alt="Post Image">
+                                <img class="post-image" src="<%= post.imageUrl %>" alt="Post Image">
                             </div>
+                            <% }  %>
                             <div class="post-des"><%= post.description %></div>
                         </div>
                 
@@ -45,7 +46,7 @@
                                 <% if (post.comments.length > 0) { %>
                                     <% post.comments.forEach(function(comment) { %>
                                         <div class="comment-item">
-                                            <strong class="comment-user"><%= comment.user.username %> </strong> : 
+                                            <a href="/user/view-profile/<%= comment.user.username %>"><strong class="comment-user user-name"><%= comment.user.username %> </strong></a> : 
                                             <span><%= comment.comment %></span>
                                         </div>
                                     <% }); %>

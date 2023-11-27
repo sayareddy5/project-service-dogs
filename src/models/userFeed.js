@@ -26,6 +26,16 @@ const feedSchema = new mongoose.Schema({
 } , {timestamps : true});
 
 
+feedSchema.pre('remove', async function (next) {
+    // remove associated likes
+    console.log("feed pre-remove-hhok triggered")
+    await Like.deleteMany({ postId: this._id });
+
+    // remove associated comments
+    await Comment.deleteMany({ postId: this._id });
+
+    next();
+});
 
 
 const Feed = mongoose.model('Feed', feedSchema);

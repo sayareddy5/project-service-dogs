@@ -19,14 +19,6 @@ const AboutController = {
         //render page with the required details to display
         res.render('abouttemplates/faq.ejs',{username, authorized, title:"FAQ",imageUrl:userImageUrl});
     },
-    newsletterHandle: async (req, res) => {
-        const authorized = req.session.user && req.session.user.authorized === true;
-        const username = req.session.user ? req.session.user.username : null;
-        const userImageUrl = req.session.user ? req.session.user.imageUrl : null
-        
-        //render page with the required details to display
-        res.render('abouttemplates/newsletter.ejs',{username, authorized, title:"NewsLetter",imageUrl:userImageUrl});
-    },
     faqFormHanle: async (req, res) => {
         // get question and email from req.body 
         const { question, email } = req.body;

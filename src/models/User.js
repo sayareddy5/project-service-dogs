@@ -15,7 +15,18 @@ const userSchema = new mongoose.Schema({
   mobileNumber: {type: String},
 }, {timestamps : true});
 
+userSchema.pre('remove', async function (next) {
+  // remove associated feeds
+  await Feed.deleteMany({ user: this._id });
 
+  // remove associated likes
+  await Like.deleteMany({ user: this._id });
+
+  // remove associated comments
+  await Comment.deleteMany({ user: this._id });
+
+  next();
+});
 
 const User = mongoose.model('User', userSchema);
 

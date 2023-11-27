@@ -1,9 +1,9 @@
 const User = require('../models/User');
-const passport = require("../controllers/authController");
 const {Feed, Like, Comment} = require("../models/userFeed");
-const fs = require('fs');
-const path = require('path');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const {S3, deleteObjectFromS3} = require("../../config/amazonS3");
+
+
 
 require('dotenv').config();
 const saltRounds = 10;
@@ -55,7 +55,7 @@ const UserController = {
           })
         }
 
-        console.log("updated: ",usernameUpdated)
+        
         // check if the user exists
         const existingUser = await User.findOne({
             $or: [{ username: usernameUpdated }, { email: email }]
@@ -136,7 +136,7 @@ const UserController = {
           authorized: false,
           username: null,
           error:  'Invalid credentials',
-          title: 'Loppgin'
+          title: 'Login'
       });
       }
   },
@@ -262,57 +262,75 @@ const UserController = {
   },
   
   saveProfilePage: async (req, res) => {
-
-      const reqestedUsername = req.params.username
-
-      
-      const authorized = req.session.user && req.session.user.authorized === true;
-      const username = req.session.user ? req.session.user.username : null;
-
-      if(reqestedUsername !== username){
-          res.status(500).json({ error: "Internal server error." });
-      }
-
-      const newImageUrl = req.file ? `/uploads/${req.file.filename}` : null;
-      const { firstName, lastName} = req.body;
-
+    const reqestedUsername = req.params.username;
+    const authorized = req.session.user && req.session.user.authorized === true;
+    const username = req.session.user ? req.session.user.username : null;
+  
+    if (reqestedUsername !== username) {
+      res.status(500).json({ error: "Something is wrong, May be it is not your account " });
+    }
+    
+    // save s3 url in the new variable
+    const newImageUrl = req.file ? `${req.file.location}` : null;
+    const { firstName, lastName } = req.body;
+  
+    try {
       const existingProfile = await User.findOne({ username: username });
-
-      try {
-          // const existingProfile = await User.findOne({ username: username });
-
-          if (existingProfile.imageUrl) {
-            const previousImagePath = path.join(__dirname, 'uploads', existingProfile.imageUrl);
-            if (fs.existsSync(previousImagePath)) {
-              fs.unlinkSync(previousImagePath);
-            }
-          }
-
-          if (firstName) {
-            existingProfile.firstName = firstName;
-          }
-          if (lastName) {
-            existingProfile.lastName = lastName;
-          }
-          if (newImageUrl) {
-            existingProfile.imageUrl = newImageUrl;
-            
-          }
-          
-          await existingProfile.save();
-
-          // set the values to the updated filed values if the user provided
-          const UpdatedfirstName = existingProfile.firstName ? existingProfile.firstName : null
-          const UpdatedlastName = existingProfile.lastName ? existingProfile.lastName : null
-          const imageUrl = existingProfile.imageUrl ? existingProfile.imageUrl : null
-          req.session.user.imageUrl = imageUrl
-
-          return res.render('user/profile', { authorized, username, error: null, title: 'Profile',firstName:UpdatedfirstName, lastName:UpdatedlastName,imageUrl:imageUrl,  successMessage:"Profile changed Succesfully"});
-
-      } catch (error) {
-       
-          return res.render('user/profile', { authorized, username, error: null, title: 'Profile',firstName:UpdatedfirstName, lastName:UpdatedlastName,imageUrl:imageUrl,  successMessage:"Something is wrong, Try Again"});
+  
+      // delete existing image from S3
+      if (existingProfile.imageUrl) {
+        deleteObjectFromS3(existingProfile.imageUrl)
+            .then(() => {
+                console.log('Image deletion process started');
+            })
+            .catch((err) => {
+                console.error('Error starting image deletion process:', err);
+            });
       }
+  
+      // update user profile
+      if (firstName) {
+        existingProfile.firstName = firstName;
+      }
+      if (lastName) {
+        existingProfile.lastName = lastName;
+      }
+      if (newImageUrl) {
+        existingProfile.imageUrl = newImageUrl;
+      }
+  
+      await existingProfile.save();
+  
+      // set the values to the updated field values if the user provided
+      const UpdatedfirstName = existingProfile.firstName || null;
+      const UpdatedlastName = existingProfile.lastName || null;
+      const imageUrl = existingProfile.imageUrl || null;
+  
+      req.session.user.imageUrl = imageUrl;
+  
+      return res.render('user/profile', {
+        authorized,
+        username,
+        error: null,
+        title: 'Profile',
+        firstName: UpdatedfirstName,
+        lastName: UpdatedlastName,
+        imageUrl: imageUrl,
+        successMessage: "Profile changed successfully",
+      });
+    } catch (error) {
+      console.error(error);
+      return res.render('user/profile', {
+        authorized,
+        username,
+        error: null,
+        title: 'Profile',
+        firstName: UpdatedfirstName,
+        lastName: UpdatedlastName,
+        imageUrl: imageUrl,
+        successMessage: "Something is wrong. Try Again",
+      });
+    }
   },
 
   showChangePassword: async(req, res) => {

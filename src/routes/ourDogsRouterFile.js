@@ -8,6 +8,7 @@ const isLoggedIn = require("../../helpers/userAuth")
 // router.get('/', userController.getUserList);
 
 router.get('/photo-gallery',OurDogsController.photoGallery);
+router.get('/breeds/total-breeds',OurDogsController.getAllBreeds);
 router.get('/total-dogs-list',OurDogsController.dogsList);
 router.get('/total-dogs-list/all',OurDogsController.fullDogsList);
 router.get('/total-dogs-list/filter',OurDogsController.filterDogs);

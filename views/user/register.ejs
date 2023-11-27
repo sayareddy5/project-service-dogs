@@ -94,6 +94,18 @@
 
         return isEmailValid;
     }
+    function checkUsername(username){
+
+        if(username === ""){
+            return false
+        }
+
+        if(username.length > 14){
+            return  false
+        }
+        console.log(username.length)
+        return true
+    }
 
     var errorMessage = document.getElementById('register-error-message');
     const passwordMatchError = document.getElementById('password-match-error');
@@ -140,13 +152,23 @@
         const passwordValue = passwordInput.value.trim();
         const confirmPasswordValue = confirmPasswordInput.value.trim();
     
-        const isUsernameValid = usernameValue !== '';
+        const isUsernameValid = checkUsername(usernameValue);
+
         const isEmailValid = checkEmail();
         const isPasswordValid = passwordValue !== '';
         const isConfirmPasswordValid = confirmPasswordValue !== '';
         const isPasswordMatch = passwordValue === confirmPasswordValue;
+        if(!isUsernameValid){
+            passwordMatchError.textContent = 'Invalid username, must be less than 14 characters';
+            return
+        }else{
+            passwordMatchError.textContent = ''
+        }
         
-    
+        if(!isPasswordMatch){
+            passwordMatchError.textContent = 'Passwords do not match';
+            return
+        }
 
         if (isUsernameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid && isPasswordMatch) {
             registerButton.disabled = false;

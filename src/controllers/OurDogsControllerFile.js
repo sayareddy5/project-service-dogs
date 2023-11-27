@@ -111,9 +111,20 @@ const OurDogsController = {
         try {
             // get all the dog details
             const totalDogs = await DogDetails.find({})
-
+            
             // send a json reponse of total dog detials data
-            res.json(totalDogs);
+            res.status(200).json(totalDogs);
+        } catch (error) {
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    },
+    getAllBreeds : async (req, res) => {
+        try {
+            // get all the dog details
+            
+            const uniqueBreeds = await DogDetails.distinct('breed');
+            // send a json reponse of total dog detials data
+            res.status(200).json(uniqueBreeds);
         } catch (error) {
             res.status(500).json({ error: 'Internal Server Error' });
         }
@@ -133,11 +144,18 @@ const OurDogsController = {
         }
         
         if (inService) {
-            
-            // attach a lessthan or equal method and store in the filterobject
-            filter.inService = { $lte: inService };
-            
-            
+            // convert inService to a number before using it in the filter
+            const inServiceValue = parseInt(inService);
+        
+            // Check if the conversion is successful and inServiceValue is a number
+            if (!isNaN(inServiceValue)) {
+                
+                filter.inService = { $gte: inServiceValue };
+            } else {
+                
+                res.status(400).json({ error: 'Invalid inService value' });
+                return; 
+            }
         }
         
         if (status) {

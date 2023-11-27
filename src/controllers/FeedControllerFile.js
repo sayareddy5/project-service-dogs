@@ -1,6 +1,11 @@
+require('dotenv').config();
 const {Feed, Like, Comment} = require("../models/userFeed");
-const User = require("../models/User")
-const fs = require('fs');
+const User = require("../models/User");
+const {S3, deleteObjectFromS3} = require("../../config/amazonS3");
+
+
+
+
 
 const FeedController = {
     home: async (req, res) => {
@@ -47,6 +52,7 @@ const FeedController = {
         // render the page witrh required details
         res.render('feed/new-post.ejs',{authorized, username, title: "Create Post",imageUrl:userImageUrl});
     },
+
     showUserPosts: async (req, res) =>{
         // get the user details if the user exists in  req.session  object
         const authorized = req.session.user && req.session.user.authorized === true;
@@ -84,14 +90,19 @@ const FeedController = {
         
     
     },
-    createFeed: async( req, res) =>{
-        
+    createFeed: async( req, res, next) =>{
+        // const imageUrl = req.file.location; 
+        let filePath = ''
+        // console.log(req.file)
         try {
             // get the feed data from the req.body object
             const { description, username } = req.body;
 
             // get the file path from the req.file object
-            const filePath = req.file.path;
+            if(req.file){
+
+                filePath = req.file.location;
+            }
 
             // get the current user based on  the username
             const user = await User.findOne({ username: username });
@@ -112,6 +123,7 @@ const FeedController = {
             res.status(500).json({ error: 'Internal Server Error' });
         }
     },
+    
     postComment: async (req, res) => {
         try {
             // get the post id from  the url, which is stored in req.params
@@ -151,14 +163,34 @@ const FeedController = {
         }
     },
 
-    deletePost: async (req,res) => {
+    deletePost: async (req, res) => {
         const { postId } = req.params;
-
         try {
-            // delete the feed 
-            await Feed.findByIdAndRemove(postId);
-            res.status(204).send(); 
-        } catch (error) {
+          // Ffind the feed to get the image URL
+            const feed = await Feed.findById(postId);
+            
+            if (!feed) {
+                return res.status(404).json({ error: 'Post not found' });
+            }
+        
+            // delete the image from S3
+            if (feed.imageUrl) {
+                deleteObjectFromS3(feed.imageUrl)
+                    .then(() => {
+                        // console.log('Image deletion process started');
+                    })
+                    .catch((err) => {
+                        console.error('Error starting image deletion process:', err);
+                    });
+            }
+        
+            // delete the feed from the database
+            // await Feed.findByIdAndDelete(postId);
+            const deletedFeed = await Feed.deleteOne({ _id: postId });
+            
+        
+            res.status(204).send();
+            } catch (error) {
             console.error('Error deleting post:', error);
             res.status(500).json({ error: 'Internal Server Error' });
         }

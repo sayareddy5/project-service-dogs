@@ -2,24 +2,10 @@
 <div class="gallery-main-container">
     <h1 class="content-header">Dogs Gallery</h1>
     <div id="photoGallery" class="photo-gallery">
-        <div class="photo-item">
-            <img src="../images/image.jpg" alt="Image">
-        </div>
-        <div class="photo-item">
-            <img src="../images/assistance-dog-3.jpg" alt="Image">
-        </div>
-        <div class="photo-item">
-            <img src="../images/hero-new-1.jpg" alt="Image">
-        </div>
-        <div class="photo-item">
-            <img src="../images/index-image-2.png" alt="Image">
-        </div>
-        <div class="photo-item">
-            <img src="../images/assistance-dog-main.jpg" alt="Image">
-        </div>
+        
         <% totalDogPhotos.slice(0, 10).forEach(photo => { %>
             <div class="photo-item">
-                <img src="/<%= photo.imageUrl %>" alt="Image">
+                <img src="<%= photo.imageUrl %>" alt="Image">
             </div>
         <% }) %>
     </div>
@@ -55,18 +41,12 @@
             photoItemDiv.classList.add('photo-item');
 
             const img = document.createElement('img');
-            img.src = `/${photo.imageUrl}`;
+            img.src = `${photo.imageUrl}`;
             img.alt = 'Image';
             
             photoItemDiv.appendChild(img);
-
-            const imgWidth = img.width;
-            // max width value
-            const thresholdWidth = 200;
-
-            if (imgWidth > thresholdWidth) {
-                photoItemDiv.classList.add('wide');
-            }
+            photoItemDiv.classList.add('wide');
+        
             photoGallery.appendChild(photoItemDiv);
         });
         

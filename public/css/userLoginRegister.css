@@ -24,8 +24,12 @@
     flex-direction: column;
     justify-content: space-around;
     padding-bottom: 2rem;
+    font-family: 'Sofia Sans Semi Condensed', sans-serif; 
     /* transition: all .5s ease-in-out; */
     
+}
+.form-container input{
+    font-family: inherit;
 }
 .registration-container{
     width: 80%;
@@ -301,6 +305,7 @@
     border-radius: 5px;
     display: inline-block;
 }
+
 
 .custom-file-button i {
     margin-right: 5px; /* Adjust the spacing between the icon and text */

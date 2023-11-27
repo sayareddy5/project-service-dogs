@@ -3,9 +3,12 @@ const DogDetails = require("../models/dogDetailsModel");
 const VolunteerRequests = require("../models/volunteerForm");
 const TrainingApplications = require("../models/trainingForm");
 const User = require("../models/User");
+const {S3, deleteObjectFromS3} = require("../../config/amazonS3");
+const CarrerModel = require("../models/careers")
 
 
 const AdminController = {
+
     index: async (req, res) => {
 
         // get details from the session of the current user of exists
@@ -123,6 +126,7 @@ const AdminController = {
         });
         }
     },
+
     handleRegistration: async (req, res) => {
     
         try {
@@ -172,6 +176,7 @@ const AdminController = {
             return res.status(500).send('Error registering user');
         }
         },
+
     uploadDogContent: async (req, res) => {
 
         // get details from the session of the current user of exists
@@ -181,6 +186,7 @@ const AdminController = {
         // render page with required details to display
         res.render('admin/dog-upload.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Upload Dog Content"});
     },
+
     volunteerRequests: async (req, res) => {
 
         // get details from the session of the current user of exists
@@ -193,6 +199,7 @@ const AdminController = {
         // render page with required details to display
         res.render('admin/volunteer-requests.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Volunteer Requests", volunteerRequests : total_requests});
     },
+
     trainingApplications: async (req, res) => {
 
         // get details from the session of the current user of exists
@@ -204,13 +211,15 @@ const AdminController = {
 
         res.render('admin/training-applications.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Training Applications",trainingRequests: training_applications});
     },
+
     dogImageUpload: (req, res) => {
         
         // get the image path from the req.file object
-        const imagePath = req.file.path
+        
         
         try{
-            
+            const imagePath = req.file.location
+            // console.log(imagePath)
             // create a new dogphoto instance
             const newDogPhoto = new DogPhoto({
                 imageUrl: imagePath,
@@ -218,25 +227,31 @@ const AdminController = {
             
             // save the dog photo
             newDogPhoto.save()
-                
+            
+        
             return res.redirect("/admin")
         }catch(error){
             console.log("error occured while saving dog image",error)
+            return res.json({"success": "false", "message": "Error occured while uploading, if image is not provided, please provide image while uploading"})
         }
 
     },
+
     dogDetailsUpload: (req, res) => {
         
         // get the dog detiails from the req.body
         const { breed, age, service, status } = req.body;
         // get image path from req.file object
-        const imagePath = req.file.path
+        
         
         try{
-            
+            let dogImagePath = ''
+            if(req.file){
+                dogImagePath = req.file.location
+            }
             // create a new dogDetials instance
             const newDogDetails = new DogDetails({
-                imageUrl: imagePath,
+                imageUrl: dogImagePath,
                 breed: breed.toLowerCase(),
                 age: age,
                 inService: service,
@@ -248,9 +263,45 @@ const AdminController = {
         }catch(error){
             
             console.log("error occured while saving dog image",error)
+            return res.json({"success": "false", "message": "Error occured while uploading, Please provide necessary details and try again"})
         }
-                
-          
-}};
+    },
+    getJobDetails: async (req, res) =>{
+        const authorized = req.session.user && req.session.user.authorized === true;
+        var username = req.session.user ? req.session.user.username : null;
+        try {
+
+            const allJobDetails = await CarrerModel.find();
+            res.render('admin/admin-career.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Service Dogs Careers",allJobDetails});
+            } catch (error) {
+            console.error(error);
+            res.status(500).send('Internal Server Error');
+        }
+    },
+
+    saveJobDetails: async (req, res) =>{
+        const authorized = req.session.user && req.session.user.authorized === true;
+        var username = req.session.user ? req.session.user.username : null;
+        try {
+            // create a new document using the model
+            const newJobDetails = new CarrerModel({
+                role: req.body.role,
+                jobDescription: req.body.jobDescription,
+                location: req.body.location,
+                contact: req.body.contact,
+            });
+        
+            // save the document to the database
+            await newJobDetails.save();
+
+            const allJobDetails = await CarrerModel.find();
+            res.render('admin/admin-career.ejs',{layout: 'baseTemplates/admin',authorized, username, title: "Service Dogs Careers",allJobDetails});
+            } catch (error) {
+            console.error(error);
+            res.status(500).send('Internal Server Error');
+        }
+    }
+    
+};
 
 module.exports = AdminController

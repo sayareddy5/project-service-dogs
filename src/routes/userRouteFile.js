@@ -3,7 +3,8 @@ const router = express.Router();
 const userController = require('../controllers/userControllerFile');
 const passport = require('../controllers/authController');
 const isLoggedIn = require("../../helpers/userAuth");
-const upload = require("../../config/multerC")
+const {profileImageUpload, feedImageUpload} = require("../../config/multerC")
+
 
 
 router.get('/register', userController.showRegisterForm);
@@ -38,7 +39,7 @@ router.get('/:username/change-password',isLoggedIn, userController.showChangePas
 
 router.post('/:username/change-password',isLoggedIn, userController.handleChangePassword);
 
-router.post('/:username/profile',isLoggedIn,upload.single('profilePic'), userController.saveProfilePage);
+router.post('/:username/profile',isLoggedIn,profileImageUpload.single('profilePic'), userController.saveProfilePage);
 
 
 
