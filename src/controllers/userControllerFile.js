@@ -101,6 +101,7 @@ const UserController = {
   HandleLoginForm: async (req, res) => {
       
       let  { username, password } = req.body;
+      console.log(username,password)
       username = username.toLowerCase()
       const user = await User.findOne({ username})
 
@@ -113,7 +114,10 @@ const UserController = {
           title: "Login"
         })
       }
-      const passwordMatch = bcrypt.compare(password, user.password);
+
+      console.log(user)
+      
+      const passwordMatch = await bcrypt.compare(password, user.password);
 
       if(passwordMatch){
         // save the user in req.session object

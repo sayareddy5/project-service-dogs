@@ -29,9 +29,12 @@
         const loadMoreBtn = document.getElementById('loadMoreBtn');
         const photoGallery = document.getElementById('photoGallery');
         const totalDogData = document.getElementById('hidden-element-photo')
-        let visibleImagesCount = 10; // Number of initially visible images
+        let visibleImagesCount = 10; 
         const totalDogPhotosList = JSON.parse(totalDogData.value);
-  
+        
+        function hasMoreImages() {
+            return visibleImagesCount < totalDogPhotosList.length;
+        }
         loadMoreBtn.addEventListener('click', () => {
         const newImages = totalDogPhotosList.slice(visibleImagesCount, visibleImagesCount + 10);
 
@@ -51,8 +54,16 @@
         });
         
             visibleImagesCount += 10;
+            if (!hasMoreImages()) {
+                loadMoreBtn.style.display = 'none'; 
+            }
             
         });
+        
+        if (!hasMoreImages()) {
+            loadMoreBtn.style.display = 'none'; 
+        }
+
     }catch(error){
         console.log(error)
     }
