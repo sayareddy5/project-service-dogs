@@ -1,10 +1,13 @@
 {
   "name": "project_dogs",
   "version": "1.0.0",
+  "engines": {
+    "node": "18.17.0"
+  },
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "npm app.js"
   },
   "author": "",
   "license": "ISC",
@@ -33,3 +36,4 @@
     "nodemon": "^3.0.1"
   }
 }
+
