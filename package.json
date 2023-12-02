@@ -2,12 +2,12 @@
   "name": "project_dogs",
   "version": "1.0.0",
   "engines": {
-    "node": "18.17.0"
+    "node": "18.x"
   },
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "npm app.js"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
