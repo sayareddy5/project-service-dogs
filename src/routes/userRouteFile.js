@@ -29,6 +29,8 @@ router.get('/view-profile/:username',isLoggedIn,userController.viewUserProfile);
 
 router.get('/view-profile/:username/posts',isLoggedIn,userController.viewUserProfilePosts);
 
+router.get('/view-profile/:username/:currentUser/messages',isLoggedIn,userController.viewUserMessages);
+
 // router.get('/currentuser:username/requesteduser:username/chat',isLoggedIn,userController.viewUserProfilePosts);
 
 // router.post('/currentuser:username/requesteduser:username/chat',isLoggedIn,userController.viewUserProfilePosts);

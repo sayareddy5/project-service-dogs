@@ -1,0 +1,48 @@
+.popup-container {
+
+    width: 100%;
+    height: max-content;
+    margin-left: auto;
+    background-color: blue;
+}
+
+.popup-container .popup-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    /* background-color: red; */
+}
+
+.popup-container .close {
+    color: red;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.popup-container .close:hover,
+.popup-container .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.popup-container textarea {
+    width: 80%;
+    height: 80px;
+    resize: none;
+    margin-bottom: 10px;
+}
+
+.popup-container button {
+    padding: 10px;
+    background-color: green;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.popup-container button:hover {
+    background-color: #45a049;
+}

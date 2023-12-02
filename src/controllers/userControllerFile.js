@@ -101,11 +101,11 @@ const UserController = {
   HandleLoginForm: async (req, res) => {
       
       let  { username, password } = req.body;
-      console.log(username,password)
+      // console.log(username,password)
       username = username.toLowerCase()
-      const user = await User.findOne({ username})
-
-      if(!user){
+      const user = await User.findOne({ username});
+      //  if user exusts we get user obejct
+      if(!user){  // 
         // req.session.error = true
         return res.render('user/login', {
           authorized: false,
@@ -115,7 +115,7 @@ const UserController = {
         })
       }
 
-      console.log(user)
+      // console.log(user)
       
       const passwordMatch = await bcrypt.compare(password, user.password);
 
@@ -144,6 +144,7 @@ const UserController = {
       });
       }
   },
+  
   HandleLogout: async (req,res) =>{
     req.session.destroy();
     return res.redirect("/");
@@ -384,21 +385,6 @@ const UserController = {
             return res.redirect(`/user/${currentUsername}/profile`);
           }
 
-          
-          // get all the user posts and sort them in new data first and populate it with the user info, comment and likes of the feeds
-          // const userPosts = await Feed.find({ user: userView._id }).populate({
-          //     path: 'user',
-          //     select: 'username imageUrl', 
-          // })
-          // .populate({
-          //     path: 'comments.user',
-          //     select: 'username imageUrl',
-          // })
-          // .populate({
-          //     path: 'likes.user',
-          //     select: 'username',
-          // })
-          // .sort({ datePosted: -1 });
           // console.log(userView.firstName)
           res.render('user/view-profile.ejs',{authorized, username: currentUsername, title: `${username} profile`,imageUrl:userImageUrl, userView,});
 
@@ -438,6 +424,28 @@ const UserController = {
               .sort({ datePosted: -1 });
 
               res.render('user/view-user-posts.ejs',{authorized, username: currentUsername, title: `${username} profile`,userView,userPosts : userPosts,imageUrl:userImageUrl});
+
+          }catch(error){
+              console.error(error);
+              res.status(500).json({ error: 'Internal Server Error' });
+            
+          }
+    },
+    viewUserMessages: async (req, res) =>{
+      const { username } = req.params;
+      const authorized = req.session.user && req.session.user.authorized === true;
+      const currentUsername = req.session.user ? req.session.user.username : null;
+      const userImageUrl = req.session.user ? req.session.user.imageUrl : null
+          try{
+            
+              const userView = await User.findOne({ username : username})
+              console.log(userView)
+              if(userView.username == currentUsername){
+                return res.redirect(`/feed/user-posts`);
+              }
+          
+
+              res.render('user/messages.ejs',{authorized, username: currentUsername, title: `${username} profile`,userView});
 
           }catch(error){
               console.error(error);

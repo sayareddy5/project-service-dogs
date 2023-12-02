@@ -7,11 +7,11 @@
             <ul>
                 <li><a href="/user/view-profile/<%= userView.username %>" id="homeLink">Profile</a></li>
                 <li><a href="/user/view-profile/<%= userView.username %>/posts" id="homeLink">Posts</a></li>
-                
+                <li><a href="">Messages</a></li>
             </ul>
         </div>
         <div class="main-content" id="mainContent">
-           
+            
             <div class="view-profile-container">
 
 
@@ -100,5 +100,20 @@
         });
     });
 
-    
+    function openPopup() {
+        document.getElementById('messagingPopup').style.display = 'block';
+        // Fetch and display message history here using AJAX or other method
+    }
+      
+      // Function to close the messaging popup
+    function closePopup() {
+    document.getElementById('messagingPopup').style.display = 'none';
+    }
+      
+      // Function to send a new message
+    function sendMessage() {
+    const newMessage = document.getElementById('newMessageInput').value;
+    // Handle sending the message using AJAX or other method
+    // Update the message history dynamically
+    }
 </script>

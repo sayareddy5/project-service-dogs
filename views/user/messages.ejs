@@ -1,0 +1,35 @@
+
+<div class="feed-main-container">
+    <div class="feed-inner-container">
+
+        <div class="sidebar">
+            <ul>
+                <li><a href="/user/view-profile/<%= userView.username %>" id="homeLink">Profile</a></li>
+                <li><a href="/user/view-profile/<%= userView.username %>/posts" id="homeLink">Posts</a></li>
+                <li><a href="/user/view-profile/<%= userView.username %>/chat">Messages</a></li>
+            </ul>
+        </div>
+        <div class="main-content" id="mainContent">
+            <div id="messagingPopup" class="popup-container">
+                <div class="popup-content">
+            
+                <h2><%= userView.firstName %> <%= userView.lastName %></h2>
+            
+                <div class="message-history" id="messageHistory">
+                    <!-- fecth and display messages here -->
+                </div>
+            
+                <textarea id="newMessageInput" placeholder="Type your message..."></textarea>
+            
+                <button onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+            
+        </div>
+        </div>
+        <div>
+            
+        </div>
+    </div>
+    
+</div>
