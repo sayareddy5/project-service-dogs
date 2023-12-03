@@ -64,4 +64,4 @@ This website design and content have been inspired by guidedogs.com. The overall
 
 # Note:
 
-Make sure to replace the placeholder values with your actual credentials and customize the instructions as needed.
+Make sure to replace the placeholder values with your actual credentials.
