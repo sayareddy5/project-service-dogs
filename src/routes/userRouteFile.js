@@ -29,7 +29,10 @@ router.get('/view-profile/:username',isLoggedIn,userController.viewUserProfile);
 
 router.get('/view-profile/:username/posts',isLoggedIn,userController.viewUserProfilePosts);
 
-router.get('/view-profile/:username/:currentUser/messages',isLoggedIn,userController.viewUserMessages);
+router.get('/view-profile/:messageUser/:currentUser/chat',isLoggedIn,userController.viewMessagesPage);
+
+router.get('/chat/history',isLoggedIn, userController.getMessageHistoryList)
+router.post('/send-message', isLoggedIn, userController.sendMessage);
 
 // router.get('/currentuser:username/requesteduser:username/chat',isLoggedIn,userController.viewUserProfilePosts);
 

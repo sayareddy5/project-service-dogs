@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const {Feed, Like, Comment} = require("../models/userFeed");
+const Message = require("../models/messageModel")
 const bcrypt = require('bcrypt');
 const {S3, deleteObjectFromS3} = require("../../config/amazonS3");
 
@@ -431,28 +432,95 @@ const UserController = {
             
           }
     },
-    viewUserMessages: async (req, res) =>{
-      const { username } = req.params;
+    viewMessagesPage: async (req, res) =>{
+      const { currentUser, messageUser } = req.params;
       const authorized = req.session.user && req.session.user.authorized === true;
       const currentUsername = req.session.user ? req.session.user.username : null;
       const userImageUrl = req.session.user ? req.session.user.imageUrl : null
-          try{
-            
-              const userView = await User.findOne({ username : username})
-              console.log(userView)
-              if(userView.username == currentUsername){
-                return res.redirect(`/feed/user-posts`);
-              }
-          
+      try {
+        const userView = await User.findOne({ username: messageUser });
+        const currentUserobject = await User.findOne({username: currentUsername})
+        if (!userView) {
+          return res.status(404).json({ error: 'User not found' });
+        }
+    
+        const messages = await Message.find({
+          $or: [
+            { sender: userView._id, receiver: currentUserobject._id },
+            { sender: currentUserobject._id, receiver: userView._id },
+          ],
+        })
+        .populate('sender receiver');
+    
+        res.render('user/messages.ejs', {
+          title: `${userView.firstName} ${userView.lastName}'s Messages`,
+          username: currentUsername,
+          userView,
+          messages,
+          authorized,
+          imageUrl:userImageUrl
+        });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+    },
 
-              res.render('user/messages.ejs',{authorized, username: currentUsername, title: `${username} profile`,userView});
+    sendMessage: async (req, res) => {
+      const { sender, receiver, content } = req.body;
+      
+      try {
+        //get the userprofile fo receiver and sender
+        const receiverObject = await User.findOne({ username: receiver });
+        const senderObject = await User.findOne({username: sender})
+        if (!receiverObject) {
+          return res.status(404).json({ error: 'User not found' });
+        }
+        // create a new message instance
+        const newMessage = new Message({
+          sender: senderObject._id,
+          receiver: receiverObject._id,
+          content,
+        });
+        
+        // save the message
+        const savedMessage = await newMessage.save();
+        
+        res.json({ message: 'Message sent successfully', savedMessage });
+      } catch (error) {
+        console.error('Error sending message:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+    },
 
-          }catch(error){
-              console.error(error);
-              res.status(500).json({ error: 'Internal Server Error' });
-            
-          }
-    }
+    getMessageHistoryList: async (req, res) => {
+      const authorized = req.session.user && req.session.user.authorized === true;
+      const userImageUrl = req.session.user ? req.session.user.imageUrl : null
+      const currentUsername = req.session.user ? req.session.user.username : null;
+    
+      try {
+        const user = await User.findOne({ username: currentUsername });
+
+        // get the all usernames from both sender and receiver fields
+        const senderUserIds = await Message.distinct('sender', { receiver: user._id });
+        const receiverUserIds = await Message.distinct('receiver', { sender: user._id  });
+
+        //filter out the current userId, from all the is's received
+        const userIds = [...senderUserIds, ...receiverUserIds].filter(userId => userId.toString() !== user._id.toString());
+
+        // fecth all the usernames based on the filter received
+        const usernames = await User.find({ _id: { $in: userIds } }).distinct('username');
+
+        // render hisotry page list page with the usernames
+        res.render('user/message-history.ejs', { title: 'Chat History',
+        username: currentUsername,
+        authorized,
+        imageUrl:userImageUrl, usernames });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+    },
 };
 
 module.exports = UserController;

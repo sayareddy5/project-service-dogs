@@ -1,0 +1,33 @@
+
+<div class="messages-history-container">
+    <div class="messages-history-inner-container">
+
+        <div class="sidebar">
+            <ul>
+                <li><a href="/user/view-profile/<%= username %>" id="homeLink">Profile</a></li>
+                <li><a href="/user/view-profile/<%= username %>/posts" id="homeLink">Posts</a></li>
+                <li><a href="/user/chat/history" id="userMessages">Message History</a></li>
+
+            </ul>
+        </div>
+        <div class="main-content" id="mainContent">
+            <input type="hidden" id="currentUser" value="<%= username %>">
+            <div id="messaging" class="message-container">
+            
+                <h2>Contacted usernames</h2>
+            
+                <ul class="usernames-list">
+                    <% if (usernames.length > 0) { %>
+                        <% usernames.forEach(name => { %>
+                        <li><a href="/user/view-profile/<%= name %>/<%= username %>/chat"><%= name %></a></li>
+                        <% }); %>
+                    <% } else { %>
+                        <p class="no-conversations">No message history available.</p>
+                    <% } %>
+                </ul>
+            
+        </div>
+        </div>
+    </div>
+    
+</div>

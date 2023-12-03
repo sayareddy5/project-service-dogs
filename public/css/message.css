@@ -1,48 +1,138 @@
-.popup-container {
-
-    width: 100%;
-    height: max-content;
+.messages-main-container{
+    margin-top: 26vh;
+    padding-bottom: 3rem;
+    font-family: 'Sofia Sans Semi Condensed', sans-serif;
+}
+.messages-inner-container{
+    display: flex;
+    width: 90%;
     margin-left: auto;
-    background-color: blue;
+    margin-right: auto;
+    align-items: flex-start;
+    position: relative;
+}
+.messages-inner-container #mainContent{
+    padding-top: 0 !important;
+    margin-top: -5rem !important;
+
 }
 
-.popup-container .popup-content {
-    background-color: #fefefe;
+
+.message-container .message-content {
     margin: 10% auto;
     padding: 20px;
-    border: 1px solid #888;
-    /* background-color: red; */
 }
 
-.popup-container .close {
-    color: red;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
 
-.popup-container .close:hover,
-.popup-container .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.popup-container textarea {
-    width: 80%;
+.message-container textarea {
+    width: 90%;
+    display: block;
     height: 80px;
     resize: none;
     margin-bottom: 10px;
+    /* background-color: red; */
 }
+.message-container .message{
+    /* display: flex; */
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 10px;
+    padding: 0rem .5rem;
+    margin-bottom: .5rem;
 
-.popup-container button {
-    padding: 10px;
+}
+.message-container button {
+    padding: 10px 15px;
     background-color: green;
     color: white;
+    display: block;
+    width: max-content;
     border: none;
+    font-size: 1rem;
     cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+}
+.message-username{
+    font-weight: bold;
+
 }
 
-.popup-container button:hover {
-    background-color: #45a049;
+.message-history {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+    border-radius: 5px;
+    
+}
+.sent {
+    background-color: #c3d0d6;
+    margin-left: 10%;
+    text-align: left; 
+}
+
+.received {
+    background-color: rgb(195, 216, 162);
+    margin-right: 10%; 
+}
+
+.timestamp {
+    margin-left: 10px;
+    color: #7a7878;
+}
+
+.no-conversations {
+    text-align: center;
+    padding: 20px
+}
+
+.messages-history-container{
+    margin-top: 26vh;
+    padding-bottom: 3rem;
+    font-family: 'Sofia Sans Semi Condensed', sans-serif;
+}
+
+.messages-history-inner-container{
+    display: flex;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: flex-start;
+    position: relative;
+}
+.usernames-list li{
+    list-style: none;
+    padding: 5px;
+    font-size: 1.2rem;
+}
+@media (max-width:1100px){
+    .messages-history-container, .messages-main-container{
+        margin-top: 14vh;
+    }
+}
+
+@media (max-width:768px){
+    .messages-history-container, .messages-main-container{
+        margin-top: 30vh !important;
+    }
+    .messages-history-inner-container, .messages-inner-container{
+        flex-direction: column;
+    }
+    .messages-inner-container #mainContent{
+        padding-top: 0 !important;
+        margin-top: -2rem !important;
+    
+    }
+    .sidebar {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        height: max-content;
+    }
+    .main-content {
+        width: 96%;
+        margin-top: 1rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
 }

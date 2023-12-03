@@ -3,7 +3,7 @@ const { S3Client,DeleteObjectCommand  } = require('@aws-sdk/client-s3')
 
 const S3 = new S3Client({
     s3ForcePathStyle: true,
-    region: process.env.AMAZON_REGION,
+    region: 'us-east-2',
     credentials: {
       accessKeyId: process.env.AMAZON_ACCESS_KEY,
       secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY,

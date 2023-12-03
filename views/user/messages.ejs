@@ -1,27 +1,45 @@
 
-<div class="feed-main-container">
-    <div class="feed-inner-container">
+<div class="messages-main-container">
+    <div class="messages-inner-container">
 
         <div class="sidebar">
             <ul>
                 <li><a href="/user/view-profile/<%= userView.username %>" id="homeLink">Profile</a></li>
                 <li><a href="/user/view-profile/<%= userView.username %>/posts" id="homeLink">Posts</a></li>
-                <li><a href="/user/view-profile/<%= userView.username %>/chat">Messages</a></li>
+                <li><a href="/user/view-profile/<%= userView.username %>/<%= username %>/chat">Messages</a></li>
+
             </ul>
         </div>
         <div class="main-content" id="mainContent">
-            <div id="messagingPopup" class="popup-container">
-                <div class="popup-content">
+            <input type="hidden" id="currentUser" value="<%= username %>">
+            <input type="hidden" id="messageUser" value="<%= userView.username %>">
+            <div id="messaging" class="message-container">
+                <div class="message-content">
             
                 <h2><%= userView.firstName %> <%= userView.lastName %></h2>
             
                 <div class="message-history" id="messageHistory">
-                    <!-- fecth and display messages here -->
+                    <% if (messages.length > 0){ %>
+                        <% messages.forEach(message => { %>
+                            <div class="message <%= message.sender.username === username ? 'sent' : 'received' %>">
+                                
+                                <a href="/user/view-profile/<%= message.sender.username %>"><p class="message-username"><%= message.sender.username %>:</p></a>
+                                <p class="message-body"><%= message.content %></p>
+                                <p class="timestamp"> <%= new Date(message.createdAt).toLocaleString() %></p>
+                                
+ 
+                            </div>
+                        <% }); %>
+                    <% } else { %>
+                        <div class="no-conversations">
+                        No Conversations
+                        </div>
+                    <% } %>
                 </div>
             
                 <textarea id="newMessageInput" placeholder="Type your message..."></textarea>
             
-                <button onclick="sendMessage()">Send</button>
+                <button id="sendMessageButton" onclick="sendMessage()">Send</button>
                 </div>
             </div>
             
@@ -33,3 +51,53 @@
     </div>
     
 </div>
+
+<script>
+    const newMessageInput = document.getElementById('newMessageInput');
+    const sendMessageButton = document.getElementById('sendMessageButton');
+    
+    async function sendMessage(){
+        const content = newMessageInput.value.trim();
+        if (content) {
+            const sender = document.getElementById('currentUser').value;
+            const receiver = document.getElementById('messageUser').value;
+    
+            try {
+            const response = await fetch('/user/send-message', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ sender, receiver, content }),
+            });
+    
+            if (response.ok) {
+                // Message sent successfully, you can update the UI or perform other actions
+                console.log('Message sent successfully');
+                const responseData = await response.json();
+                const savedMessage = responseData.savedMessage;
+                addMessageToUI(savedMessage,sender);
+                console.log(savedMessage)
+                newMessageInput.value = ''; // Clear the input field
+            } else {
+                console.error('Failed to send message:', response.statusText);
+            }
+            } catch (error) {
+            console.error('Error sending message:', error);
+            }
+        }
+    };
+    function addMessageToUI(message,sender) {
+
+        const messageHistory = document.getElementById('messageHistory');
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('sent');
+        messageElement.classList.add('message');
+        messageElement.innerHTML = `
+            <p class="message-username">${sender}:</p>
+            <p class="message-body">${message.content}</p>
+            <p class="timestamp">${new Date(message.timestamp).toLocaleString()}</p>
+        `;
+        messageHistory.appendChild(messageElement);
+    }
+</script>
