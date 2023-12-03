@@ -72,13 +72,12 @@
             });
     
             if (response.ok) {
-                // Message sent successfully, you can update the UI or perform other actions
-                console.log('Message sent successfully');
+                // update the UI
+                console.log('message sent successfully');
                 const responseData = await response.json();
                 const savedMessage = responseData.savedMessage;
                 addMessageToUI(savedMessage,sender);
-                console.log(savedMessage)
-                newMessageInput.value = ''; // Clear the input field
+                newMessageInput.value = ''; 
             } else {
                 console.error('Failed to send message:', response.statusText);
             }
