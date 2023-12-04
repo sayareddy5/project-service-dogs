@@ -95,7 +95,7 @@
         messageElement.innerHTML = `
             <p class="message-username">${sender}:</p>
             <p class="message-body">${message.content}</p>
-            <p class="timestamp">${new Date(message.timestamp).toLocaleString()}</p>
+            <p class="timestamp">${new Date(message.createdAt).toLocaleString()}</p>
         `;
         messageHistory.appendChild(messageElement);
     }
