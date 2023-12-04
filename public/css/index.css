@@ -923,9 +923,16 @@ a.btn.btn-primary.hero-donate-btn {
         border-radius: 10px;
         background-color: var(--primary-color);
     }
+    .nav-item-container>li{
+        margin-top: 1rem;
+    }
     .user-login{
         position: relative;
         top: 0;
+    }
+    .user-login li{
+        margin-top: 1rem;
+        margin-bottom: .5rem;
     }
     .menu.active {
         display: flex;
