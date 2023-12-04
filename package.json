@@ -1,6 +1,10 @@
 {
   "name": "project_dogs",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sayareddy5/project-service-dogs.git"
+  },
   "engines": {
     "node": "18.x"
   },

@@ -1,7 +1,6 @@
 require('dotenv').config();
 const { S3Client,DeleteObjectCommand  } = require('@aws-sdk/client-s3')
 
-console.log(process.env.AMAZON_REGION)
 const S3 = new S3Client({
     s3ForcePathStyle: true,
     region: 'us-east-2',

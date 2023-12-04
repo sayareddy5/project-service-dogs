@@ -61,7 +61,5 @@ app.use('/donate', donateRoutes);
 app.use('/admin', adminRoutes);
 
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+var port = process.env.PORT || 3000;
+var server = app.listen(process.env.PORT||3000);

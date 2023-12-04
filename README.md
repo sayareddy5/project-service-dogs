@@ -12,7 +12,7 @@ This website design and content have been inspired by guidedogs.com. The overall
 
   If you do not have a client Id, please follow the instructions in the given link https://developers.google.com/identity/gsi/web/guides/get-google-api-clientid and create client Id and secret Id.
 
-- This app used nodemailer package to send reset mail
+- This app used nodemailer package to send reset mail since this is a free server expect some latency and error sending emails to the user, use another service provider based on requirement.
 - if using less secure mail providers we can easilty setup nodemailer Email and password in .env file ,if using gmail, create an app password in gmail account.
 
   - EMAIL_SERVICE = 'email service provider'
@@ -27,7 +27,41 @@ This website design and content have been inspired by guidedogs.com. The overall
 
   - PORT = 3004
 
+-
 - run command "npm install". This will install all the necessary packages used in the project.
 
 - run command "node app.js". This will startup the local server. Naviagte to any browser
   and got to http://localhost:3000 . Note: the app url is 3000 by default, use your port number if changed the default.
+
+- Setting Up AWS Keys and S3 Bucket
+  AWS Access Key and Secret Access Key:
+
+  Follow the [Official AWS documentation](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) to create Access Key and Secret Access Key.
+
+- AWS S3 Bucket:
+
+  Follow the [official AWS documentation](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html) to create an S3 Bucket.
+
+- Setting Up MongoDB Database
+
+  [MongoDB Atlas](https://www.mongodb.com/basics/create-database):
+
+  Create a new cluster, and follow the setup instructions provided by MongoDB Atlas.
+  MongoDB Connection String:
+
+  Retrieve the connection string from MongoDB Atlas, including the username and password.
+  Environment Variables:
+
+  Set the MONGO_DATA_ID to your MongoDB username and MONGO_DATA_PASSWORD to your MongoDB password.
+  Remember to keep your .env file secure and not share sensitive information.
+
+- AMAZON_ACCESS_KEY = 'access key'
+  AMAZON_SECRET_ACCESS_KEY = 'secret access key string'
+  AMAZON_REGION = 'region'
+  S3_BUCKET = 'bucketname'
+  MONGO_DATA_ID = 'userid'
+  MONGO_DATA_PASSWORD = 'password'
+
+# Note:
+
+Make sure to replace the placeholder values with your actual credentials.

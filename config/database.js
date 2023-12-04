@@ -6,6 +6,7 @@ const MongoStore = require('connect-mongo')(session);
 
 const mongo_key = process.env.MONGO_DATA_ID
 const mongo_pass = process.env.MONGO_DATA_PASSWORD
+
 mongoose.connect(`mongodb+srv://${mongo_key}:${mongo_pass}@servicedogsdata.rqqzgfu.mongodb.net/?retryWrites=true&w=majority`, {
   useNewUrlParser: true,
   useUnifiedTopology: true
