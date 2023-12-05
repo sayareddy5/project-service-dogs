@@ -168,7 +168,7 @@ const UserController = {
           getUser.resetCode = resetToken;
           // save the user with the reset token
           await getUser.save();
-          
+          const HOST = process.env.HOST
           // construct an email to send to the user to reset their password with the link
           const mailOptions = {
             from: process.env.EMAIL_ID,
@@ -176,7 +176,7 @@ const UserController = {
             subject: 'Password Reset Link - Service Dogs',
             html: `<div style="font-family: Arial, sans-serif; max-width: 400px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 5px;">
             <p style="font-size: 16px; color: #333; margin-bottom: 15px;">We received a request to reset the password . To proceed with the password reset, please click on the link below.</p>
-            <a href="https://servicedogs.azurewebsites.net/user/reset-password?token=${resetToken}" style="display: inline-block; padding: 10px 20px; font-size: 18px; color: #fff; background-color: #3498db; text-decoration: none; border-radius: 5px; transition: background-color 0.3s ease;">Reset Password</a>
+            <a href="${HOST}/user/reset-password?token=${resetToken}" style="display: inline-block; padding: 10px 20px; font-size: 18px; color: #fff; background-color: #3498db; text-decoration: none; border-radius: 5px; transition: background-color 0.3s ease;">Reset Password</a>
             </div>`
           };
 
@@ -358,13 +358,14 @@ const UserController = {
             return res.status(404).json({ error: 'User not found.' });
         }
         // Check if the old password provided matches the user's current password
-        if (user.password !== oldPassword) {
+        const passwordMatch = await bcrypt.compare(oldPassword, user.password);
+        if (!passwordMatch) {
             return res.status(401).json({ error: 'Incorrect old password.' });
         }
 
-
+        const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
         // Update the user's password
-        user.password = newPassword;
+        user.password = hashedPassword;
         await user.save();
 
         return res.status(200).json({ message: 'Password changed successfully.' });
