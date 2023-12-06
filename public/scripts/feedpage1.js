@@ -42,8 +42,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
         });
 
-        deleteButton.addEventListener('click', function () {
+        deleteButton.addEventListener('click', function (e) {
             // reset file input and hide image preview and delete button
+            e.preventDefault();
             fileInput.value = null;
             imagePreview.src = '#';
             imagePreview.style.display = 'none';

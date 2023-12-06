@@ -126,15 +126,15 @@
     </div>
 </div>
 <script>
-    // Select all like buttons on the page
+    
     const likeButtons = document.querySelectorAll('.like-btn');
     const newPostButton = document.getElementById('newPost');
     const formPostContainer = document.getElementById('new-post-form-container');
     newPostButton.addEventListener('click', function() {
-        // Toggle the visibility of the form-post-container
+        // toggle the visibility of the form-post-container
         formPostContainer.style.display = formPostContainer.style.display === 'none' ? 'block' : 'none';
     });
-    // Attach click event to each like button
+    // attach click event to each like button
     likeButtons.forEach(likeButton => {
         likeButton.addEventListener('click', async function(event) {
             const postId = likeButton.getAttribute('data-post-id');
@@ -165,7 +165,7 @@
 
                     const postElement = document.querySelector(`.post-container[data-post-id="${updatedPost._id}"]`);
 
-                    // Update the like/dislike status in the frontend
+                    // update the like/dislike status
                     likeButton.setAttribute('data-liked', updatedPost.likes.some(like => like.user.username === usernameCurrent));
                     likeButton.innerHTML = `${updatedPost.likes.some(like => like.user.username === usernameCurrent) ? 'Dislike' : 'Like'} (${updatedPost.likes.length})`;
                 } else {

@@ -130,7 +130,7 @@
                 body: JSON.stringify(formData)
             })
             if (response.ok) {
-                // If form submission is successful (status code 200), hide the form and display success message
+                // ff form submission is successful dsplay success message
                 questionFormContainer.classList.add('hidden');
                 successMessage.classList.remove('hidden');
             } else {
@@ -143,7 +143,7 @@
         questionFormContainer.classList.add('hidden');
         successMessage.textContent= "Error occurred. Please try after sometime"
         successMessage.classList.remove('hidden');
-        // Handle other errors (e.g., network issues)
+
     }
     });
 
@@ -188,7 +188,7 @@
     }
 
     emailElement.addEventListener('input', function () {
-        // Enable or disable the button based on the validity of the email
+        
         checkEmail()
         
     });

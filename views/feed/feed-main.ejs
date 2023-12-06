@@ -82,10 +82,10 @@
 </div>
 
 <script>
-    // Select all like buttons on the page
+    // select all like buttons on the page
     const likeButtons = document.querySelectorAll('.like-btn');
 
-    // Attach click event to each like button
+    // attach click event to each like button
     likeButtons.forEach(likeButton => {
         likeButton.addEventListener('click', async function(event) {
             const postId = likeButton.getAttribute('data-post-id');
