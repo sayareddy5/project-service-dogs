@@ -36,8 +36,10 @@
         </div>
         <div class="contact-page-info address-container">
             <h3 class="address-heading">Contact Information</h3>
-            <p>Phone: <a href="tel: +1519000000">+1 519 000-000</a> </p>
-            <p>Email: <a href="mailto: info@servicedogs.ca">info@servicedogs.ca</a></p>
+            <p>Phone: <a href="tel:+1519000000">+1 519 000-000</a> </p>
+            <p>Email: <span id="emailAddress" onclick="copyToClipboard()" style="cursor: pointer; color: blue;">info@servicedogs.ca</span></p>
+            <p style="display:none;color:green;font-size:.8rem;" id="show-copy">Copied to Clipboard</p>
+
         </div>
         <div class="office-hours-contact address-container">
             <h3 class="address-heading">Office Hours</h3>
@@ -53,7 +55,27 @@
     const contactFormContainer = document.getElementById('contactFormContainer');
     const successMessage = document.getElementById('successMessage');
     const emailElement = document.getElementById('email');
+    
+    function copyToClipboard() {
+    
+        var textarea = document.createElement("textarea");
+    
+        textarea.value = document.getElementById("emailAddress").innerText;
 
+        document.body.appendChild(textarea);
+    
+        textarea.select();
+    
+        document.execCommand("copy");
+
+        document.body.removeChild(textarea);
+        document.getElementById('show-copy').style.display="block";
+
+        setTimeout(function() {
+            document.getElementById('show-copy').style.display = "none";
+        }, 4000);
+  
+    }
     function isValidEmail(email) {
         const allowedProviders = ['gmail.com', 'hotmail.com'];
         const allowedExtensions = ['.net', '.dev', '.com', '.in'];
@@ -95,7 +117,7 @@
     }
 
     emailElement.addEventListener('input', function () {
-        // Enable or disable the button based on the validity of the email
+        
         checkEmail()
         
     });
@@ -125,7 +147,7 @@
             });
             
             if (response.ok) {
-                // If form submission is successful (status code 200), hide the form and display success message
+                // If form submission is successful hide the form 
                 contactFormContainer.classList.add('hidden');
                 successMessage.classList.remove('hidden');
             } else {
@@ -136,7 +158,7 @@
         console.error('Error submitting form:', error);
         successMessage.textContent= "Error occurred. Please try after sometime"
         successMessage.classList.remove('hidden');
-        // Handle other errors (e.g., network issues)
+        
     }
 });
 </script>
