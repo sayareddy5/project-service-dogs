@@ -7,7 +7,9 @@ require('dotenv').config();
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: 'http://servicedogs.azurewebsites.net/user/auth/google/callback',
+    callbackURL: process.env.NODE_ENV === 'production'
+    ? 'https://servicedogs.azurewebsites.net/user/auth/google/callback'
+    : 'http://localhost:3000/user/auth/google/callback',
     },
     async (accessToken, refreshToken, profile, done) => {
         try {
@@ -16,7 +18,7 @@ passport.use(new GoogleStrategy({
 
             // check if the user exits with the users profile.id , we get from the google,
             // if the google email is already registred when manually isgning up, we need to consider that possibility too
-            // so we filter by googleId and the email
+            // so we filter by googleId and the
             const user = await User.findOne({
                 $or: [
                     { googleId: profile.id },
